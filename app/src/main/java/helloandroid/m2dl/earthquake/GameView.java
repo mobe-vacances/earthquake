@@ -17,15 +17,16 @@ import java.util.Random;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     private int x=0;
-    private SharedPreferences sharedPreferences;
 
     private Collection<Point> points = new ArrayList<>();
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
+        // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
+        // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
-        this.sharedPreferences = sharedPreferences;
+        //Défini si cette vue peut recevoir le focus.
         setFocusable(true);
     }
 
@@ -54,8 +55,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void update() {
-        x = (x + 1) % 300;
+    public void update(){
+        x = x + 10;
+        if(x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300)){
+            System.out.println("GAME OVER");
+            thread.setRunning(false);
+        }
     }
 
     @Override
@@ -63,16 +68,31 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         //sharedPreferences.getInt("valeur_y",0)
         super.draw(canvas);
         if (canvas != null) {
-            canvas.drawColor(Color.WHITE);
-            Paint paint = new Paint();
-            paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
+            if(MainActivity.sharedPref.getBoolean("running",true)){
+                canvas.drawColor(Color.WHITE);
+                Paint paint = new Paint();
+                paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
+                canvas.drawRect(x + 10, MainActivity.sharedPref.getInt("valeur_y", 0), x + 100, MainActivity.sharedPref.getInt("valeur_y", 0) + 200, paint);
 
-            for(Point p : points) {
-                p.setX((p.getX() + 1) % 1000);
-                p.setY((p.getY() + 1) % 1000);
+               /* for (Point p : points) {
+                    p.setX((p.getX() + 1) % 1000);
+                    p.setY((p.getY() + 1) % 1000);
 
-                canvas.drawRect(p.getX(),p.getY() , p.getX()+100, p.getY() +100, paint);
+                    canvas.drawRect(p.getX(), p.getY(), p.getX() + 100, p.getY() + 100, paint);
 
+                }*/
+            } else {
+                canvas.drawColor(Color.BLACK);
+                Paint paint = new Paint();
+                paint.setColor(Color.YELLOW);
+                paint.setTextSize(150);
+                paint.setTextAlign(Paint.Align.CENTER);
+
+                int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
+                canvas.drawText("Game Over",canvas.getWidth()/2,yPos,paint);
+
+                paint.setTextSize(50);
+                canvas.drawText("score : ",canvas.getWidth()/2,yPos+100,paint);
             }
 
         }
