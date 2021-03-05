@@ -7,6 +7,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -14,9 +17,11 @@ import androidx.annotation.NonNull;
 
 import java.util.Random;
 
+import static android.content.Context.SENSOR_SERVICE;
+
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
-    private int x=0;
+    public Player player;
     private Obstacles obstacles = new Obstacles();
 
     private int backgroundColor;
@@ -25,6 +30,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
+        Random random = new Random();
+        android.graphics.Point initialPosition = new android.graphics.Point(random.nextInt(100), random.nextInt(100));
+        player = new Player(initialPosition, Direction.RIGHT, 10);
         // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
@@ -57,8 +65,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(){
-        x = x + 10;
-        if(x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300)){
+        player.updatePosition();
+        android.graphics.Point pos = player.getPosition();
+        if(pos.x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300) || pos.y + 100 >=  MainActivity.sharedPref.getInt("screen_height",300)){
             System.out.println("GAME OVER");
             thread.setRunning(false);
         }
@@ -72,8 +81,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 canvas.drawColor(backgroundColor);
                 Paint paint = new Paint();
                 paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
-                canvas.drawRect(x + 10, 0, x + 100, 100, paint);
-
+                canvas.drawRect(player.getPosition().x, player.getPosition().y, player.getPosition().x + 100, player.getPosition().y + 100, paint);
                 obstacles.evolObstacle();
                 for (Crack p : obstacles.getCracks()) {
                     Bitmap bmp = BitmapFactory.decodeResource(getResources(),  p.getImg());

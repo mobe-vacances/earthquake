@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +19,8 @@ public class MainActivity extends Activity {
     private Handler handler = new Handler();
     static SharedPreferences sharedPref;
 
+    private Sensor mMagneticField;
+    private AccelerometerEventListener accelerometerEventListener;
     private SensorManager sensorManager;
     private Sensor light;
     private LightEventListener lightEventListener;
@@ -47,11 +50,17 @@ public class MainActivity extends Activity {
 
         gameView = new GameView(this, sharedPref);
 
+
         handler.postDelayed(runnable,100);
 
         setContentView(gameView);
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        //Initialize the accelerometer sensor manager
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        mMagneticField = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometerEventListener = new AccelerometerEventListener(gameView);
+
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         lightEventListener = new LightEventListener(gameView);
     }
@@ -71,6 +80,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        sensorManager.registerListener(accelerometerEventListener, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(lightEventListener, light, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
@@ -78,5 +88,6 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(lightEventListener);
+        sensorManager.unregisterListener(accelerometerEventListener);
     }
 }
