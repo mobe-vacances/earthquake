@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Display;
@@ -15,6 +17,10 @@ public class MainActivity extends Activity {
     private GameView gameView;
     private Handler handler = new Handler();
     static SharedPreferences sharedPref;
+
+    private SensorManager sensorManager;
+    private Sensor light;
+    private LightEventListener lightEventListener;
 
     private Runnable runnable = new Runnable() {
         @Override
@@ -48,6 +54,10 @@ public class MainActivity extends Activity {
         handler.postDelayed(runnable,100);
 
         setContentView(gameView);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        lightEventListener = new LightEventListener(gameView);
     }
 
     private void getSizeScreen() {
@@ -60,5 +70,17 @@ public class MainActivity extends Activity {
         editor.putInt("screen_height", size.y);
         editor.putBoolean("running", false);
         editor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(lightEventListener, light, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(lightEventListener);
     }
 }
