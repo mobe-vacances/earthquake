@@ -14,9 +14,9 @@ public class Player {
 
     private int step;
 
-    private int height = 100;
+    private int height = 200;
 
-    private int width = 100;
+    private int width = 200;
 
     public Player(Point initialPosition, Direction initialDirection, int initialStep) {
         currentPosition = initialPosition;

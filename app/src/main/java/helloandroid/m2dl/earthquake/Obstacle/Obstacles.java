@@ -12,7 +12,7 @@ public class Obstacles {
     private static final int MARGING  = 150;
     private static final int WIDTH_DEVIL  = 100;
     private static final int HEIGHT_DEVIL  = 100;
-    private static final int MAX_DEVIL  = 8;
+    private static final int MAX_DEVIL  = 5;
 
     public List<Crack> cracks;
 

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.view.SurfaceHolder;
@@ -13,8 +14,11 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
+import helloandroid.m2dl.earthquake.BitmapRepository;
 import helloandroid.m2dl.earthquake.Direction;
 import helloandroid.m2dl.earthquake.MainActivity;
 import helloandroid.m2dl.earthquake.Obstacle.Crack;
@@ -26,8 +30,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     public Player player;
     private Obstacles obstacles = new Obstacles();
+    private BitmapRepository bitmapRepository;
 
     private int backgroundColor;
+
+    private int playerRotation = 0;
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
@@ -40,6 +47,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
         setFocusable(true);
+
+        bitmapRepository = new BitmapRepository(getResources());
     }
 
     @Override
@@ -69,13 +78,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update(){
         player.updatePosition();
+
         Point pos = player.getPosition();
-        if(pos.x <= 0 || pos.y <= 0 || pos.x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300) || pos.y + 100 >=  MainActivity.sharedPref.getInt("screen_height",300)){
+        if(
+                pos.x + player.getWidth() >=  MainActivity.sharedPref.getInt("screen_width",300) ||
+                        pos.x < 0 ||
+                        pos.y + player.getHeight() >=  MainActivity.sharedPref.getInt("screen_height",300) ||
+                        pos.y < 0
+        ){
             thread.setRunning(false);
         }
+
         if(obstacles.touch(player)){
-            thread.setRunning(false);
+                thread.setRunning(false);
+
         }
+
+        playerRotation = (playerRotation + 30) % 360;
     }
 
     @Override
@@ -87,12 +106,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
                 addGround(canvas);
 
-
-                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.hero
+                Matrix rotator = new Matrix();
+                rotator.postRotate(playerRotation,player.getHeight()/2,player.getWidth()/2);
+                rotator.postTranslate(player.getPosition().x, player.getPosition().y);
+                canvas.drawBitmap(
+                        Bitmap.createScaledBitmap(bitmapRepository.getBitmap(R.drawable.hero), player.getWidth(), player.getHeight(), false),
+                        rotator,
+                        null
                 );
-                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 200, 200, false), player.getPosition().x, player.getPosition().y,null); // 24 is the height of image
+
 
                 addObstacle(canvas);
+
 
             } else {
                 canvas.drawColor(Color.BLACK);
