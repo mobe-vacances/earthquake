@@ -5,8 +5,15 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.RectF;
+import android.os.Handler;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
@@ -14,20 +21,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+
+public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
     private GameThread thread;
     private int x=0;
+    private int updateValue = 10;
+    private final int DEFAULT_COOLDOWN_VALUE = 200;
+    private Handler handlerBulletTime;
 
-    private Collection<Point> points = new ArrayList<>();
+    private CooldownManager cooldownManager;
+
+    private Collection<PointCustom> points = new ArrayList<>();
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
+        cooldownManager = new CooldownManager();
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
         // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
         setFocusable(true);
+        setOnTouchListener(this);
     }
 
     @Override
@@ -56,7 +71,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(){
-        x = x + 10;
+        x = x + updateValue;
         if(x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300)){
             System.out.println("GAME OVER");
             thread.setRunning(false);
@@ -69,18 +84,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
+
+                // joueur
+
                 canvas.drawColor(Color.WHITE);
                 Paint paint = new Paint();
                 paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
                 canvas.drawRect(x + 10, MainActivity.sharedPref.getInt("valeur_y", 0), x + 100, MainActivity.sharedPref.getInt("valeur_y", 0) + 200, paint);
 
-               /* for (Point p : points) {
-                    p.setX((p.getX() + 1) % 1000);
-                    p.setY((p.getY() + 1) % 1000);
+                WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                cooldownManager.drawBulletTimeIndicator(canvas,wm);
 
-                    canvas.drawRect(p.getX(), p.getY(), p.getX() + 100, p.getY() + 100, paint);
-
-                }*/
             } else {
                 canvas.drawColor(Color.BLACK);
                 Paint paint = new Paint();
@@ -98,7 +112,31 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction() == android.view.MotionEvent.ACTION_DOWN && cooldownManager.isBulletTimeDispo()) {
+            cooldownManager.setBulletTimeDispo(false);
+            updateValue = 2;
+            handlerBulletTime = new Handler();
+            handlerBulletTime.postDelayed(setUpdateValueToTenWithTimeout,5000);
+        }
+        return true;
+    }
+
+
+    private Runnable setUpdateValueToTenWithTimeout = new Runnable() {
+        @Override
+        public void run() {
+            updateValue = 10;
+            cooldownManager.setBulletTimeDispo(true);
+            cooldownManager.setCooldownBulletTimeProgress(DEFAULT_COOLDOWN_VALUE);
+        }
+    };
+
+
     public void addPoint() {
-        this.points.add(new Point());
+        this.points.add(new PointCustom());
     }
 }
