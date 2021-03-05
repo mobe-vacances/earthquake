@@ -20,7 +20,8 @@ import java.util.Random;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     private int x=0;
-    private Collection<Point> points = new ArrayList<>();
+    private Obstacles obstacles = new Obstacles();
+    private BitmapRepository bitmapRepository;
 
     private int backgroundColor;
 
@@ -34,6 +35,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
         setFocusable(true);
+
+        bitmapRepository = new BitmapRepository(getResources());
     }
 
     @Override
@@ -62,18 +65,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(){
-        x = ( x + 10 ) % (MainActivity.sharedPref.getInt("screen_width",300)-100);
+        x = (x + 10) % 500;
         if(x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300)){
             System.out.println("GAME OVER");
             thread.setRunning(false);
         }
 
-        playerRotation = (playerRotation + 40) % 360;
+        playerRotation = (playerRotation + 30) % 360;
+        obstacles.evolObstacle();
     }
 
     @Override
     public void draw(Canvas canvas) {
-        //sharedPreferences.getInt("valeur_y",0)
         super.draw(canvas);
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
@@ -85,20 +88,16 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 rotator.postTranslate(x, 0);
                 // x + 50, MainActivity.sharedPref.getInt("valeur_y", 0) + 50
                 canvas.drawBitmap(
-                        Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.smile), 100, 100, false),
+                        Bitmap.createScaledBitmap(bitmapRepository.getBitmap(R.drawable.smile), 100, 100, false),
                         rotator,
                         null
                 );
 
+                for (Crack p : obstacles.getCracks()) {
+                    Bitmap bmp = bitmapRepository.getBitmap(p.getImg());
+                    canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.getX(),p.getY(),null);
+                }
 
-
-                /* for (Point p : points) {
-                    p.setX((p.getX() + 1) % 1000);
-                    p.setY((p.getY() + 1) % 1000);
-
-                    canvas.drawRect(p.getX(), p.getY(), p.getX() + 100, p.getY() + 100, paint);
-
-                }*/
             } else {
                 canvas.drawColor(Color.BLACK);
                 Paint paint = new Paint();
@@ -114,10 +113,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             }
 
         }
-    }
-
-    public void addPoint() {
-        this.points.add(new Point());
     }
 
     public void setBackgroundColor(int backgroundColor) {
