@@ -19,7 +19,6 @@ public class MainActivity extends Activity {
     private Handler handler = new Handler();
     static SharedPreferences sharedPref;
 
-    public SensorManager accelerometerSM = null;
     private Sensor mMagneticField;
     private AccelerometerEventListener accelerometerEventListener;
     private SensorManager sensorManager;
@@ -51,16 +50,17 @@ public class MainActivity extends Activity {
 
         gameView = new GameView(this, sharedPref);
 
-        //Initialize the accelerometer sensor manager
-        accelerometerSM = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mMagneticField = accelerometerSM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        accelerometerEventListener = new AccelerometerEventListener(gameView);
 
         handler.postDelayed(runnable,100);
 
         setContentView(gameView);
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        //Initialize the accelerometer sensor manager
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        mMagneticField = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometerEventListener = new AccelerometerEventListener(gameView);
+
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         lightEventListener = new LightEventListener(gameView);
     }
@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        accelerometerSM.registerListener(accelerometerEventListener, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(accelerometerEventListener, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(lightEventListener, light, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
@@ -88,6 +88,6 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(lightEventListener);
-		accelerometerSM.unregisterListener(accelerometerEventListener, accelerometerSM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        sensorManager.unregisterListener(accelerometerEventListener);
     }
 }
