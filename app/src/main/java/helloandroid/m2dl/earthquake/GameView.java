@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -15,6 +16,8 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import static android.content.Context.SENSOR_SERVICE;
@@ -23,20 +26,28 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     public Player player;
     private Obstacles obstacles = new Obstacles();
+    private BitmapRepository bitmapRepository;
 
     private int backgroundColor;
+
+    private int playerRotation = 0;
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
         Random random = new Random();
-        android.graphics.Point initialPosition = new android.graphics.Point(random.nextInt(100), random.nextInt(100));
+        android.graphics.Point initialPosition = new android.graphics.Point(
+                MainActivity.sharedPref.getInt("screen_width",300) / 2 - 50,
+                MainActivity.sharedPref.getInt("screen_height",300) / 2 - 50
+        );
         player = new Player(initialPosition, Direction.RIGHT, 10);
         // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
         setFocusable(true);
+
+        bitmapRepository = new BitmapRepository(getResources());
     }
 
     @Override
@@ -67,10 +78,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void update(){
         player.updatePosition();
         android.graphics.Point pos = player.getPosition();
-        if(pos.x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300) || pos.y + 100 >=  MainActivity.sharedPref.getInt("screen_height",300)){
+        if(
+                pos.x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300) ||
+                        pos.x < 0 ||
+                        pos.y + 100 >=  MainActivity.sharedPref.getInt("screen_height",300) ||
+                        pos.y < 0
+        ){
             System.out.println("GAME OVER");
             thread.setRunning(false);
         }
+
+        playerRotation = (playerRotation + 30) % 360;
+        obstacles.evolObstacle();
     }
 
     @Override
@@ -79,13 +98,18 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(backgroundColor);
-                Paint paint = new Paint();
-                paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
-                canvas.drawRect(player.getPosition().x, player.getPosition().y, player.getPosition().x + 100, player.getPosition().y + 100, paint);
-                obstacles.evolObstacle();
+                Matrix rotator = new Matrix();
+
+                rotator.postRotate(playerRotation,50,50);
+                rotator.postTranslate(player.getPosition().x, player.getPosition().y);
+                canvas.drawBitmap(
+                        Bitmap.createScaledBitmap(bitmapRepository.getBitmap(R.drawable.smile), 100, 100, false),
+                        rotator,
+                        null
+                );
                 for (Crack p : obstacles.getCracks()) {
-                    Bitmap bmp = BitmapFactory.decodeResource(getResources(),  p.getImg());
-                    canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.getX(),p.getY(),null); // 24 is the height of image
+                    Bitmap bmp = bitmapRepository.getBitmap(p.getImg());
+                    canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.getX(),p.getY(),null);
                 }
 
             } else {

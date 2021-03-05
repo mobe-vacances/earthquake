@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.hardware.Sensor;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,7 +50,7 @@ public class MainActivity extends Activity {
         gameView = new GameView(this, sharedPref);
 
 
-        handler.postDelayed(runnable,100);
+        //handler.postDelayed(runnable,100);
 
         setContentView(gameView);
 
