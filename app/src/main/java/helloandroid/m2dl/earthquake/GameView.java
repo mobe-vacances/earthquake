@@ -2,6 +2,8 @@ package helloandroid.m2dl.earthquake;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,8 +19,7 @@ import java.util.Random;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     private int x=0;
-
-    private Collection<Point> points = new ArrayList<>();
+    private Devils devils = new Devils();
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
@@ -65,22 +66,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
-        //sharedPreferences.getInt("valeur_y",0)
         super.draw(canvas);
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(Color.WHITE);
                 Paint paint = new Paint();
                 paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
-                canvas.drawRect(x + 10, MainActivity.sharedPref.getInt("valeur_y", 0), x + 100, MainActivity.sharedPref.getInt("valeur_y", 0) + 200, paint);
+                canvas.drawRect(x + 10, 0, x + 100, 100, paint);
 
-               /* for (Point p : points) {
-                    p.setX((p.getX() + 1) % 1000);
-                    p.setY((p.getY() + 1) % 1000);
+                devils.add(devils.getLocationValid());
+                for (Point p : devils.getDevils()) {
+                    Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.crack);
+                    canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.getX(),p.getY(),null); // 24 is the height of image
+                }
 
-                    canvas.drawRect(p.getX(), p.getY(), p.getX() + 100, p.getY() + 100, paint);
-
-                }*/
             } else {
                 canvas.drawColor(Color.BLACK);
                 Paint paint = new Paint();
@@ -98,7 +97,4 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void addPoint() {
-        this.points.add(new Point());
-    }
 }
