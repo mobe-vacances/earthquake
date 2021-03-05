@@ -1,8 +1,10 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.Game;
 
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
+
+import helloandroid.m2dl.earthquake.MainActivity;
 
 public class GameThread extends Thread {
     private SurfaceHolder surfaceHolder;

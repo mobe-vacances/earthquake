@@ -1,4 +1,8 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.Obstacle;
+
+import android.graphics.Point;
+
+import helloandroid.m2dl.earthquake.R;
 
 enum StateCrack {
     APPARITION, DANGER, ENDING

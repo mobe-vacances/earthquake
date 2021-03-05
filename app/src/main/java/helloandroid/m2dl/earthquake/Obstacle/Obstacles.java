@@ -1,8 +1,10 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.Obstacle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import helloandroid.m2dl.earthquake.MainActivity;
 
 public class Obstacles {
   private static final int MIN_POSITION = 10 ;
@@ -28,16 +30,16 @@ public class Obstacles {
         boolean notValid = true;
         Crack p = new Crack();
         while(notValid){
-            p.setX(getPositionRandom(MainActivity.sharedPref.getInt("screen_width", 200)));
-            p.setY(getPositionRandom(MainActivity.sharedPref.getInt("screen_height", 200)));
+            p.x = (getPositionRandom(MainActivity.sharedPref.getInt("screen_width", 200)));
+            p.y = (getPositionRandom(MainActivity.sharedPref.getInt("screen_height", 200)));
             notValid = touchWithMarge(p);
         }
         return p;
     }
 
-    private boolean touchWithMarge(Point point){
-        for(Point p : cracks){
-            if(( Math.abs(p.getX() - point.getX()) < WIDTH_DEVIL + MARGING) && (Math.abs(p.getY() - point.getY()) < HEIGHT_DEVIL + MARGING)){
+    private boolean touchWithMarge(Crack point){
+        for(Crack p : cracks){
+            if(( Math.abs(p.x - point.x) < WIDTH_DEVIL + MARGING) && (Math.abs(p.y - point.y) < HEIGHT_DEVIL + MARGING)){
                 return true;
             }
         }

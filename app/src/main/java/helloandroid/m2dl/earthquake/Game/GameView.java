@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.Game;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,9 +7,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -17,7 +14,11 @@ import androidx.annotation.NonNull;
 
 import java.util.Random;
 
-import static android.content.Context.SENSOR_SERVICE;
+import helloandroid.m2dl.earthquake.Direction;
+import helloandroid.m2dl.earthquake.MainActivity;
+import helloandroid.m2dl.earthquake.Obstacle.Crack;
+import helloandroid.m2dl.earthquake.Obstacle.Obstacles;
+import helloandroid.m2dl.earthquake.Player;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
@@ -85,7 +86,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 obstacles.evolObstacle();
                 for (Crack p : obstacles.getCracks()) {
                     Bitmap bmp = BitmapFactory.decodeResource(getResources(),  p.getImg());
-                    canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.getX(),p.getY(),null); // 24 is the height of image
+                    canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.x,p.y,null); // 24 is the height of image
                 }
 
             } else {
