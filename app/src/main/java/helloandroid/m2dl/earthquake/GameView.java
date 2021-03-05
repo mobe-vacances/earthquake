@@ -17,7 +17,7 @@ import java.util.Random;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     private int x=0;
-    private Obstacle obstacle = new Obstacle();
+    private Obstacles obstacles = new Obstacles();
 
     private int backgroundColor;
 
@@ -74,8 +74,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
                 canvas.drawRect(x + 10, 0, x + 100, 100, paint);
 
-                obstacle.evolObstacle();
-                for (Crack p : obstacle.getCracks()) {
+                obstacles.evolObstacle();
+                for (Crack p : obstacles.getCracks()) {
                     Bitmap bmp = BitmapFactory.decodeResource(getResources(),  p.getImg());
                     canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.getX(),p.getY(),null); // 24 is the height of image
                 }

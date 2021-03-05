@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Obstacle {
+public class Obstacles {
   private static final int MIN_POSITION = 10 ;
     private static final int MARGING  = 150;
     private static final int WIDTH_DEVIL  = 100;
@@ -16,7 +16,7 @@ public class Obstacle {
     public List<Crack> getCracks(){
         return cracks;
     }
-    public Obstacle(){
+    public Obstacles(){
         cracks = new ArrayList<>();
     }
 
