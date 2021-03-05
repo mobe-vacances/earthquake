@@ -19,6 +19,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private int x=0;
     private Obstacle obstacle = new Obstacle();
 
+    private int backgroundColor;
+
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
         // Ajoute une interface de rappel pour ce titulaire.
@@ -67,7 +69,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
-                canvas.drawColor(Color.WHITE);
+                canvas.drawColor(backgroundColor);
                 Paint paint = new Paint();
                 paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
                 canvas.drawRect(x + 10, 0, x + 100, 100, paint);
@@ -95,4 +97,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
 }
