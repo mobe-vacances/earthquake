@@ -2,6 +2,8 @@ package helloandroid.m2dl.earthquake;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -13,8 +15,6 @@ import android.view.SurfaceView;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
 import static android.content.Context.SENSOR_SERVICE;
@@ -22,8 +22,9 @@ import static android.content.Context.SENSOR_SERVICE;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     public Player player;
+    private Obstacles obstacles = new Obstacles();
 
-    private Collection<Point> points = new ArrayList<>();
+    private int backgroundColor;
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
@@ -74,22 +75,19 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void draw(Canvas canvas) {
-        //sharedPreferences.getInt("valeur_y",0)
         super.draw(canvas);
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
-                canvas.drawColor(Color.WHITE);
+                canvas.drawColor(backgroundColor);
                 Paint paint = new Paint();
                 paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
                 canvas.drawRect(player.getPosition().x, player.getPosition().y, player.getPosition().x + 100, player.getPosition().y + 100, paint);
+                obstacles.evolObstacle();
+                for (Crack p : obstacles.getCracks()) {
+                    Bitmap bmp = BitmapFactory.decodeResource(getResources(),  p.getImg());
+                    canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.getX(),p.getY(),null); // 24 is the height of image
+                }
 
-               /* for (Point p : points) {
-                    p.setX((p.getX() + 1) % 1000);
-                    p.setY((p.getY() + 1) % 1000);
-
-                    canvas.drawRect(p.getX(), p.getY(), p.getX() + 100, p.getY() + 100, paint);
-
-                }*/
             } else {
                 canvas.drawColor(Color.BLACK);
                 Paint paint = new Paint();
@@ -107,7 +105,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         }
     }
 
-    public void addPoint() {
-        this.points.add(new Point());
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 }
