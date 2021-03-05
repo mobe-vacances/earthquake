@@ -21,8 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
-
-public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     private int x=0;
     private int updateValue = 10;
@@ -84,9 +83,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         super.draw(canvas);
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
-
-                // joueur
-
                 canvas.drawColor(Color.WHITE);
                 Paint paint = new Paint();
                 paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
@@ -95,6 +91,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
                 WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                 cooldownManager.drawBulletTimeIndicator(canvas,wm);
 
+                    canvas.drawRect(p.getX(), p.getY(), p.getX() + 100, p.getY() + 100, paint);
+
+                }*/
             } else {
                 canvas.drawColor(Color.BLACK);
                 Paint paint = new Paint();
