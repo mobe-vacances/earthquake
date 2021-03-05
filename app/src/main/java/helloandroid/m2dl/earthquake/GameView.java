@@ -17,7 +17,6 @@ import java.util.Random;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
     private int x=0;
-    private int light;
     private Collection<Point> points = new ArrayList<>();
 
     private int backgroundColor;
