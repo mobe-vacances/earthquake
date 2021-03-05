@@ -32,9 +32,9 @@ public class CooldownManager {
         Paint indicateurBulletTimeContour = new Paint();
         //va falloir trouver un meilleur endroit
         RectF positionIndicateur = new RectF( width-400,
-                height-600,
-                width-200 +22,
-                height-400
+                30,
+                width-200 +25,
+                170
         );
 
         //contenu
@@ -64,9 +64,9 @@ public class CooldownManager {
         cooldown.setColor(Color.GREEN);
         int right = width - 200 - cooldownBulletTimeProgress;
         RectF positionIndicateur = new RectF( width-400,
-                height-600,
+                30,
                 right,
-                height-400
+                170
         );
         canvas.drawRect(positionIndicateur, cooldown);
         //vitesse du cooldown (visuel)

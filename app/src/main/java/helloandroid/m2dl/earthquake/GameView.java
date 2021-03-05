@@ -21,8 +21,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener  {
     private GameThread thread;
+    private int score = 0;
     private int x=0;
     private int updateValue = 10;
     private final int DEFAULT_COOLDOWN_VALUE = 200;
@@ -82,32 +83,46 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         //sharedPreferences.getInt("valeur_y",0)
         super.draw(canvas);
         if (canvas != null) {
-            if(MainActivity.sharedPref.getBoolean("running",true)){
+            if (MainActivity.sharedPref.getBoolean("running", true)) {
                 canvas.drawColor(Color.WHITE);
                 Paint paint = new Paint();
                 paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
-                canvas.drawRect(x + 10, MainActivity.sharedPref.getInt("valeur_y", 0), x + 100, MainActivity.sharedPref.getInt("valeur_y", 0) + 200, paint);
+                canvas.drawRect(x + 10, 500, x + 100, 700, paint);
 
                 WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
-                cooldownManager.drawBulletTimeIndicator(canvas,wm);
+                cooldownManager.drawBulletTimeIndicator(canvas, wm);
 
-                    canvas.drawRect(p.getX(), p.getY(), p.getX() + 100, p.getY() + 100, paint);
 
-                }*/
-            } else {
-                canvas.drawColor(Color.BLACK);
-                Paint paint = new Paint();
-                paint.setColor(Color.YELLOW);
-                paint.setTextSize(150);
-                paint.setTextAlign(Paint.Align.CENTER);
+                Display display = wm.getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int height = size.y;
 
-                int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
-                canvas.drawText("Game Over",canvas.getWidth()/2,yPos,paint);
+                Paint line = new Paint();
+                line.setColor(Color.BLACK);
+                canvas.drawLine(0,200,width,200,line);
 
-                paint.setTextSize(50);
-                canvas.drawText("score : ",canvas.getWidth()/2,yPos+100,paint);
+                Paint text = new Paint();
+                text.setColor(Color.BLACK);
+                text.setTextSize(64);
+                canvas.drawText("Score :",40,80,text);
+                canvas.drawText(String.valueOf(score) ,40,156,text);
+
+
             }
+        } else {
+            canvas.drawColor(Color.BLACK);
+            Paint paint = new Paint();
+            paint.setColor(Color.YELLOW);
+            paint.setTextSize(150);
+            paint.setTextAlign(Paint.Align.CENTER);
 
+            int yPos = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
+            canvas.drawText("Game Over", canvas.getWidth() / 2, yPos, paint);
+
+            paint.setTextSize(50);
+            canvas.drawText("score : ", canvas.getWidth() / 2, yPos + 100, paint);
         }
     }
 
