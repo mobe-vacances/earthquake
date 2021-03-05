@@ -31,22 +31,19 @@ public class AccelerometerEventListener implements SensorEventListener {
             if (sensor == Sensor.TYPE_ACCELEROMETER) {
                 float magField_x = values[0];
                 float magField_y = values[1];
-                String res = "";
                 if (absolute(magField_x) > absolute(magField_y)) {
                     if (magField_x > MAGNETIC_OFFSET) {
-                        res += "gauche";
+                        gameView.player.setDirection(Direction.LEFT);
                     } else if (magField_x < MAGNETIC_OFFSET) {
-                        res += "droite";
+                        gameView.player.setDirection(Direction.RIGHT);
                     }
                 } else {
                     if (magField_y > MAGNETIC_OFFSET) {
-                        res += "bas";
+                        gameView.player.setDirection(Direction.DOWN);
                     } else if (magField_y < MAGNETIC_OFFSET){
-                        res += "haut";
+                        gameView.player.setDirection(Direction.UP);
                     }
                 }
-
-                System.out.println(res);
             }
         }
     }

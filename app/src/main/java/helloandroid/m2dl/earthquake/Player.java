@@ -22,6 +22,10 @@ public class Player {
         return currentPosition;
     }
 
+    public void setDirection(Direction newDirection) {
+        direction = newDirection;
+    }
+
     public void updatePosition() {
         switch(direction) {
             case UP:

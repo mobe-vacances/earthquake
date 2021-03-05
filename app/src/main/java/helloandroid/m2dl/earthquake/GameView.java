@@ -31,7 +31,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
         Random random = new Random();
         android.graphics.Point initialPosition = new android.graphics.Point(random.nextInt(100), random.nextInt(100));
-        player = new Player(initialPosition, Direction.RIGHT, 1);
+        player = new Player(initialPosition, Direction.RIGHT, 10);
         // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
