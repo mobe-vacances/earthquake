@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -19,6 +20,7 @@ import helloandroid.m2dl.earthquake.MainActivity;
 import helloandroid.m2dl.earthquake.Obstacle.Crack;
 import helloandroid.m2dl.earthquake.Obstacle.Obstacles;
 import helloandroid.m2dl.earthquake.Player;
+import helloandroid.m2dl.earthquake.R;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;
@@ -32,8 +34,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
         Random random = new Random();
-        android.graphics.Point initialPosition = new android.graphics.Point(random.nextInt(100), random.nextInt(100));
-        player = new Player(initialPosition, Direction.RIGHT, 10);
+        Point initialPosition = new Point(MainActivity.sharedPref.getInt("screen_width",300) / 2, MainActivity.sharedPref.getInt("screen_height",300) / 2);
+        player = new Player(initialPosition, Direction.RIGHT, 40);
         // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
@@ -67,9 +69,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update(){
         player.updatePosition();
-        android.graphics.Point pos = player.getPosition();
-        if(pos.x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300) || pos.y + 100 >=  MainActivity.sharedPref.getInt("screen_height",300)){
-            System.out.println("GAME OVER");
+        Point pos = player.getPosition();
+        if(pos.x <= 0 || pos.y <= 0 || pos.x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300) || pos.y + 100 >=  MainActivity.sharedPref.getInt("screen_height",300)){
+            thread.setRunning(false);
+        }
+        if(obstacles.touch(player)){
             thread.setRunning(false);
         }
     }
@@ -80,14 +84,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(backgroundColor);
-                Paint paint = new Paint();
-                paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
-                canvas.drawRect(player.getPosition().x, player.getPosition().y, player.getPosition().x + 100, player.getPosition().y + 100, paint);
-                obstacles.evolObstacle();
-                for (Crack p : obstacles.getCracks()) {
-                    Bitmap bmp = BitmapFactory.decodeResource(getResources(),  p.getImg());
-                    canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.x,p.y,null); // 24 is the height of image
-                }
+
+                addGround(canvas);
+
+
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.hero
+                );
+                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 200, 200, false), player.getPosition().x, player.getPosition().y,null); // 24 is the height of image
+
+                addObstacle(canvas);
 
             } else {
                 canvas.drawColor(Color.BLACK);
@@ -97,12 +102,38 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 paint.setTextAlign(Paint.Align.CENTER);
 
                 int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
-                canvas.drawText("Game Over",canvas.getWidth()/2,yPos,paint);
+
+                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.helmet);
+                int  left = canvas.getWidth()/2;
+                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 400, 400 , false),left - 200, canvas.getWidth()/2-30,null); // 24 is the height of image
+
+                canvas.drawText("Tu as perdu !",left,yPos,paint);
 
                 paint.setTextSize(50);
-                canvas.drawText("score : ",canvas.getWidth()/2,yPos+100,paint);
+                canvas.drawText("score : ",left,yPos+100,paint);
             }
 
+        }
+    }
+
+    private void addGround(Canvas canvas) {
+        int sizeGround = 600;
+        int numberForWidth = MainActivity.sharedPref.getInt("screen_width",300) / sizeGround + 1;
+        int numberForHeight = MainActivity.sharedPref.getInt("screen_height",300) / sizeGround + 1;
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(),  R.drawable.ground2);
+        for(int i = 0; i < numberForWidth; i++){
+            for(int j = 0; j < numberForHeight; j++){
+                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 600, 600, false), i*sizeGround, j*sizeGround,null);
+            }
+        }
+
+    }
+
+    private void addObstacle(Canvas canvas) {
+        obstacles.evolObstacle();
+        for (Crack p : obstacles.getCracks()) {
+            Bitmap bmp = BitmapFactory.decodeResource(getResources(),  p.getImg());
+            canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 100, 100, false), p.x,p.y,null);
         }
     }
 

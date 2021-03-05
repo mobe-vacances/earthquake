@@ -5,13 +5,14 @@ import java.util.List;
 import java.util.Random;
 
 import helloandroid.m2dl.earthquake.MainActivity;
+import helloandroid.m2dl.earthquake.Player;
 
 public class Obstacles {
-  private static final int MIN_POSITION = 10 ;
+    private static final int MIN_POSITION = 10 ;
     private static final int MARGING  = 150;
     private static final int WIDTH_DEVIL  = 100;
     private static final int HEIGHT_DEVIL  = 100;
-    private static final int MAX_DEVIL  = 5;
+    private static final int MAX_DEVIL  = 8;
 
     public List<Crack> cracks;
 
@@ -46,6 +47,15 @@ public class Obstacles {
         return false;
     }
 
+    public boolean touch(Player player){
+        for(Crack p : cracks){
+            if(p.isDanger() && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private int getPositionRandom(int max){
         Random rand = new Random();
        return rand.nextInt(max - WIDTH_DEVIL - MIN_POSITION*2 + 1) + MIN_POSITION;
@@ -69,7 +79,9 @@ public class Obstacles {
             c.addRoundLife();
         }
         if(cracks.size() < MAX_DEVIL){
-            add(getLocationValid());
+            if((cracks.size() == 0 )||(cracks.get(cracks.size() - 1).isInoffensive())) {
+                add(getLocationValid());
+            }
         }
         if(canAddNewObstacle()){
             deleteFirst();
