@@ -25,7 +25,6 @@ public class MainActivity extends Activity {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            gameView.addPoint();
             handler.postDelayed(this,100);
         }
     };
@@ -45,9 +44,6 @@ public class MainActivity extends Activity {
 
         getSizeScreen();
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("valeur_y",  (sharedPref.getInt("valeur_y", 0)+ 100) % 400);
-        editor.apply();
 
         gameView = new GameView(this, sharedPref);
 
