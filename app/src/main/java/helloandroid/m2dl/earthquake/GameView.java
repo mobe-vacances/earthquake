@@ -2,8 +2,11 @@ package helloandroid.m2dl.earthquake;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -20,6 +23,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private Collection<Point> points = new ArrayList<>();
 
     private int backgroundColor;
+
+    private int playerRotation = 0;
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
@@ -57,11 +62,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update(){
-        x = x + 10;
+        x = ( x + 10 ) % (MainActivity.sharedPref.getInt("screen_width",300)-100);
         if(x + 100 >=  MainActivity.sharedPref.getInt("screen_width",300)){
             System.out.println("GAME OVER");
             thread.setRunning(false);
         }
+
+        playerRotation = (playerRotation + 40) % 360;
     }
 
     @Override
@@ -71,11 +78,21 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(backgroundColor);
-                Paint paint = new Paint();
-                paint.setColor(Color.rgb(new Random().nextInt(256), new Random().nextInt(256), new Random().nextInt(256)));
-                canvas.drawRect(x + 10, MainActivity.sharedPref.getInt("valeur_y", 0), x + 100, MainActivity.sharedPref.getInt("valeur_y", 0) + 200, paint);
 
-               /* for (Point p : points) {
+                Matrix rotator = new Matrix();
+
+                rotator.postRotate(playerRotation,50,50);
+                rotator.postTranslate(x, 0);
+                // x + 50, MainActivity.sharedPref.getInt("valeur_y", 0) + 50
+                canvas.drawBitmap(
+                        Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.smile), 100, 100, false),
+                        rotator,
+                        null
+                );
+
+
+
+                /* for (Point p : points) {
                     p.setX((p.getX() + 1) % 1000);
                     p.setY((p.getY() + 1) % 1000);
 

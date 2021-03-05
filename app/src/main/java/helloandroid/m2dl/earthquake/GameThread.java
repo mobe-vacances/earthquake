@@ -37,7 +37,7 @@ public class GameThread extends Thread {
                 }
             }
             try {
-                sleep(60);
+                sleep(10);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
