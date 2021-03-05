@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorManager;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -13,6 +16,8 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
+
+import static android.content.Context.SENSOR_SERVICE;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     private GameThread thread;

@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Display;
@@ -15,6 +18,10 @@ public class MainActivity extends Activity {
     private GameView gameView;
     private Handler handler = new Handler();
     static SharedPreferences sharedPref;
+
+    public SensorManager accelerometerSM = null;
+    Sensor mMagneticField;
+    private AccelerometerEventListener accelerometerEventListener;
 
     private Runnable runnable = new Runnable() {
         @Override
@@ -45,6 +52,11 @@ public class MainActivity extends Activity {
 
         gameView = new GameView(this, sharedPref);
 
+        //Initialize the accelerometer sensor manager
+        accelerometerSM = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mMagneticField = accelerometerSM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometerEventListener = new AccelerometerEventListener(gameView);
+
         handler.postDelayed(runnable,100);
 
         setContentView(gameView);
@@ -60,5 +72,17 @@ public class MainActivity extends Activity {
         editor.putInt("screen_height", size.y);
         editor.putBoolean("running", false);
         editor.apply();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        accelerometerSM.registerListener(accelerometerEventListener, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onStop() {
+        accelerometerSM.unregisterListener(accelerometerEventListener, accelerometerSM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        super.onStop();
     }
 }
