@@ -9,8 +9,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.opengl.GLSurfaceView;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,11 +19,11 @@ import androidx.annotation.NonNull;
 
 import java.util.Random;
 
+import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacle;
 import helloandroid.m2dl.earthquake.game_controllers.BitmapRepository;
 import helloandroid.m2dl.earthquake.game_controllers.CooldownManager;
 import helloandroid.m2dl.earthquake.game_controllers.Direction;
 import helloandroid.m2dl.earthquake.MainActivity;
-import helloandroid.m2dl.earthquake.entity.Obstacle.Crack;
 import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacles;
 import helloandroid.m2dl.earthquake.entity.player.Player;
 import helloandroid.m2dl.earthquake.R;
@@ -190,7 +188,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
 
     private void addObstacle(Canvas canvas) {
         obstacles.evolObstacle();
-        for (Crack p : obstacles.getCracks()) {
+        for (Obstacle p : obstacles.getCracks()) {
             if(!p.isWithoutImage()) {
                 canvas.drawBitmap(
                         Bitmap.createScaledBitmap(p.isDanger() ? bitmapRepository.getBitmap(R.drawable.crack_danger) : bitmapRepository.getBitmap(R.drawable.crack), player.getWidth(), player.getHeight(), false),

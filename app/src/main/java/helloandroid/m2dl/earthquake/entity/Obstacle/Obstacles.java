@@ -14,22 +14,22 @@ public class Obstacles {
     private static final int HEIGHT_DEVIL  = 100;
     private static final int MAX_DEVIL  = 5;
 
-    public List<Crack> cracks;
+    public List<Obstacle> cracks;
 
-    public List<Crack> getCracks(){
+    public List<Obstacle> getCracks(){
         return cracks;
     }
     public Obstacles(){
         cracks = new ArrayList<>();
     }
 
-    private void add(Crack p){
+    private void add(Obstacle p){
         cracks.add(p);
     }
 
-    private Crack getLocationValid() {
+    private Obstacle getLocationValid() {
         boolean notValid = true;
-        Crack p = new Crack();
+        Obstacle p = new Obstacle();
         while(notValid){
             p.x = (getPositionRandom(MainActivity.sharedPref.getInt("screen_width", 200)));
             p.y = (getPositionRandom(MainActivity.sharedPref.getInt("screen_height", 200)));
@@ -38,8 +38,8 @@ public class Obstacles {
         return p;
     }
 
-    private boolean touchWithMarge(Crack point){
-        for(Crack p : cracks){
+    private boolean touchWithMarge(Obstacle point){
+        for(Obstacle p : cracks){
             if(( Math.abs(p.x - point.x) < WIDTH_DEVIL + MARGING) && (Math.abs(p.y - point.y) < HEIGHT_DEVIL + MARGING)){
                 return true;
             }
@@ -48,7 +48,7 @@ public class Obstacles {
     }
 
     public boolean touch(Player player){
-        for(Crack p : cracks){
+        for(Obstacle p : cracks){
             if(p.isDanger() && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
                 return true;
             }
@@ -66,7 +66,7 @@ public class Obstacles {
     }
 
     private boolean canAddNewObstacle() {
-        for(Crack c : cracks){
+        for(Obstacle c : cracks){
             if(c.isEnding()){
                 return true;
             }
@@ -75,7 +75,7 @@ public class Obstacles {
     }
 
     public void evolObstacle() {
-        for(Crack c : cracks){
+        for(Obstacle c : cracks){
             c.addRoundLife();
         }
         if(cracks.size() < MAX_DEVIL){
