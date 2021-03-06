@@ -7,14 +7,13 @@ import android.graphics.Point;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
-import helloandroid.m2dl.earthquake.EventListener.AccelerometerEventListener;
-import helloandroid.m2dl.earthquake.EventListener.LightEventListener;
-import helloandroid.m2dl.earthquake.Game.GameView;
+import helloandroid.m2dl.earthquake.event_listeners.AccelerometerEventListener;
+import helloandroid.m2dl.earthquake.event_listeners.LightEventListener;
+import helloandroid.m2dl.earthquake.game.GameView;
 
 public class MainActivity extends Activity {
 

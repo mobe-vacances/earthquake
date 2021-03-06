@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.game_controllers;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,12 +10,19 @@ import android.os.Handler;
 import android.view.Display;
 import android.view.WindowManager;
 
+import helloandroid.m2dl.earthquake.entity.player.Player;
+
 public class CooldownManager {
     private boolean bulletTimeDispo;
     private int cooldownBulletTimeProgress =200;
+    private Player player;
+    private int defaultCooldownValue;
+    private Handler handlerBulletTime;
 
-    public CooldownManager(){
+    public CooldownManager(Player player,int defaultCooldownValue){
         bulletTimeDispo = true;
+        this.player=player;
+        this.defaultCooldownValue = defaultCooldownValue;
     }
 
 
@@ -87,14 +94,6 @@ public class CooldownManager {
     }
 
 
-    public int getCooldownBulletTimeProgress() {
-        return cooldownBulletTimeProgress;
-    }
-
-    public void setCooldownBulletTimeProgress(int cooldownBulletTimeProgress) {
-        this.cooldownBulletTimeProgress = cooldownBulletTimeProgress;
-    }
-
     private int setBulletTimeIndicateurColor(){
         if(bulletTimeDispo){
             return Color.GREEN;
@@ -103,4 +102,20 @@ public class CooldownManager {
             return Color.RED;
         }
     }
+
+    public void activateBulletTime(int speed, int lenght) {
+        player.setStep(player.getStep()/2);
+        handlerBulletTime = new Handler();
+        handlerBulletTime.postDelayed(setUpdateValueToTenWithTimeout,5000);
+    }
+
+    private Runnable setUpdateValueToTenWithTimeout = new Runnable() {
+        @Override
+        public void run() {
+            player.setStep(40);
+            bulletTimeDispo = true;
+            cooldownBulletTimeProgress = defaultCooldownValue;
+        }
+    };
+
 }

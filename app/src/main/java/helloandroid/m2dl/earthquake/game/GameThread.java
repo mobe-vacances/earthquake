@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.Game;
+package helloandroid.m2dl.earthquake.game;
 
 import android.content.SharedPreferences;
 import android.graphics.Canvas;

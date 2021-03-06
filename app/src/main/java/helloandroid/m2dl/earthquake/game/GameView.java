@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.Game;
+package helloandroid.m2dl.earthquake.game;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,28 +9,34 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
-import helloandroid.m2dl.earthquake.BitmapRepository;
-import helloandroid.m2dl.earthquake.Direction;
+import helloandroid.m2dl.earthquake.game_controllers.BitmapRepository;
+import helloandroid.m2dl.earthquake.game_controllers.CooldownManager;
+import helloandroid.m2dl.earthquake.game_controllers.Direction;
 import helloandroid.m2dl.earthquake.MainActivity;
-import helloandroid.m2dl.earthquake.Obstacle.Crack;
-import helloandroid.m2dl.earthquake.Obstacle.Obstacles;
-import helloandroid.m2dl.earthquake.Player;
+import helloandroid.m2dl.earthquake.entity.Obstacle.Crack;
+import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacles;
+import helloandroid.m2dl.earthquake.entity.player.Player;
 import helloandroid.m2dl.earthquake.R;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback , View.OnTouchListener  {
     private GameThread thread;
     public Player player;
+    private int score = 0;
     private Obstacles obstacles = new Obstacles();
     private BitmapRepository bitmapRepository;
+    private CooldownManager cooldownManager;
+    private final int DEFAULT_COOLDOWN_VALUE = 200;
 
     private int backgroundColor;
 
@@ -40,6 +46,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         super(context);
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
+
         Random random = new Random();
         Point initialPosition = new Point(MainActivity.sharedPref.getInt("screen_width",300) / 2, MainActivity.sharedPref.getInt("screen_height",300) / 2);
         player = new Player(initialPosition, Direction.RIGHT, 40);
@@ -47,6 +54,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
         setFocusable(true);
+
+        cooldownManager = new CooldownManager(player,DEFAULT_COOLDOWN_VALUE);
+        setOnTouchListener(this);
 
         bitmapRepository = new BitmapRepository(getResources());
     }
@@ -104,7 +114,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(backgroundColor);
 
-                addGround(canvas);
+                //méthode trop lente
+                //addGround(canvas);
 
                 Matrix rotator = new Matrix();
                 rotator.postRotate(playerRotation,player.getHeight()/2,player.getWidth()/2);
@@ -114,6 +125,25 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                         rotator,
                         null
                 );
+
+
+                WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                cooldownManager.drawBulletTimeIndicator(canvas, wm);
+                Display display = wm.getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int height = size.y;
+
+                Paint line = new Paint();
+                line.setColor(Color.BLACK);
+                canvas.drawLine(0,200,width,200,line);
+
+                Paint text = new Paint();
+                text.setColor(Color.BLACK);
+                text.setTextSize(64);
+                canvas.drawText("Score :",40,80,text);
+                canvas.drawText(String.valueOf(score) ,40,156,text);
 
 
                 addObstacle(canvas);
@@ -142,13 +172,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     private void addGround(Canvas canvas) {
-        int sizeGround = 600;
+        int sizeGround = 200;
         int numberForWidth = MainActivity.sharedPref.getInt("screen_width",300) / sizeGround + 1;
         int numberForHeight = MainActivity.sharedPref.getInt("screen_height",300) / sizeGround + 1;
         Bitmap bmp = BitmapFactory.decodeResource(getResources(),  R.drawable.ground2);
         for(int i = 0; i < numberForWidth; i++){
             for(int j = 0; j < numberForHeight; j++){
-                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 600, 600, false), i*sizeGround, j*sizeGround,null);
+                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 600, 600, false), i*sizeGround, /*j*sizeGround*/400*j,null);
             }
         }
 
@@ -165,4 +195,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction() == android.view.MotionEvent.ACTION_DOWN && cooldownManager.isBulletTimeDispo()) {
+            cooldownManager.setBulletTimeDispo(false);
+            cooldownManager.activateBulletTime(2,5000);
+
+        }
+        return true;
+    }
+
+
+
 }

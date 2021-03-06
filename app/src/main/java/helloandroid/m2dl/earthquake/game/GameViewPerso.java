@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.game;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.RectF;
 import android.os.Handler;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -17,11 +16,12 @@ import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener  {
+import helloandroid.m2dl.earthquake.game_controllers.CooldownManager;
+import helloandroid.m2dl.earthquake.MainActivity;
+/*
+public class GameViewPerso extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener  {
     private GameThread thread;
     private int score = 0;
     private int x=0;
@@ -31,9 +31,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
 
     private CooldownManager cooldownManager;
 
-    private Collection<PointCustom> points = new ArrayList<>();
-
-    public GameView(Context context, SharedPreferences sharedPreferences) {
+    public GameViewPerso(Context context, SharedPreferences sharedPreferences) {
         super(context);
         cooldownManager = new CooldownManager();
         // Ajoute une interface de rappel pour ce titulaire.
@@ -149,8 +147,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback, Vie
         }
     };
 
-
-    public void addPoint() {
-        this.points.add(new PointCustom());
-    }
 }
+
+ */
