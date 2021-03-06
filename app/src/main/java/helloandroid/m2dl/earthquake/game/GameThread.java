@@ -3,6 +3,7 @@ package helloandroid.m2dl.earthquake.game;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
+import android.widget.Chronometer;
 
 import helloandroid.m2dl.earthquake.MainActivity;
 
@@ -10,6 +11,7 @@ public class GameThread extends Thread {
     private SurfaceHolder surfaceHolder;
     private GameView gameView;
     private Canvas canvas;
+
 
     public GameThread(SurfaceHolder surfaceHolder, GameView gameView) {
         super();
@@ -38,12 +40,12 @@ public class GameThread extends Thread {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                    try {
+                        sleep(60);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-            try {
-                sleep(60);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
         }
     }

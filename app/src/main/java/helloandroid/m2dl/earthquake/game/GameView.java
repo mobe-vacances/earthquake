@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.opengl.GLSurfaceView;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -28,15 +29,18 @@ import helloandroid.m2dl.earthquake.entity.Obstacle.Crack;
 import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacles;
 import helloandroid.m2dl.earthquake.entity.player.Player;
 import helloandroid.m2dl.earthquake.R;
+import helloandroid.m2dl.earthquake.game_controllers.ScoreCalc;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback , View.OnTouchListener  {
     private GameThread thread;
     public Player player;
-    private int score = 0;
+    private ScoreCalc score;
     private Obstacles obstacles = new Obstacles();
     private BitmapRepository bitmapRepository;
     private CooldownManager cooldownManager;
     private final int DEFAULT_COOLDOWN_VALUE = 200;
+
+    private int level;
 
     private int backgroundColor;
 
@@ -44,9 +48,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
+        this.level=1;
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
-
         Random random = new Random();
         Point initialPosition = new Point(MainActivity.sharedPref.getInt("screen_width",300) / 2, MainActivity.sharedPref.getInt("screen_height",300) / 2);
         player = new Player(initialPosition, Direction.RIGHT, 40);
@@ -114,7 +118,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(backgroundColor);
 
-                addGround(canvas);
+                //addGround(canvas);
 
                 Matrix rotator = new Matrix();
                 rotator.postRotate(playerRotation,player.getHeight()/2,player.getWidth()/2);
@@ -125,6 +129,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
                         null
                 );
 
+                addObstacle(canvas);
 
                 WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                 cooldownManager.drawBulletTimeIndicator(canvas, wm);
@@ -142,10 +147,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
                 text.setColor(Color.BLACK);
                 text.setTextSize(64);
                 canvas.drawText("Score :",40,80,text);
-                canvas.drawText(String.valueOf(score) ,40,156,text);
+                //canvas.drawText(String.valueOf(score.getScore()) ,40,156,text);
 
 
-                addObstacle(canvas);
+
 
 
             } else {
@@ -205,6 +210,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         return true;
     }
 
+    public int getLevel() {
+        return level;
+    }
 
-
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }
