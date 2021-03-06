@@ -114,8 +114,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(backgroundColor);
 
-                //méthode trop lente
-                //addGround(canvas);
+                addGround(canvas);
 
                 Matrix rotator = new Matrix();
                 rotator.postRotate(playerRotation,player.getHeight()/2,player.getWidth()/2);
