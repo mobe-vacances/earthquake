@@ -14,17 +14,17 @@ public class Obstacles {
     private static final int HEIGHT_DEVIL  = 100;
     private static final int MAX_DEVIL  = 5;
 
-    public List<Obstacle> cracks;
+    public List<Obstacle> obstacles;
 
-    public List<Obstacle> getCracks(){
-        return cracks;
+    public List<Obstacle> getObstacles(){
+        return obstacles;
     }
     public Obstacles(){
-        cracks = new ArrayList<>();
+        obstacles = new ArrayList<>();
     }
 
     private void add(Obstacle p){
-        cracks.add(p);
+        obstacles.add(p);
     }
 
     private Obstacle getLocationValid() {
@@ -39,7 +39,7 @@ public class Obstacles {
     }
 
     private boolean touchWithMarge(Obstacle point){
-        for(Obstacle p : cracks){
+        for(Obstacle p : obstacles){
             if(( Math.abs(p.x - point.x) < WIDTH_DEVIL + MARGING) && (Math.abs(p.y - point.y) < HEIGHT_DEVIL + MARGING)){
                 return true;
             }
@@ -47,9 +47,13 @@ public class Obstacles {
         return false;
     }
 
-    public boolean touch(Player player){
-        for(Obstacle p : cracks){
+    public boolean touch(Player player,boolean dangerous){
+        for(Obstacle p : obstacles){
             if(p.isDanger() && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
+                return true;
+            }
+            if(!dangerous && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
+                p.setState(StateObstacle.ENDING);
                 return true;
             }
         }
@@ -61,12 +65,26 @@ public class Obstacles {
        return rand.nextInt(max - WIDTH_DEVIL - MIN_POSITION*2 + 1) + MIN_POSITION;
     }
 
-    private void deleteFirst() {
-        cracks.remove(0);
+    private void deleteAllObstacleEnding() {
+        int index;
+        while ((index = indexOfFirstObstacleEnding()) != -1){
+            obstacles.remove(index);
+        }
+    }
+
+    private int indexOfFirstObstacleEnding(){
+        int index = 0;
+        for(Obstacle o : obstacles){
+            if(o.isEnding()){
+                return index;
+            }
+            index++;
+        }
+        return -1;
     }
 
     private boolean canAddNewObstacle() {
-        for(Obstacle c : cracks){
+        for(Obstacle c : obstacles){
             if(c.isEnding()){
                 return true;
             }
@@ -75,16 +93,17 @@ public class Obstacles {
     }
 
     public void evolObstacle() {
-        for(Obstacle c : cracks){
+        for(Obstacle c : obstacles){
             c.addRoundLife();
         }
-        if(cracks.size() < MAX_DEVIL){
-            if((cracks.size() == 0 )||(cracks.get(cracks.size() - 1).isInoffensive())) {
+        if(obstacles.size() < MAX_DEVIL){
+            if((obstacles.size() == 0 )||(obstacles.get(obstacles.size() - 1).isInoffensive())) {
                 add(getLocationValid());
             }
         }
+
         if(canAddNewObstacle()){
-            deleteFirst();
+            deleteAllObstacleEnding();
             add(getLocationValid());
         }
     }

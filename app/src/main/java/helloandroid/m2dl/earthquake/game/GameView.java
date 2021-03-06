@@ -36,7 +36,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     private GameThread thread;
     public Player player;
     private ScoreCalc score;
-    private Obstacles obstacles = new Obstacles();
+    private Obstacles badObstacles = new Obstacles();
+    private Obstacles goodObstacles = new Obstacles();
     private BitmapRepository bitmapRepository;
     private CooldownManager cooldownManager;
     private final int DEFAULT_COOLDOWN_VALUE = 200;
@@ -106,12 +107,15 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
             thread.setRunning(false);
         }
 
-        if(obstacles.touch(player)){
+        if(badObstacles.touch(player, true)){
                 thread.setRunning(false);
-
         }
 
-        playerRotation = (playerRotation + 30) % 360;
+        if(goodObstacles.touch(player, false)){
+            score.add(10);
+        }
+
+        playerRotation = (playerRotation + 10) % 360;
     }
 
     @Override
@@ -187,15 +191,27 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     }
 
     private void addObstacle(Canvas canvas) {
-        obstacles.evolObstacle();
-        for (Obstacle p : obstacles.getCracks()) {
+        badObstacles.evolObstacle();
+        for (Obstacle p : badObstacles.getObstacles()) {
             if(!p.isWithoutImage()) {
                 canvas.drawBitmap(
                         Bitmap.createScaledBitmap(p.isDanger() ? bitmapRepository.getBitmap(R.drawable.crack_danger) : bitmapRepository.getBitmap(R.drawable.crack), player.getWidth(), player.getHeight(), false),
                         p.x, p.y,
                         null
                 );
-            }        }
+            }
+        }
+
+        goodObstacles.evolObstacle();
+        for (Obstacle p : goodObstacles.getObstacles()) {
+            if(!p.isWithoutImage()) {
+                canvas.drawBitmap(
+                        Bitmap.createScaledBitmap(bitmapRepository.getBitmap(R.drawable.mask), player.getWidth(), player.getHeight(), false),
+                        p.x, p.y,
+                        null
+                );
+            }
+        }
     }
 
     public void setBackgroundColor(int backgroundColor) {

@@ -79,7 +79,6 @@ public class CooldownManager {
         //vitesse du cooldown (visuel)
         //-19
         cooldownBulletTimeProgress -= 3 ;
-        System.out.println(cooldownBulletTimeProgress);
 
     }
 

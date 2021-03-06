@@ -35,9 +35,11 @@ public class ScoreCalc {
         }, 1500);
 
 
-
     }
 
+    public void add(int value){
+        score += value;
+    }
     public int getScore() {
         return this.score;
     }

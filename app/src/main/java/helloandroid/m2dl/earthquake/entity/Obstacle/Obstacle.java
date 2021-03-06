@@ -23,30 +23,36 @@ public class Obstacle extends Point {
         roundLife = 1;
     }
 
+    public void setState(StateObstacle s){
+        state=s;
+    }
+
     public boolean isWithoutImage() {
         return withoutImage;
     }
 
     public void addRoundLife(){
-        roundLife += 1;
-        if(roundLife<BORN_LIFE) {
-            if(roundLife % FRAME_WITHOUT_IMAGE == 0) {
-                withoutImage = true;
-            } else {
-                withoutImage = false;
+        if(state != StateObstacle.ENDING) {
+            roundLife += 1;
+            if (roundLife < BORN_LIFE) {
+                if (roundLife % FRAME_WITHOUT_IMAGE == 0) {
+                    withoutImage = true;
+                } else {
+                    withoutImage = false;
+                }
+                state = StateObstacle.BORN;
+            } else if (roundLife < INOFFENSIVE_LIFE) {
+                if (roundLife % FRAME_WITHOUT_IMAGE == 0) {
+                    withoutImage = true;
+                } else {
+                    withoutImage = false;
+                }
+                state = StateObstacle.INOFFENSIVE;
+            } else if (roundLife < END_LIFE) {
+                state = StateObstacle.DANGER;
+            } else if (roundLife == END_LIFE) {
+                state = StateObstacle.ENDING;
             }
-            state = StateObstacle.BORN;
-        }else if(roundLife < INOFFENSIVE_LIFE){
-            if(roundLife % FRAME_WITHOUT_IMAGE == 0) {
-                withoutImage = true;
-            } else {
-                withoutImage = false;
-            }
-            state = StateObstacle.INOFFENSIVE;
-        }else if(roundLife < END_LIFE){
-            state = StateObstacle.DANGER;
-        }else if(roundLife == END_LIFE){
-            state = StateObstacle.ENDING;
         }
     }
 

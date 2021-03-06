@@ -18,6 +18,8 @@ public class BitmapRepository {
         map.put(R.drawable.crack_danger, BitmapFactory.decodeResource(resources, R.drawable.coronavirus));
         map.put(R.drawable.smile, BitmapFactory.decodeResource(resources, R.drawable.smile));
         map.put(R.drawable.hero, BitmapFactory.decodeResource(resources, R.drawable.world));
+        map.put(R.drawable.mask, BitmapFactory.decodeResource(resources, R.drawable.mask));
+        map.put(R.drawable.desinfectant, BitmapFactory.decodeResource(resources, R.drawable.desinfectant));
     }
 
     public Bitmap getBitmap(int id) {
