@@ -49,6 +49,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
         this.level=1;
+
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
         Random random = new Random();
@@ -60,6 +61,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         setFocusable(true);
 
         cooldownManager = new CooldownManager(player,DEFAULT_COOLDOWN_VALUE);
+        this.score = new ScoreCalc(player,this);
         setOnTouchListener(this);
 
         bitmapRepository = new BitmapRepository(getResources());
@@ -118,6 +120,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(backgroundColor);
 
+
                 //addGround(canvas);
 
                 Matrix rotator = new Matrix();
@@ -128,8 +131,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
                         rotator,
                         null
                 );
-
-                addObstacle(canvas);
 
                 WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                 cooldownManager.drawBulletTimeIndicator(canvas, wm);
@@ -147,10 +148,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
                 text.setColor(Color.BLACK);
                 text.setTextSize(64);
                 canvas.drawText("Score :",40,80,text);
-                //canvas.drawText(String.valueOf(score.getScore()) ,40,156,text);
+                canvas.drawText(String.valueOf(score.getScore()) ,40,156,text);
 
 
-
+                addObstacle(canvas);
 
 
             } else {
@@ -169,7 +170,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
                 canvas.drawText("Tu as perdu !",left,yPos,paint);
 
                 paint.setTextSize(50);
-                canvas.drawText("score : ",left,yPos+100,paint);
+                canvas.drawText("score : "+score.getScore(),left,yPos+100,paint);
             }
 
         }

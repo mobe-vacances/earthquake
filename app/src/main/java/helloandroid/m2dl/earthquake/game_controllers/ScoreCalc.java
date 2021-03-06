@@ -12,21 +12,29 @@ public class ScoreCalc {
     private boolean gameRunning;
     private GameView game;
     private Handler clock;
+    private int time=0;
 
-    private ScoreCalc(Player player, GameView game){
+    public ScoreCalc(Player player, GameView game){
         this.player = player;
         this.gameRunning = true;
         this.game = game;
         this.clock = new Handler();
+
         clock.postDelayed(new Runnable() {
             @Override
             public void run() {
                 if(gameRunning) {
+                    time++;
                     score += 100 * game.getLevel();
                     clock.postDelayed(this, 1000);
+                    if(time == 10){
+                        game.setLevel(game.getLevel()+1);
+                    }
                 }
             }
         }, 1500);
+
+
 
     }
 

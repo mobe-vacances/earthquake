@@ -40,12 +40,12 @@ public class GameThread extends Thread {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    try {
-                        sleep(60);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
                 }
+            }
+            try {
+                sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }
