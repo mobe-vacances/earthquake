@@ -34,6 +34,7 @@ import helloandroid.m2dl.earthquake.game_controllers.ScoreCalc;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback , View.OnTouchListener  {
 
 
+    private static final int HEIGHT_BARRE = 200;
     private GameThread thread;
     public Player player;
     private ScoreCalc score;
@@ -41,6 +42,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     private BitmapRepository bitmapRepository;
     private CooldownManager cooldownManager;
     private final int DEFAULT_COOLDOWN_VALUE = 200;
+
 
     private int level;
 
@@ -96,13 +98,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
 
     public void update(){
         player.updatePosition();
-
         Point pos = player.getPosition();
         if(
                 pos.x + player.getWidth() >=  MainActivity.sharedPref.getInt("screen_width",300) ||
                         pos.x < 0 ||
                         pos.y + player.getHeight() >=  MainActivity.sharedPref.getInt("screen_height",300) ||
-                        pos.y < 0
+                        pos.y < HEIGHT_BARRE
         ){
             thread.setRunning(false);
         }
@@ -120,8 +121,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         super.draw(canvas);
         if (canvas != null) {
             if(MainActivity.sharedPref.getBoolean("running",true)){
-                canvas.drawColor(backgroundColor + 50);
-
+                canvas.drawColor(backgroundColor);
 
                 //addGround(canvas);
 
@@ -166,7 +166,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     private void addBarre(Canvas canvas) {
         Paint line = new Paint();
         line.setColor(Color.YELLOW);
-        canvas.drawRect(0,0,MainActivity.sharedPref.getInt("screen_width",300),200,line);
+        canvas.drawRect(0,0,MainActivity.sharedPref.getInt("screen_width",300),HEIGHT_BARRE,line);
 
         Paint text = new Paint();
         text.setColor(Color.GREEN);
@@ -209,7 +209,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         if (event.getAction() == android.view.MotionEvent.ACTION_DOWN && cooldownManager.isBulletTimeDispo()) {
             cooldownManager.setBulletTimeDispo(false);
             cooldownManager.activateBulletTime(2,5000);
-
         }
         return true;
     }
