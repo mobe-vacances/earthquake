@@ -12,23 +12,20 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
+import helloandroid.m2dl.earthquake.EventListener.AccelerometerEventListener;
+import helloandroid.m2dl.earthquake.EventListener.LightEventListener;
+import helloandroid.m2dl.earthquake.Game.GameView;
+
 public class MainActivity extends Activity {
 
     private GameView gameView;
-    private Handler handler = new Handler();
-    static SharedPreferences sharedPref;
+    public static SharedPreferences sharedPref;
 
+    private Sensor mMagneticField;
+    private AccelerometerEventListener accelerometerEventListener;
     private SensorManager sensorManager;
     private Sensor light;
     private LightEventListener lightEventListener;
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            gameView.addPoint();
-            handler.postDelayed(this,100);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +42,19 @@ public class MainActivity extends Activity {
 
         getSizeScreen();
 
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("valeur_y",  (sharedPref.getInt("valeur_y", 0)+ 100) % 400);
-        editor.apply();
 
         gameView = new GameView(this, sharedPref);
 
-        handler.postDelayed(runnable,100);
+
 
         setContentView(gameView);
 
-        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        //Initialize the accelerometer sensor manager
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        mMagneticField = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometerEventListener = new AccelerometerEventListener(gameView);
+
         light = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         lightEventListener = new LightEventListener(gameView);
     }
@@ -75,6 +74,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        sensorManager.registerListener(accelerometerEventListener, mMagneticField, SensorManager.SENSOR_DELAY_NORMAL);
         sensorManager.registerListener(lightEventListener, light, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
@@ -82,5 +82,6 @@ public class MainActivity extends Activity {
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(lightEventListener);
+        sensorManager.unregisterListener(accelerometerEventListener);
     }
 }

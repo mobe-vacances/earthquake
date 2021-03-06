@@ -1,9 +1,11 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.EventListener;
 
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+
+import helloandroid.m2dl.earthquake.Game.GameView;
 
 
 public class LightEventListener implements SensorEventListener {
