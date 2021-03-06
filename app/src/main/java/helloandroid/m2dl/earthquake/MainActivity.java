@@ -19,7 +19,6 @@ import helloandroid.m2dl.earthquake.Game.GameView;
 public class MainActivity extends Activity {
 
     private GameView gameView;
-    private Handler handler = new Handler();
     public static SharedPreferences sharedPref;
 
     private Sensor mMagneticField;
@@ -27,13 +26,6 @@ public class MainActivity extends Activity {
     private SensorManager sensorManager;
     private Sensor light;
     private LightEventListener lightEventListener;
-
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            handler.postDelayed(this,100);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +46,6 @@ public class MainActivity extends Activity {
         gameView = new GameView(this, sharedPref);
 
 
-        handler.postDelayed(runnable,100);
 
         setContentView(gameView);
 
