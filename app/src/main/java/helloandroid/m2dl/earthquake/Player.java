@@ -1,24 +1,38 @@
 package helloandroid.m2dl.earthquake;
 
 
+import android.graphics.Point;
+
 public class Player {
 
     /**
      * Current position of the user
      */
-    private android.graphics.Point currentPosition;
+    private Point currentPosition;
 
     private Direction direction;
 
     private int step;
 
-    public Player(android.graphics.Point initialPosition, Direction initialDirection, int initialStep) {
+    private int height = 200;
+
+    private int width = 200;
+
+    public Player(Point initialPosition, Direction initialDirection, int initialStep) {
         currentPosition = initialPosition;
         step = initialStep;
         direction = initialDirection;
     }
 
-    public android.graphics.Point getPosition() {
+    public int getHeight(){
+        return height;
+    }
+
+    public int getWidth(){
+        return width;
+    }
+
+    public Point getPosition() {
         return currentPosition;
     }
 

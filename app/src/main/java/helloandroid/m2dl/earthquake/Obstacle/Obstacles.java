@@ -1,11 +1,14 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.Obstacle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import helloandroid.m2dl.earthquake.MainActivity;
+import helloandroid.m2dl.earthquake.Player;
+
 public class Obstacles {
-  private static final int MIN_POSITION = 10 ;
+    private static final int MIN_POSITION = 10 ;
     private static final int MARGING  = 150;
     private static final int WIDTH_DEVIL  = 100;
     private static final int HEIGHT_DEVIL  = 100;
@@ -28,16 +31,25 @@ public class Obstacles {
         boolean notValid = true;
         Crack p = new Crack();
         while(notValid){
-            p.setX(getPositionRandom(MainActivity.sharedPref.getInt("screen_width", 200)));
-            p.setY(getPositionRandom(MainActivity.sharedPref.getInt("screen_height", 200)));
+            p.x = (getPositionRandom(MainActivity.sharedPref.getInt("screen_width", 200)));
+            p.y = (getPositionRandom(MainActivity.sharedPref.getInt("screen_height", 200)));
             notValid = touchWithMarge(p);
         }
         return p;
     }
 
-    private boolean touchWithMarge(Point point){
-        for(Point p : cracks){
-            if(( Math.abs(p.getX() - point.getX()) < WIDTH_DEVIL + MARGING) && (Math.abs(p.getY() - point.getY()) < HEIGHT_DEVIL + MARGING)){
+    private boolean touchWithMarge(Crack point){
+        for(Crack p : cracks){
+            if(( Math.abs(p.x - point.x) < WIDTH_DEVIL + MARGING) && (Math.abs(p.y - point.y) < HEIGHT_DEVIL + MARGING)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean touch(Player player){
+        for(Crack p : cracks){
+            if(p.isDanger() && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
                 return true;
             }
         }
@@ -67,7 +79,9 @@ public class Obstacles {
             c.addRoundLife();
         }
         if(cracks.size() < MAX_DEVIL){
-            add(getLocationValid());
+            if((cracks.size() == 0 )||(cracks.get(cracks.size() - 1).isInoffensive())) {
+                add(getLocationValid());
+            }
         }
         if(canAddNewObstacle()){
             deleteFirst();

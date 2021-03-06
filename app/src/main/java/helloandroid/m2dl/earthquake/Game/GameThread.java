@@ -1,8 +1,10 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.Game;
 
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
+
+import helloandroid.m2dl.earthquake.MainActivity;
 
 public class GameThread extends Thread {
     private SurfaceHolder surfaceHolder;
@@ -22,6 +24,8 @@ public class GameThread extends Thread {
 
             try {
                 canvas = this.surfaceHolder.lockCanvas();
+
+
                 synchronized(surfaceHolder) {
                     this.gameView.update();
                     this.gameView.draw(canvas);
@@ -37,7 +41,7 @@ public class GameThread extends Thread {
                 }
             }
             try {
-                sleep(30);
+                sleep(60);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

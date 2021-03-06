@@ -15,6 +15,7 @@ public class BitmapRepository {
         map.put(R.drawable.crack, BitmapFactory.decodeResource(resources, R.drawable.crack));
         map.put(R.drawable.crack_danger, BitmapFactory.decodeResource(resources, R.drawable.crack_danger));
         map.put(R.drawable.smile, BitmapFactory.decodeResource(resources, R.drawable.smile));
+        map.put(R.drawable.hero, BitmapFactory.decodeResource(resources, R.drawable.hero));
     }
 
     public Bitmap getBitmap(int id) {
