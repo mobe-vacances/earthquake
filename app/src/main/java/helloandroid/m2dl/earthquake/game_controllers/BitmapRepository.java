@@ -14,10 +14,10 @@ public class BitmapRepository {
     private Map<Integer,Bitmap> map = new HashMap<>();
 
     public BitmapRepository(Resources resources) {
-        map.put(R.drawable.crack, BitmapFactory.decodeResource(resources, R.drawable.crack));
-        map.put(R.drawable.crack_danger, BitmapFactory.decodeResource(resources, R.drawable.crack_danger));
+        map.put(R.drawable.crack, BitmapFactory.decodeResource(resources, R.drawable.coronavirus_safe));
+        map.put(R.drawable.crack_danger, BitmapFactory.decodeResource(resources, R.drawable.coronavirus));
         map.put(R.drawable.smile, BitmapFactory.decodeResource(resources, R.drawable.smile));
-        map.put(R.drawable.hero, BitmapFactory.decodeResource(resources, R.drawable.hero));
+        map.put(R.drawable.hero, BitmapFactory.decodeResource(resources, R.drawable.world));
     }
 
     public Bitmap getBitmap(int id) {

@@ -9,45 +9,44 @@ enum StateCrack {
 }
 public class Crack extends Point {
 
-    private static final int END_LIFE = 30;
-    private static final int INOFFENSIVE_LIFE = 15;
-    private static final int BORN_LIFE = 5;
+    private static final int END_LIFE = 600;
+    private static final int INOFFENSIVE_LIFE = 350;
+    private static final int BORN_LIFE = 50;
+    private static final int FRAME_WITHOUT_IMAGE = 50;
 
     private StateCrack state ;
     private int roundLife;
-    private int img;
+    private boolean withoutImage;
 
     public Crack (){
         state = StateCrack.INOFFENSIVE;
         roundLife = 1;
     }
 
-    public int getImg() {
-        return img;
+    public boolean isWithoutImage() {
+        return withoutImage;
     }
 
     public void addRoundLife(){
         roundLife += 1;
         if(roundLife<BORN_LIFE) {
-            if(roundLife % 2 == 0) {
-                img = 0;
+            if(roundLife % FRAME_WITHOUT_IMAGE == 0) {
+                withoutImage = true;
             } else {
-                img = R.drawable.grenade;
+                withoutImage = false;
             }
             state = StateCrack.BORN;
         }else if(roundLife < INOFFENSIVE_LIFE){
-            if(roundLife % 2 == 0) {
-                img = 0;
+            if(roundLife % FRAME_WITHOUT_IMAGE == 0) {
+                withoutImage = true;
             } else {
-                img = R.drawable.grenade;
+                withoutImage = false;
             }
             state = StateCrack.INOFFENSIVE;
         }else if(roundLife < END_LIFE){
             state = StateCrack.DANGER;
-            img = R.drawable.grenade_danger;
         }else if(roundLife == END_LIFE){
             state = StateCrack.ENDING;
-            img = R.drawable.grenade;
         }
     }
 
@@ -60,7 +59,7 @@ public class Crack extends Point {
     boolean isEnding(){
         return state == StateCrack.ENDING;
     }
-    boolean isDanger(){
+    public boolean isDanger(){
         return state == StateCrack.DANGER;
     }
 }
