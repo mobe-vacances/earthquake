@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.Game;
+package helloandroid.m2dl.earthquake.game;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,28 +9,38 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.opengl.GLSurfaceView;
+import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
+import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Random;
 
-import helloandroid.m2dl.earthquake.BitmapRepository;
-import helloandroid.m2dl.earthquake.Direction;
+import helloandroid.m2dl.earthquake.game_controllers.BitmapRepository;
+import helloandroid.m2dl.earthquake.game_controllers.CooldownManager;
+import helloandroid.m2dl.earthquake.game_controllers.Direction;
 import helloandroid.m2dl.earthquake.MainActivity;
-import helloandroid.m2dl.earthquake.Obstacle.Crack;
-import helloandroid.m2dl.earthquake.Obstacle.Obstacles;
-import helloandroid.m2dl.earthquake.Player;
+import helloandroid.m2dl.earthquake.entity.Obstacle.Crack;
+import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacles;
+import helloandroid.m2dl.earthquake.entity.player.Player;
 import helloandroid.m2dl.earthquake.R;
+import helloandroid.m2dl.earthquake.game_controllers.ScoreCalc;
 
-public class GameView extends SurfaceView implements SurfaceHolder.Callback {
+public class GameView extends SurfaceView implements SurfaceHolder.Callback , View.OnTouchListener  {
     private GameThread thread;
     public Player player;
+    private ScoreCalc score;
     private Obstacles obstacles = new Obstacles();
     private BitmapRepository bitmapRepository;
+    private CooldownManager cooldownManager;
+    private final int DEFAULT_COOLDOWN_VALUE = 200;
+
+    private int level;
 
     private int backgroundColor;
 
@@ -38,6 +48,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
+        this.level=1;
+
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
         Random random = new Random();
@@ -47,6 +59,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
         setFocusable(true);
+
+        cooldownManager = new CooldownManager(player,DEFAULT_COOLDOWN_VALUE);
+        this.score = new ScoreCalc(player,this);
+        setOnTouchListener(this);
 
         bitmapRepository = new BitmapRepository(getResources());
     }
@@ -104,7 +120,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
             if(MainActivity.sharedPref.getBoolean("running",true)){
                 canvas.drawColor(backgroundColor);
 
-                addGround(canvas);
+
+                //addGround(canvas);
 
                 Matrix rotator = new Matrix();
                 rotator.postRotate(playerRotation,player.getHeight()/2,player.getWidth()/2);
@@ -114,6 +131,24 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                         rotator,
                         null
                 );
+
+                WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+                cooldownManager.drawBulletTimeIndicator(canvas, wm);
+                Display display = wm.getDefaultDisplay();
+                Point size = new Point();
+                display.getSize(size);
+                int width = size.x;
+                int height = size.y;
+
+                Paint line = new Paint();
+                line.setColor(Color.BLACK);
+                canvas.drawLine(0,200,width,200,line);
+
+                Paint text = new Paint();
+                text.setColor(Color.BLACK);
+                text.setTextSize(64);
+                canvas.drawText("Score :",40,80,text);
+                canvas.drawText(String.valueOf(score.getScore()) ,40,156,text);
 
 
                 addObstacle(canvas);
@@ -135,20 +170,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
                 canvas.drawText("Tu as perdu !",left,yPos,paint);
 
                 paint.setTextSize(50);
-                canvas.drawText("score : ",left,yPos+100,paint);
+                canvas.drawText("score : "+score.getScore(),left,yPos+100,paint);
             }
 
         }
     }
 
     private void addGround(Canvas canvas) {
-        int sizeGround = 600;
+        int sizeGround = 200;
         int numberForWidth = MainActivity.sharedPref.getInt("screen_width",300) / sizeGround + 1;
         int numberForHeight = MainActivity.sharedPref.getInt("screen_height",300) / sizeGround + 1;
         Bitmap bmp = BitmapFactory.decodeResource(getResources(),  R.drawable.ground2);
         for(int i = 0; i < numberForWidth; i++){
             for(int j = 0; j < numberForHeight; j++){
-                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 600, 600, false), i*sizeGround, j*sizeGround,null);
+                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 600, 600, false), i*sizeGround, /*j*sizeGround*/400*j,null);
             }
         }
 
@@ -164,5 +199,23 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
 
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        if (event.getAction() == android.view.MotionEvent.ACTION_DOWN && cooldownManager.isBulletTimeDispo()) {
+            cooldownManager.setBulletTimeDispo(false);
+            cooldownManager.activateBulletTime(2,5000);
+
+        }
+        return true;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

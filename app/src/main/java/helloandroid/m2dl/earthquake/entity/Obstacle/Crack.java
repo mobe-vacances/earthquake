@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.Obstacle;
+package helloandroid.m2dl.earthquake.entity.Obstacle;
 
 import android.graphics.Point;
 

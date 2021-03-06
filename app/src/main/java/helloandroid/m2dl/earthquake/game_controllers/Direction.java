@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.game_controllers;
 
 public enum Direction {
     UP,

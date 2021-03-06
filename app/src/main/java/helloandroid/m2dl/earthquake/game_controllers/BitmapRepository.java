@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.game_controllers;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import helloandroid.m2dl.earthquake.R;
 
 public class BitmapRepository {
 

@@ -1,14 +1,14 @@
-package helloandroid.m2dl.earthquake.Obstacle;
+package helloandroid.m2dl.earthquake.entity.Obstacle;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import helloandroid.m2dl.earthquake.MainActivity;
-import helloandroid.m2dl.earthquake.Player;
+import helloandroid.m2dl.earthquake.entity.player.Player;
 
 public class Obstacles {
-    private static final int MIN_POSITION = 10 ;
+    private static final int MIN_POSITION = 200; //emplacement de la ligne de démarcation
     private static final int MARGING  = 150;
     private static final int WIDTH_DEVIL  = 100;
     private static final int HEIGHT_DEVIL  = 100;

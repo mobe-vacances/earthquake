@@ -1,7 +1,9 @@
-package helloandroid.m2dl.earthquake;
+package helloandroid.m2dl.earthquake.entity.player;
 
 
 import android.graphics.Point;
+
+import helloandroid.m2dl.earthquake.game_controllers.Direction;
 
 public class Player {
 
@@ -11,6 +13,7 @@ public class Player {
     private Point currentPosition;
 
     private Direction direction;
+
 
     private int step;
 
@@ -40,6 +43,10 @@ public class Player {
         direction = newDirection;
     }
 
+    public void setStep(int step) {
+        this.step = step;
+    }
+
     public void updatePosition() {
         switch(direction) {
             case UP:
@@ -57,4 +64,7 @@ public class Player {
         }
     }
 
+    public int getStep() {
+        return step;
+    }
 }
