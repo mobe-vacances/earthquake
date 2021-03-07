@@ -136,11 +136,11 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
                         rotator,
                         null
                 );
+                addBarre(canvas);
 
                 WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                 cooldownManager.drawBulletTimeIndicator(canvas, wm);
 
-                addBarre(canvas);
                 addObstacle(canvas);
 
 
