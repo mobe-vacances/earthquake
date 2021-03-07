@@ -22,7 +22,6 @@ import java.util.Random;
 import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacle;
 import helloandroid.m2dl.earthquake.game_controllers.BitmapRepository;
 import helloandroid.m2dl.earthquake.game_controllers.CooldownManager;
-import helloandroid.m2dl.earthquake.game_controllers.Direction;
 import helloandroid.m2dl.earthquake.MainActivity;
 import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacles;
 import helloandroid.m2dl.earthquake.entity.player.Player;
@@ -58,7 +57,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         getHolder().addCallback(this);
         Random random = new Random();
         Point initialPosition = new Point(MainActivity.sharedPref.getInt("screen_width",300) / 2, MainActivity.sharedPref.getInt("screen_height",300) / 2);
-        player = new Player(initialPosition, Direction.RIGHT, 0);
+        player = new Player(initialPosition);
         // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.

@@ -3,28 +3,44 @@ package helloandroid.m2dl.earthquake.entity.player;
 
 import android.graphics.Point;
 
-import helloandroid.m2dl.earthquake.game_controllers.Direction;
-
 public class Player {
 
     /**
-     * Current position of the user
+     * X coordinate of the user's position
      */
-    private Point currentPosition;
+    private float positionX;
 
-    private Direction direction;
+    /**
+     * Y coordinate of the user's position
+     */
+    private float positionY;
 
+    /**
+     * X coordinate of the user's direction
+     */
+    public float directionX;
 
-    private int step;
+    /**
+     * Y coordinate of the user's direction
+     */
+    public float directionY;
 
-    private int height = 100;
+    /**
+     * Multiplier allowing the game to accelerate or slow down the player
+     * depending on external events
+     */
+    public float multiplier;
 
-    private int width = 100;
+    private final int height = 50;
 
-    public Player(Point initialPosition, Direction initialDirection, int initialStep) {
-        currentPosition = initialPosition;
-        step = initialStep;
-        direction = initialDirection;
+    private final int width = 50;
+
+    public Player(Point initialPosition) {
+        positionX = initialPosition.x;
+        positionY = initialPosition.y;
+        directionX = 0;
+        directionY = 0;
+        multiplier = 1;
     }
 
     public int getHeight(){
@@ -36,35 +52,12 @@ public class Player {
     }
 
     public Point getPosition() {
-        return currentPosition;
-    }
-
-    public void setDirection(Direction newDirection) {
-        direction = newDirection;
-    }
-
-    public void setStep(int step) {
-        this.step = step;
+        return new Point((int) positionX, (int) positionY);
     }
 
     public void updatePosition() {
-        switch(direction) {
-            case UP:
-                currentPosition.y -= step;
-                break;
-            case DOWN:
-                currentPosition.y += step;
-                break;
-            case LEFT:
-                currentPosition.x -= step;
-                break;
-            case RIGHT:
-                currentPosition.x += step;
-                break;
-        }
+        positionX += directionX;
+        positionY += directionY;
     }
 
-    public int getStep() {
-        return step;
-    }
 }
