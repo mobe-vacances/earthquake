@@ -14,22 +14,22 @@ public class Obstacles {
     private static final int HEIGHT_DEVIL  = 100;
     private static final int MAX_DEVIL  = 5;
 
-    public List<Crack> cracks;
+    public List<Obstacle> obstacles;
 
-    public List<Crack> getCracks(){
-        return cracks;
+    public List<Obstacle> getObstacles(){
+        return obstacles;
     }
     public Obstacles(){
-        cracks = new ArrayList<>();
+        obstacles = new ArrayList<>();
     }
 
-    private void add(Crack p){
-        cracks.add(p);
+    private void add(Obstacle p){
+        obstacles.add(p);
     }
 
-    private Crack getLocationValid() {
+    private Obstacle getLocationValid() {
         boolean notValid = true;
-        Crack p = new Crack();
+        Obstacle p = new Obstacle();
         while(notValid){
             p.x = (getPositionRandom(MainActivity.sharedPref.getInt("screen_width", 200)));
             p.y = (getPositionRandom(MainActivity.sharedPref.getInt("screen_height", 200)));
@@ -38,8 +38,8 @@ public class Obstacles {
         return p;
     }
 
-    private boolean touchWithMarge(Crack point){
-        for(Crack p : cracks){
+    private boolean touchWithMarge(Obstacle point){
+        for(Obstacle p : obstacles){
             if(( Math.abs(p.x - point.x) < WIDTH_DEVIL + MARGING) && (Math.abs(p.y - point.y) < HEIGHT_DEVIL + MARGING)){
                 return true;
             }
@@ -47,9 +47,13 @@ public class Obstacles {
         return false;
     }
 
-    public boolean touch(Player player){
-        for(Crack p : cracks){
+    public boolean touch(Player player,boolean dangerous){
+        for(Obstacle p : obstacles){
             if(p.isDanger() && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
+                return true;
+            }
+            if(!dangerous && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
+                p.setState(StateObstacle.ENDING);
                 return true;
             }
         }
@@ -61,12 +65,26 @@ public class Obstacles {
        return rand.nextInt(max - WIDTH_DEVIL - MIN_POSITION*2 + 1) + MIN_POSITION;
     }
 
-    private void deleteFirst() {
-        cracks.remove(0);
+    private void deleteAllObstacleEnding() {
+        int index;
+        while ((index = indexOfFirstObstacleEnding()) != -1){
+            obstacles.remove(index);
+        }
+    }
+
+    private int indexOfFirstObstacleEnding(){
+        int index = 0;
+        for(Obstacle o : obstacles){
+            if(o.isEnding()){
+                return index;
+            }
+            index++;
+        }
+        return -1;
     }
 
     private boolean canAddNewObstacle() {
-        for(Crack c : cracks){
+        for(Obstacle c : obstacles){
             if(c.isEnding()){
                 return true;
             }
@@ -75,16 +93,17 @@ public class Obstacles {
     }
 
     public void evolObstacle() {
-        for(Crack c : cracks){
+        for(Obstacle c : obstacles){
             c.addRoundLife();
         }
-        if(cracks.size() < MAX_DEVIL){
-            if((cracks.size() == 0 )||(cracks.get(cracks.size() - 1).isInoffensive())) {
+        if(obstacles.size() < MAX_DEVIL){
+            if((obstacles.size() == 0 )||(obstacles.get(obstacles.size() - 1).isInoffensive())) {
                 add(getLocationValid());
             }
         }
+
         if(canAddNewObstacle()){
-            deleteFirst();
+            deleteAllObstacleEnding();
             add(getLocationValid());
         }
     }
