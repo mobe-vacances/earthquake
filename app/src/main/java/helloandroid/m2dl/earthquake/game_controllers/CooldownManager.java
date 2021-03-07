@@ -76,7 +76,7 @@ public class CooldownManager {
         canvas.drawRect(positionIndicateur, cooldown);
         //vitesse du cooldown (visuel)
         //-19
-        cooldownBulletTimeProgress -= 3 ;
+        cooldownBulletTimeProgress -= 1 ;
 
     }
 
