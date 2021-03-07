@@ -26,6 +26,11 @@ public class Player {
     public float directionY;
 
     /**
+     * Rotation of the player, in degrees.
+     */
+    private int rotation;
+
+    /**
      * Multiplier allowing the game to accelerate or slow down the player
      * depending on external events
      */
@@ -60,4 +65,15 @@ public class Player {
         positionY += directionY * multiplier;
     }
 
+    public int getRotation() {
+        return rotation;
+    }
+
+    /**
+     * Updates the user's rotation, adding it the given degrees (clockwise).
+     * @param degrees The degrees to rotate.
+     */
+    public void rotate(int degrees) {
+        rotation = (rotation + degrees) % 360;
+    }
 }

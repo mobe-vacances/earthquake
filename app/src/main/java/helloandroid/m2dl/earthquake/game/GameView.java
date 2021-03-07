@@ -47,8 +47,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
 
     private int backgroundColor;
 
-    private int playerRotation = 0;
-
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
         this.level=1;
@@ -115,7 +113,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
             score.add(10);
         }
 
-        playerRotation = (playerRotation + 10) % 360;
+        player.rotate(10);
     }
 
     @Override
@@ -128,7 +126,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
                 //addGround(canvas);
 
                 Matrix rotator = new Matrix();
-                rotator.postRotate(playerRotation,player.getHeight()/2,player.getWidth()/2);
+                rotator.postRotate(player.getRotation(),player.getHeight()/2,player.getWidth()/2);
                 rotator.postTranslate(player.getPosition().x, player.getPosition().y);
                 canvas.drawBitmap(
                         Bitmap.createScaledBitmap(bitmapRepository.getBitmap(R.drawable.hero), player.getWidth(), player.getHeight(), false),
