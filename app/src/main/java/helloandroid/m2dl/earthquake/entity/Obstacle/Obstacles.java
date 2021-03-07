@@ -30,11 +30,11 @@ public class Obstacles {
     private Obstacle getLocationValid() {
         boolean notValid = true;
         Obstacle p = new Obstacle();
-        while(notValid){
+        //while(notValid){
             p.x = (getPositionRandom(MainActivity.sharedPref.getInt("screen_width", 200)));
             p.y = (getPositionRandom(MainActivity.sharedPref.getInt("screen_height", 200)));
-            notValid = touchWithMarge(p);
-        }
+            //notValid = touchWithMarge(p);
+        //}
         return p;
     }
 
