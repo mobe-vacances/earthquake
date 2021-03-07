@@ -32,7 +32,7 @@ import helloandroid.m2dl.earthquake.game_controllers.ScoreCalc;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback , View.OnTouchListener  {
 
 
-    private static final int HEIGHT_BARRE = 200;
+    private static final int HEIGHT_BARRE = 100;
     private GameThread thread;
     public Player player;
     private ScoreCalc score;
@@ -41,6 +41,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     private BitmapRepository bitmapRepository;
     private CooldownManager cooldownManager;
     private final int DEFAULT_COOLDOWN_VALUE = 200;
+    private static final int HEIGHT_TEXT_BARRE = 20;
 
 
     private int level;
@@ -57,7 +58,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         getHolder().addCallback(this);
         Random random = new Random();
         Point initialPosition = new Point(MainActivity.sharedPref.getInt("screen_width",300) / 2, MainActivity.sharedPref.getInt("screen_height",300) / 2);
-        player = new Player(initialPosition, Direction.RIGHT, 10);
+        player = new Player(initialPosition, Direction.RIGHT, 0);
         // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
@@ -170,11 +171,14 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         line.setColor(Color.YELLOW);
         canvas.drawRect(0,0,MainActivity.sharedPref.getInt("screen_width",300),HEIGHT_BARRE,line);
 
-        Paint text = new Paint();
-        text.setColor(Color.GREEN);
-        text.setTextSize(64);
-        canvas.drawText("Score :",40,80,text);
-        canvas.drawText(String.valueOf(score.getScore()) ,40,156,text);
+        Paint textColor = new Paint();
+        textColor.setColor(Color.GREEN);
+        textColor.setTextSize(HEIGHT_TEXT_BARRE);
+        int textOffsetX = 40;
+        int textOffsetY = (HEIGHT_BARRE / 2) + 10;
+        String scoreText = "Score : ";
+        canvas.drawText(scoreText,textOffsetX,textOffsetY,textColor);
+        canvas.drawText(String.valueOf(score.getScore()) ,textOffsetX + (scoreText.length() * 10),textOffsetY,textColor);
     }
 
     private void addGround(Canvas canvas) {

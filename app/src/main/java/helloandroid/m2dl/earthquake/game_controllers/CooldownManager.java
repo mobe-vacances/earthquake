@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.Display;
 import android.view.WindowManager;
 
+import helloandroid.m2dl.earthquake.MainActivity;
 import helloandroid.m2dl.earthquake.entity.player.Player;
 
 public class CooldownManager {
@@ -29,11 +30,8 @@ public class CooldownManager {
     public void drawBulletTimeIndicator(Canvas canvas, WindowManager wm){
         //indicateur bullet time
 
-        Display display = wm.getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int width = size.x;
-        int height = size.y;
+        int width = MainActivity.sharedPref.getInt("screen_width",300);
+        int height = MainActivity.sharedPref.getInt("screen_height",300);
 
         Paint indicateurBulletTime = new Paint();
         Paint indicateurBulletTimeContour = new Paint();
@@ -41,7 +39,7 @@ public class CooldownManager {
         RectF positionIndicateur = new RectF( width-400,
                 30,
                 width-200 +25,
-                170
+                70
         );
 
         //contenu
@@ -73,7 +71,7 @@ public class CooldownManager {
         RectF positionIndicateur = new RectF( width-400,
                 30,
                 right,
-                170
+                70
         );
         canvas.drawRect(positionIndicateur, cooldown);
         //vitesse du cooldown (visuel)
