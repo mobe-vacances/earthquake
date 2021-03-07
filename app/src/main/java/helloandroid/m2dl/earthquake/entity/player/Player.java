@@ -56,8 +56,8 @@ public class Player {
     }
 
     public void updatePosition() {
-        positionX += directionX;
-        positionY += directionY;
+        positionX += directionX * multiplier;
+        positionY += directionY * multiplier;
     }
 
 }
