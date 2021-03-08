@@ -101,7 +101,7 @@ public class CooldownManager {
     }
 
     public void activateBulletTime(int speed, int lenght) {
-        player.setStep(player.getStep()/2);
+        player.multiplier = player.multiplier / 2;
         handlerBulletTime = new Handler();
         handlerBulletTime.postDelayed(setUpdateValueToTenWithTimeout,5000);
     }
@@ -109,7 +109,7 @@ public class CooldownManager {
     private Runnable setUpdateValueToTenWithTimeout = new Runnable() {
         @Override
         public void run() {
-            player.setStep(40);
+            player.multiplier = 1;
             bulletTimeDispo = true;
             cooldownBulletTimeProgress = defaultCooldownValue;
         }

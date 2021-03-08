@@ -4,7 +4,6 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 
-import helloandroid.m2dl.earthquake.game_controllers.Direction;
 import helloandroid.m2dl.earthquake.game.GameView;
 
 public class AccelerometerEventListener implements SensorEventListener {
@@ -12,13 +11,13 @@ public class AccelerometerEventListener implements SensorEventListener {
     /**
      * The GameView, on which the listener will act on
      */
-    private GameView gameView;
+    private final GameView gameView;
 
     /**
-     * The orientation can stay the same if the device is on a flat surface.
-     * This offset can vary.
+     * This multiplier allows the player to be more sensitive to gravity.
+     * By increasing this multiplier, the player will move faster.
      */
-    public static float MAGNETIC_OFFSET = 0.5f;
+    public static int GRAVITY_MULTIPLIER = 5;
 
 
     public AccelerometerEventListener(GameView gameView) {
@@ -32,31 +31,10 @@ public class AccelerometerEventListener implements SensorEventListener {
 
         synchronized (this) {
             if (sensor == Sensor.TYPE_ACCELEROMETER) {
-                float magField_x = values[0];
-                float magField_y = values[1];
-                if (absolute(magField_x) > absolute(magField_y)) {
-                    if (magField_x > MAGNETIC_OFFSET) {
-                        gameView.player.setDirection(Direction.LEFT);
-                    } else if (magField_x < MAGNETIC_OFFSET) {
-                        gameView.player.setDirection(Direction.RIGHT);
-                    }
-                } else {
-                    if (magField_y > MAGNETIC_OFFSET) {
-                        gameView.player.setDirection(Direction.DOWN);
-                    } else if (magField_y < MAGNETIC_OFFSET){
-                        gameView.player.setDirection(Direction.UP);
-                    }
-                }
+                gameView.player.directionX = - ( values[0] * GRAVITY_MULTIPLIER);
+                gameView.player.directionY = values[1] * GRAVITY_MULTIPLIER;
             }
         }
-    }
-
-
-    private float absolute(float value) {
-        if(value < 0) {
-            return -value;
-        }
-        return value;
     }
 
     @Override

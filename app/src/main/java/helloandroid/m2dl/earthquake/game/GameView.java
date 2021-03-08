@@ -22,7 +22,6 @@ import java.util.Random;
 import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacle;
 import helloandroid.m2dl.earthquake.game_controllers.BitmapRepository;
 import helloandroid.m2dl.earthquake.game_controllers.CooldownManager;
-import helloandroid.m2dl.earthquake.game_controllers.Direction;
 import helloandroid.m2dl.earthquake.MainActivity;
 import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacles;
 import helloandroid.m2dl.earthquake.entity.player.Player;
@@ -48,8 +47,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
 
     private int backgroundColor;
 
-    private int playerRotation = 0;
-
     public GameView(Context context, SharedPreferences sharedPreferences) {
         super(context);
         this.level=1;
@@ -58,7 +55,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         getHolder().addCallback(this);
         Random random = new Random();
         Point initialPosition = new Point(MainActivity.sharedPref.getInt("screen_width",300) / 2, MainActivity.sharedPref.getInt("screen_height",300) / 2);
-        player = new Player(initialPosition, Direction.RIGHT, 0);
+        player = new Player(initialPosition);
         // Création thread en fornissant un accès et un contrôle sur la surface sous-jacente de cette SurfaceView.
         thread = new GameThread(getHolder(), this);
         //Défini si cette vue peut recevoir le focus.
@@ -116,7 +113,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
             score.add(10);
         }
 
-        playerRotation = (playerRotation + 10) % 360;
+        player.rotate(10);
     }
 
     @Override
@@ -129,7 +126,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
                 //addGround(canvas);
 
                 Matrix rotator = new Matrix();
-                rotator.postRotate(playerRotation,player.getHeight()/2,player.getWidth()/2);
+                rotator.postRotate(player.getRotation(),player.getHeight()/2,player.getWidth()/2);
                 rotator.postTranslate(player.getPosition().x, player.getPosition().y);
                 canvas.drawBitmap(
                         Bitmap.createScaledBitmap(bitmapRepository.getBitmap(R.drawable.hero), player.getWidth(), player.getHeight(), false),
