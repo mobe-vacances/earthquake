@@ -19,6 +19,7 @@ public class CooldownManager {
     private Player player;
     private int defaultCooldownValue;
     private Handler handlerBulletTime;
+    private float playermultiplier;
 
     public CooldownManager(Player player,int defaultCooldownValue){
         bulletTimeDispo = true;
@@ -35,10 +36,9 @@ public class CooldownManager {
 
         Paint indicateurBulletTime = new Paint();
         Paint indicateurBulletTimeContour = new Paint();
-        //va falloir trouver un meilleur endroit
         RectF positionIndicateur = new RectF( width-400,
                 30,
-                width-200 +25,
+                width-125,
                 70
         );
 
@@ -63,6 +63,12 @@ public class CooldownManager {
     }
 
 
+    /**
+     * Animation du cooldown
+     * @param canvas
+     * @param width
+     * @param height
+     */
     private void updateCooldown(Canvas canvas, int width, int height) {
         Paint cooldown = new Paint();
         cooldown.setStyle(Paint.Style.FILL);
@@ -101,7 +107,8 @@ public class CooldownManager {
     }
 
     public void activateBulletTime(int speed, int lenght) {
-        player.multiplier = player.multiplier / 2;
+        playermultiplier = player.multiplier;
+        player.multiplier = player.multiplier / speed;
         handlerBulletTime = new Handler();
         handlerBulletTime.postDelayed(setUpdateValueToTenWithTimeout,5000);
     }
@@ -109,7 +116,7 @@ public class CooldownManager {
     private Runnable setUpdateValueToTenWithTimeout = new Runnable() {
         @Override
         public void run() {
-            player.multiplier = 1;
+            player.multiplier = playermultiplier;
             bulletTimeDispo = true;
             cooldownBulletTimeProgress = defaultCooldownValue;
         }
