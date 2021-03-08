@@ -116,7 +116,12 @@ public class CooldownManager {
     private Runnable setUpdateValueToTenWithTimeout = new Runnable() {
         @Override
         public void run() {
-            player.multiplier = playermultiplier;
+            if(player.multiplier*2 != playermultiplier){
+                playermultiplier = playermultiplier+1;
+            }
+            else{
+                player.multiplier = playermultiplier;
+            }
             bulletTimeDispo = true;
             cooldownBulletTimeProgress = defaultCooldownValue;
         }
