@@ -1,58 +1,87 @@
 package helloandroid.m2dl.earthquake.entity.Obstacle;
 
+import android.graphics.Point;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import helloandroid.m2dl.earthquake.MainActivity;
 import helloandroid.m2dl.earthquake.entity.player.Player;
+import helloandroid.m2dl.earthquake.game.GameView;
 
 public class Obstacles {
-    private static final int MIN_POSITION = 200; //emplacement de la ligne de démarcation
-    private static final int MARGING  = 150;
-    private static final int WIDTH_DEVIL  = 100;
-    private static final int HEIGHT_DEVIL  = 100;
-    private static final int MAX_DEVIL  = 5;
+    private static final int MARGIN = 10;
+    public static final int WIDTH_ENNEMY = 50;
+    public static final int HEIGHT_ENNEMY = 50;
+
+    /**
+     * Définit les emplacements disponibles pour le positionnement d'un obstacle.
+     */
+    private final Obstacle[][] availableSlots;
+    private final int nbLines;
+    private final int nbColumns;
+    private final int nbMaxOccurences;
 
     public List<Obstacle> obstacles;
 
     public List<Obstacle> getObstacles(){
         return obstacles;
     }
-    public Obstacles(){
+
+
+    public Obstacles(int nbElements){
+        nbMaxOccurences = nbElements;
+        nbLines = MainActivity.sharedPref.getInt("screen_width", 200) / (WIDTH_ENNEMY + MARGIN);
+        int hauteurUtile = MainActivity.sharedPref.getInt("screen_height", 200) - GameView.HEIGHT_BARRE;
+        nbColumns = hauteurUtile / (HEIGHT_ENNEMY + MARGIN);
+        availableSlots = new Obstacle[nbLines][nbColumns];
         obstacles = new ArrayList<>();
     }
 
-    private void add(Obstacle p){
-        obstacles.add(p);
+    private Point getCoordinates(int i, int j) {
+        return new Point(i * WIDTH_ENNEMY, j * HEIGHT_ENNEMY + GameView.HEIGHT_BARRE + MARGIN);
     }
 
-    private Obstacle getLocationValid() {
-        boolean notValid = true;
-        Obstacle p = new Obstacle();
-        //while(notValid){
-            p.x = (getPositionRandom(MainActivity.sharedPref.getInt("screen_width", 200)));
-            p.y = (getPositionRandom(MainActivity.sharedPref.getInt("screen_height", 200)));
-            //notValid = touchWithMarge(p);
-        //}
-        return p;
+    private boolean isAvailable(Obstacle o) {
+        return o == null;
     }
 
-    private boolean touchWithMarge(Obstacle point){
-        for(Obstacle p : obstacles){
-            if(( Math.abs(p.x - point.x) < WIDTH_DEVIL + MARGING) && (Math.abs(p.y - point.y) < HEIGHT_DEVIL + MARGING)){
-                return true;
-            }
-        }
-        return false;
+    /**
+     * random de 0 à n
+     */
+    private int randomInt(int range) {
+        Random rand = new Random();
+        return rand.nextInt(range);
+    }
+
+    /**
+     * Random de -n à n
+     */
+    private int randomRelativeInt(int range) {
+        return randomInt(range * 2) - range;
+    }
+
+    private void addNewObstacle() {
+        Obstacle obs = new Obstacle();
+        int randomLine, randomColumn;
+        do {
+            randomLine = randomInt(nbLines);
+            randomColumn = randomInt(nbColumns);
+        } while(!isAvailable(availableSlots[randomLine][randomColumn]));
+        Point res = getCoordinates(randomLine, randomColumn);
+        obs.x = res.x + randomRelativeInt(MARGIN);
+        obs.y = res.y + randomRelativeInt(MARGIN);
+        availableSlots[randomLine][randomColumn] = obs;
+        obstacles.add(obs);
     }
 
     public boolean touch(Player player,boolean dangerous){
         for(Obstacle p : obstacles){
-            if(p.isDanger() && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
+            if(dangerous && p.isDanger() && ( Math.abs(p.x - player.getPosition().x) < WIDTH_ENNEMY) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_ENNEMY)){
                 return true;
             }
-            if(!dangerous && ( Math.abs(p.x - player.getPosition().x) < WIDTH_DEVIL) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_DEVIL)){
+            if(!dangerous && ( Math.abs(p.x - player.getPosition().x) < WIDTH_ENNEMY) && (Math.abs(p.y - player.getPosition().y) < HEIGHT_ENNEMY)){
                 p.setState(StateObstacle.ENDING);
                 return true;
             }
@@ -60,27 +89,16 @@ public class Obstacles {
         return false;
     }
 
-    private int getPositionRandom(int max){
-        Random rand = new Random();
-       return rand.nextInt(max - WIDTH_DEVIL - MIN_POSITION*2 + 1) + MIN_POSITION;
-    }
-
     private void deleteAllObstacleEnding() {
-        int index;
-        while ((index = indexOfFirstObstacleEnding()) != -1){
-            obstacles.remove(index);
-        }
-    }
-
-    private int indexOfFirstObstacleEnding(){
-        int index = 0;
-        for(Obstacle o : obstacles){
-            if(o.isEnding()){
-                return index;
+        for(int line = 0; line < nbLines; line++) {
+            for(int column = 0; column < nbColumns; column++) {
+                Obstacle o = availableSlots[line][column];
+                if(!isAvailable(o) && o.isEnding()) {
+                    obstacles.remove(o);
+                    availableSlots[line][column] = null;
+                }
             }
-            index++;
         }
-        return -1;
     }
 
     private boolean canAddNewObstacle() {
@@ -96,15 +114,15 @@ public class Obstacles {
         for(Obstacle c : obstacles){
             c.addRoundLife();
         }
-        if(obstacles.size() < MAX_DEVIL){
+        if(obstacles.size() < nbMaxOccurences){
             if((obstacles.size() == 0 )||(obstacles.get(obstacles.size() - 1).isInoffensive())) {
-                add(getLocationValid());
+                addNewObstacle();
             }
         }
 
         if(canAddNewObstacle()){
             deleteAllObstacleEnding();
-            add(getLocationValid());
+            addNewObstacle();
         }
     }
 }

@@ -31,12 +31,15 @@ import helloandroid.m2dl.earthquake.game_controllers.ScoreCalc;
 public class GameView extends SurfaceView implements SurfaceHolder.Callback , View.OnTouchListener  {
 
 
-    private static final int HEIGHT_BARRE = 100;
+    public static final int HEIGHT_BARRE = 100;
+    public static final int NB_BAD_OBSTACLES = 5;
+    public static final int NB_GOOD_OBSTACLES = 5;
+
     private GameThread thread;
     public Player player;
     private ScoreCalc score;
-    private Obstacles badObstacles = new Obstacles();
-    private Obstacles goodObstacles = new Obstacles();
+    private Obstacles badObstacles = new Obstacles(NB_BAD_OBSTACLES);
+    private Obstacles goodObstacles = new Obstacles(NB_GOOD_OBSTACLES);
     private BitmapRepository bitmapRepository;
     private CooldownManager cooldownManager;
     private final int DEFAULT_COOLDOWN_VALUE = 200;
@@ -196,7 +199,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         for (Obstacle p : badObstacles.getObstacles()) {
             if(!p.isWithoutImage()) {
                 canvas.drawBitmap(
-                        Bitmap.createScaledBitmap(p.isDanger() ? bitmapRepository.getBitmap(R.drawable.crack_danger) : bitmapRepository.getBitmap(R.drawable.crack), player.getWidth(), player.getHeight(), false),
+                        Bitmap.createScaledBitmap(p.isDanger() ? bitmapRepository.getBitmap(R.drawable.crack_danger) : bitmapRepository.getBitmap(R.drawable.crack), Obstacles.WIDTH_ENNEMY, Obstacles.HEIGHT_ENNEMY, false),
                         p.x, p.y,
                         null
                 );
@@ -207,7 +210,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         for (Obstacle p : goodObstacles.getObstacles()) {
             if(!p.isWithoutImage()) {
                 canvas.drawBitmap(
-                        Bitmap.createScaledBitmap(bitmapRepository.getBitmap(R.drawable.mask), player.getWidth(), player.getHeight(), false),
+                        Bitmap.createScaledBitmap(bitmapRepository.getBitmap(R.drawable.mask), Obstacles.WIDTH_ENNEMY, Obstacles.HEIGHT_ENNEMY, false),
                         p.x, p.y,
                         null
                 );
