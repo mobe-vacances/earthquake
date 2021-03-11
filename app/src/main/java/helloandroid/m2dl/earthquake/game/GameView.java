@@ -172,7 +172,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         canvas.drawRect(0,0,MainActivity.sharedPref.getInt("screen_width",300),HEIGHT_BARRE,line);
 
         Paint textColor = new Paint();
-        textColor.setColor(Color.GREEN);
+        //GREEN => illisible imo
+        textColor.setColor(Color.BLACK);
         textColor.setTextSize(HEIGHT_TEXT_BARRE);
         int textOffsetX = 40;
         int textOffsetY = (HEIGHT_BARRE / 2) + 10;
@@ -226,7 +227,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     public boolean onTouch(View view, MotionEvent event) {
         if (event.getAction() == android.view.MotionEvent.ACTION_DOWN && cooldownManager.isBulletTimeDispo()) {
             cooldownManager.setBulletTimeDispo(false);
-            cooldownManager.activateBulletTime(2,5000);
+            cooldownManager.activateBulletTime(4,5000);
         }
         return true;
     }
@@ -235,7 +236,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
         return level;
     }
 
+    /**
+     * Modifie le level, ainsi que la difficulté (en modifiant la vitesse du joueur)
+     * @param level
+     */
     public void setLevel(int level) {
+        player.multiplier+=1;
         this.level = level;
     }
 }
