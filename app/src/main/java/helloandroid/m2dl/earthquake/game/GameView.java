@@ -1,6 +1,7 @@
 package helloandroid.m2dl.earthquake.game;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +28,8 @@ import helloandroid.m2dl.earthquake.entity.Obstacle.Obstacles;
 import helloandroid.m2dl.earthquake.entity.player.Player;
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game_controllers.ScoreCalc;
+import helloandroid.m2dl.earthquake.game_menu.GameOver;
+import helloandroid.m2dl.earthquake.game_menu.MainMenu;
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback , View.OnTouchListener  {
 
@@ -44,15 +47,17 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     private CooldownManager cooldownManager;
     private final int DEFAULT_COOLDOWN_VALUE = 200;
     private static final int HEIGHT_TEXT_BARRE = 20;
+    private MainActivity mainActivity;
 
 
     private int level;
 
     private int backgroundColor;
 
-    public GameView(Context context, SharedPreferences sharedPreferences) {
+    public GameView(Context context, SharedPreferences sharedPreferences, MainActivity mainActivity) {
         super(context);
         this.level=1;
+        this.mainActivity = mainActivity;
 
         // Ajoute une interface de rappel pour ce titulaire.
         getHolder().addCallback(this);
@@ -145,22 +150,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
 
 
             } else {
-                canvas.drawColor(Color.BLACK);
-                Paint paint = new Paint();
-                paint.setColor(Color.YELLOW);
-                paint.setTextSize(150);
-                paint.setTextAlign(Paint.Align.CENTER);
-
-                int yPos=(int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2));
-
-                Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.helmet);
-                int  left = canvas.getWidth()/2;
-                canvas.drawBitmap(Bitmap.createScaledBitmap(bmp, 400, 400 , false),left - 200, canvas.getWidth()/2-30,null); // 24 is the height of image
-
-                canvas.drawText("Tu as perdu !",left,yPos,paint);
-
-                paint.setTextSize(50);
-                canvas.drawText("score : "+score.getScore(),left,yPos+100,paint);
+                mainActivity.lauchGameOver();
             }
 
         }

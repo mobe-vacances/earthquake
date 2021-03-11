@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Earthquake">
-        <activity android:name=".game_menu.GameOver"></activity>
+        <activity android:name=".game_menu.GameOver" />
         <activity
             android:name=".game_menu.MainMenu"
             android:label="@string/app_name"
@@ -23,7 +23,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
