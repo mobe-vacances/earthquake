@@ -1,13 +1,10 @@
 package helloandroid.m2dl.earthquake.game_controllers;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.RectF;
 import android.os.Handler;
-import android.view.Display;
 import android.view.WindowManager;
 
 import helloandroid.m2dl.earthquake.MainActivity;
@@ -27,10 +24,9 @@ public class CooldownManager {
         this.defaultCooldownValue = defaultCooldownValue;
     }
 
-
     public void drawBulletTimeIndicator(Canvas canvas, WindowManager wm){
-        //indicateur bullet time
 
+        //indicateur bullet time
         int width = MainActivity.sharedPref.getInt("screen_width",300);
         int height = MainActivity.sharedPref.getInt("screen_height",300);
 
@@ -43,21 +39,20 @@ public class CooldownManager {
         );
 
         //contenu
-
         indicateurBulletTime.setStyle(Paint.Style.FILL);
         indicateurBulletTime.setColor(setBulletTimeIndicateurColor());
-        //contour
 
+        //contour
         indicateurBulletTimeContour.setStyle(Paint.Style.STROKE);
         indicateurBulletTimeContour.setColor(Color.BLACK);
         indicateurBulletTimeContour.setStrokeWidth(10);
-        //draw
 
+        //draw
         if(bulletTimeDispo) {
             canvas.drawRect(positionIndicateur, indicateurBulletTime);
         }
         else {
-            updateCooldown(canvas,width,height);
+            updateCooldown(canvas,width);
         }
         canvas.drawRect(positionIndicateur, indicateurBulletTimeContour);
     }
@@ -67,9 +62,8 @@ public class CooldownManager {
      * Animation du cooldown
      * @param canvas
      * @param width
-     * @param height
      */
-    private void updateCooldown(Canvas canvas, int width, int height) {
+    private void updateCooldown(Canvas canvas, int width) {
         Paint cooldown = new Paint();
         cooldown.setStyle(Paint.Style.FILL);
         cooldown.setColor(Color.GREEN);
@@ -83,7 +77,6 @@ public class CooldownManager {
         //vitesse du cooldown (visuel)
         //-19
         cooldownBulletTimeProgress -= 1 ;
-
     }
 
 
@@ -96,7 +89,6 @@ public class CooldownManager {
         this.bulletTimeDispo = bulletTimeDispo;
     }
 
-
     private int setBulletTimeIndicateurColor(){
         if(bulletTimeDispo){
             return Color.GREEN;
@@ -106,7 +98,7 @@ public class CooldownManager {
         }
     }
 
-    public void activateBulletTime(int speed, int lenght) {
+    public void activateBulletTime(int speed) {
         playermultiplier = player.multiplier;
         player.multiplier = player.multiplier / speed;
         handlerBulletTime = new Handler();

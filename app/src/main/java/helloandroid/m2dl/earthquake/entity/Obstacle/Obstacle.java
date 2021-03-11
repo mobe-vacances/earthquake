@@ -2,8 +2,6 @@ package helloandroid.m2dl.earthquake.entity.Obstacle;
 
 import android.graphics.Point;
 
-import helloandroid.m2dl.earthquake.R;
-
 enum StateObstacle {
     BORN, INOFFENSIVE, DANGER, ENDING
 }

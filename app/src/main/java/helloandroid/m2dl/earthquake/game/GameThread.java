@@ -3,7 +3,6 @@ package helloandroid.m2dl.earthquake.game;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
-import android.widget.Chronometer;
 
 import helloandroid.m2dl.earthquake.MainActivity;
 

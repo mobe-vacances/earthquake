@@ -227,7 +227,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback , Vi
     public boolean onTouch(View view, MotionEvent event) {
         if (event.getAction() == android.view.MotionEvent.ACTION_DOWN && cooldownManager.isBulletTimeDispo()) {
             cooldownManager.setBulletTimeDispo(false);
-            cooldownManager.activateBulletTime(4,5000);
+            cooldownManager.activateBulletTime(4);
         }
         return true;
     }
