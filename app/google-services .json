@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "681966929880",
+    "firebase_url": "https://mobe-test-69523-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "mobe-test-69523",
+    "storage_bucket": "mobe-test-69523.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681966929880:android:8c511339c3040dd59694ad",
+        "android_client_info": {
+          "package_name": "helloandroid.m2dl.earthquake"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681966929880-r682r43p2o0gr9vkiie8h4h8rpbu4892.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcVA2U8WOSorth_NEdxoXxYnd8D4bns2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681966929880-r682r43p2o0gr9vkiie8h4h8rpbu4892.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="236dp"
         android:layout_marginTop="72dp"
-        android:onClick="lauchGame"
+        android:onClick="test"
         android:text="Survivre >"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
