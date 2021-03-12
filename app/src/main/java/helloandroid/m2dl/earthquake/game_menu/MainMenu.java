@@ -30,9 +30,9 @@ public class MainMenu extends AppCompatActivity {
 
     public void test(View view){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        DatabaseReference myRef = database.getReference("yeah");
 
-        myRef.setValue("Hello, World!");
+        myRef.setValue("Pomme");
         System.out.println(FirebaseDatabase.getInstance().getApp().getName());
 
         TextView txtView = (TextView) ((Activity)this).findViewById(R.id.textView);
