@@ -8,7 +8,7 @@ public class GameConstants {
     public static final double PLAYER_MAX_SPEED = 0.35;
     public static final double PLAYER_ROTATION_SPEED = 0.2;
 
-    public static final double ACCELEROMETER_SENSIBILITY = 0.0008;
+    public static final double ACCELEROMETER_SENSIBILITY = 0.0033;
 
     public static final double BACKGROUND_COLOR_INERTIA = 0.0007;
 
