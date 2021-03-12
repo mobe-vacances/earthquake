@@ -22,9 +22,6 @@ public class Player implements Drawable, Updatable {
         DisplayScale.getRect().centerY() + GameConstants.PLAYER_SIZE / 2
     );
 
-    private double xSpeed = 0.0;
-    private double ySpeed = 0.0;
-
     private double xAcceleration = 0.0;
     private double yAcceleration = 0.0;
 
@@ -51,12 +48,12 @@ public class Player implements Drawable, Updatable {
     public void update(int delta) {
         rotation = (int) ((rotation + GameConstants.PLAYER_ROTATION_SPEED*delta) % 360);
 
-        xSpeed = updatePlayerSpeed(xSpeed + xAcceleration*delta);
-        ySpeed = updatePlayerSpeed(ySpeed + yAcceleration*delta);
+        double direction = Math.atan2(yAcceleration,xAcceleration);
+        double speed = Math.min(Math.sqrt(xAcceleration*xAcceleration + yAcceleration*yAcceleration),GameConstants.PLAYER_MAX_SPEED);
 
         playerRect.offsetTo(
-                (int)(playerRect.left + xSpeed*delta),
-                (int)(playerRect.top + ySpeed*delta)
+                (int)(playerRect.left + speed*Math.cos(direction)*delta),
+                (int)(playerRect.top + speed*Math.sin(direction)*delta)
         );
 
         if(!GameState.getGameRect().contains(playerRect)) {
@@ -70,16 +67,6 @@ public class Player implements Drawable, Updatable {
 
     public void setyAcceleration(double yAcceleration) {
         this.yAcceleration = yAcceleration;
-    }
-
-    private static double updatePlayerSpeed(double newSpeed) {
-        return Math.max(
-                -1*GameConstants.PLAYER_MAX_SPEED,
-                Math.min(
-                        newSpeed,
-                        GameConstants.PLAYER_MAX_SPEED
-                )
-        );
     }
 
     public Rect getHitbox() {
