@@ -9,13 +9,14 @@ import java.util.List;
 import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.score_and_level_handlers.AutoHandler;
 
 public class BonusSpawn implements AutoHandler {
 
     private final List<Bonus> placedBonuses = new ArrayList<>();
 
-    private Rect playerHitbox;
+    private Circle playerHitbox;
 
     private final Handler handler = new Handler();
 
@@ -32,7 +33,7 @@ public class BonusSpawn implements AutoHandler {
         handler.postDelayed(this.addBonus, GameConstants.BONUS_MIN_DELAY + RandomService.get().nextInt(GameConstants.BONUS_MAX_DELAY_VARIATION));
     };
 
-    public BonusSpawn(Rect playerHitbox) {
+    public BonusSpawn(Circle playerHitbox) {
         this.playerHitbox = playerHitbox;
         handler.postDelayed(this.addBonus, GameConstants.BONUS_MIN_DELAY + RandomService.get().nextInt(GameConstants.BONUS_MAX_DELAY_VARIATION));
     }

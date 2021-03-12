@@ -7,6 +7,7 @@ import android.graphics.Rect;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
+import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
@@ -15,12 +16,12 @@ import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
 
 public class Player implements Drawable, Updatable {
 
-    private final Rect playerRect = new Rect(
-        DisplayScale.getRect().centerX() - GameConstants.PLAYER_SIZE / 2,
-        DisplayScale.getRect().centerY() - GameConstants.PLAYER_SIZE / 2,
-        DisplayScale.getRect().centerX() + GameConstants.PLAYER_SIZE / 2,
-        DisplayScale.getRect().centerY() + GameConstants.PLAYER_SIZE / 2
-    );
+    private final Circle playerCircle = new Circle(new Rect(
+            DisplayScale.getRect().centerX() - GameConstants.PLAYER_SIZE / 2,
+            DisplayScale.getRect().centerY() - GameConstants.PLAYER_SIZE / 2,
+            DisplayScale.getRect().centerX() + GameConstants.PLAYER_SIZE / 2,
+            DisplayScale.getRect().centerY() + GameConstants.PLAYER_SIZE / 2
+    ));
 
     private double xAcceleration = 0.0;
     private double yAcceleration = 0.0;
@@ -35,13 +36,14 @@ public class Player implements Drawable, Updatable {
     @Override
     public void draw(Canvas canvas) {
         Matrix rotator = new Matrix();
-        rotator.postRotate(rotation,playerRect.width()/2.0f,playerRect.height()/2.0f);
-        rotator.postTranslate(playerRect.left, playerRect.top);
+        rotator.postRotate(rotation,playerCircle.getEnclosingRect().width()/2.0f,playerCircle.getEnclosingRect().height()/2.0f);
+        rotator.postTranslate(playerCircle.getEnclosingRect().left, playerCircle.getEnclosingRect().top);
         canvas.drawBitmap(
-                Bitmap.createScaledBitmap(BitmapStore.getBitmap(R.drawable.world), playerRect.width(), playerRect.height(), false),
+                Bitmap.createScaledBitmap(BitmapStore.getBitmap(R.drawable.world), playerCircle.getEnclosingRect().width(), playerCircle.getEnclosingRect().height(), false),
                 rotator,
                 null
         );
+        
     }
 
     @Override
@@ -51,12 +53,12 @@ public class Player implements Drawable, Updatable {
         double direction = Math.atan2(yAcceleration,xAcceleration);
         double speed = Math.min(Math.sqrt(xAcceleration*xAcceleration + yAcceleration*yAcceleration),GameConstants.PLAYER_MAX_SPEED);
 
-        playerRect.offsetTo(
-                (int)(playerRect.left + speed*Math.cos(direction)*delta),
-                (int)(playerRect.top + speed*Math.sin(direction)*delta)
+        playerCircle.getEnclosingRect().offsetTo(
+                (int)(playerCircle.getEnclosingRect().left + speed*Math.cos(direction)*delta),
+                (int)(playerCircle.getEnclosingRect().top + speed*Math.sin(direction)*delta)
         );
 
-        if(!GameState.getGameRect().contains(playerRect)) {
+        if(!GameState.getGameRect().contains(playerCircle.getEnclosingRect())) {
             GameState.gameOver();
         }
     }
@@ -69,7 +71,7 @@ public class Player implements Drawable, Updatable {
         this.yAcceleration = yAcceleration;
     }
 
-    public Rect getHitbox() {
-        return playerRect;
+    public Circle getHitbox() {
+        return playerCircle;
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
+import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
@@ -16,7 +17,7 @@ public class Bonus implements Drawable, Updatable {
 
     private final Rect rect = new Rect();
 
-    private final Rect playerHitbox;
+    private final Circle playerHitbox;
 
     private double size = 1;
 
@@ -24,7 +25,7 @@ public class Bonus implements Drawable, Updatable {
 
     private BonusSpawn bonusSpawn;
 
-    public Bonus(Rect playerHitbox, BonusSpawn bonusSpawn) {
+    public Bonus(Circle playerHitbox, BonusSpawn bonusSpawn) {
         this.playerHitbox = playerHitbox;
         this.bonusSpawn = bonusSpawn;
 
@@ -51,7 +52,7 @@ public class Bonus implements Drawable, Updatable {
 
     @Override
     public void update(int delta) {
-        if( Rect.intersects(rect, playerHitbox) ) {
+        if( Circle.intersects(playerHitbox, rect) ) {
             GameState.increaseScore(GameConstants.BONUS_SCORE);
             bonusSpawn.removeBonus(this);
             return;
