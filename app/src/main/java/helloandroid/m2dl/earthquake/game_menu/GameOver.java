@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import helloandroid.m2dl.earthquake.MainActivity;
 import helloandroid.m2dl.earthquake.R;
 
 public class GameOver extends AppCompatActivity {
