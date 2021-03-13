@@ -16,7 +16,10 @@ public class GameConstants {
     public static final int HEADER_HEIGHT = 100;
     public static final int HEADER_PADDING = 40;
 
-    public static final int HEADER_TEXT_SIZE = 80;
+    public static final int PAUSE_TEXT_SIZE  = 30;
+    public static final int PAUSE_TITLE_TEXT_SIZE  = 100;
+
+    public static final int HEADER_TEXT_SIZE = 40;
     public static final int HEADER_TEXT_COLOR = Color.rgb(72,118,130);
 
     public static final int ENEMY_SIZE = 40;

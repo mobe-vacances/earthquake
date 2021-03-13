@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
+import helloandroid.m2dl.earthquake.game.pause.PauseDisplay;
 
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {
@@ -53,6 +54,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         canvas.scale(DisplayScale.getScale(), DisplayScale.getScale());
         for(Drawable drawable : gameEngine.getDrawables()) {
             drawable.draw(canvas);
+        }
+        if(!GameEngine.isRunning()){
+            PauseDisplay p = new PauseDisplay();
+            p.draw(canvas);
         }
     }
 }

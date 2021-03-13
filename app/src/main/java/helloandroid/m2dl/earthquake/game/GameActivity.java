@@ -10,11 +10,12 @@ import java.util.List;
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.bonus.BonusSpawn;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
-import helloandroid.m2dl.earthquake.game.bullet_time.OnTouchListener;
+import helloandroid.m2dl.earthquake.game.onTouch.OnTouchListener;
 import helloandroid.m2dl.earthquake.game.enemy.EnemySpawn;
 import helloandroid.m2dl.earthquake.game.background.Background;
 import helloandroid.m2dl.earthquake.game.header.Header;
 import helloandroid.m2dl.earthquake.game.header.LevelDisplay;
+import helloandroid.m2dl.earthquake.game.pause.Pause;
 import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.header.ScoreDisplay;
 import helloandroid.m2dl.earthquake.game.player.AccelerometerEventListener;
@@ -88,16 +89,11 @@ public class GameActivity extends MobeGameActivity {
                 new Header(),
                 new ScoreDisplay(),
                 new LevelDisplay(),
+                new Pause(),
                 new BulletTime(),
                 background,
                 player
         );
         GameEngine.start();
     }
-
-    public static void gameOver() {
-
-
-    }
-
 }
