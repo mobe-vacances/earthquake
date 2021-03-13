@@ -20,10 +20,19 @@ public class Pause implements Drawable {
 
     private final Paint paint = new Paint();
     private final Paint paintBackground = new Paint();
+    private static Rect rect;
 
     @Override
     public int getZIndex() {
         return GameConstants.LEVEL_Z_INDEX;
+    }
+
+    public Pause(){
+        rect = new Rect(
+                LEFT,
+                TOP,
+                RIGHT,
+                BOTTOM);
     }
 
     @Override
@@ -36,7 +45,7 @@ public class Pause implements Drawable {
         paint.setTextAlign(Paint.Align.CENTER);
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
-        canvas.drawRect(createRect(), paintBackground);
+        canvas.drawRect(rect, paintBackground);
         canvas.drawText(
                 "Pause",
                 DisplayScale.getRect().width() / 2 ,
@@ -45,16 +54,9 @@ public class Pause implements Drawable {
         );
     }
 
-    public static Rect createRect(){
-        return new Rect(
-            LEFT,
-            TOP,
-            RIGHT,
-            BOTTOM);
-    }
 
     public static boolean intersectsWithPause(int x, int y) {
-        return createRect().contains(x, y);
+        return rect.contains(x, y);
     }
 
     public static void pauseGame(){

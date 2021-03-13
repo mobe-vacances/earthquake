@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 
 import helloandroid.m2dl.earthquake.game.GameConstants;
+import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
 
@@ -20,18 +21,19 @@ public class PauseDisplay implements Drawable {
 
     @Override
     public void draw(Canvas canvas) {
+        if(!GameEngine.isRunning()) {
+            paint.setColor(Color.WHITE);
+            paint.setTextSize(GameConstants.PAUSE_TITLE_TEXT_SIZE);
+            paint.setTextAlign(Paint.Align.CENTER);
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
-        paint.setColor(Color.WHITE);
-        paint.setTextSize(GameConstants.PAUSE_TITLE_TEXT_SIZE);
-        paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-
-        canvas.drawText(
-                "PAUSE",
-                DisplayScale.getRect().width()/2,
-                DisplayScale.getRect().height()/2,
-                paint
-        );
+            canvas.drawText(
+                    "PAUSE",
+                    DisplayScale.getRect().width() / 2,
+                    DisplayScale.getRect().height() / 2,
+                    paint
+            );
+        }
     }
 
 }

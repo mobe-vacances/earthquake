@@ -11,17 +11,18 @@ public class OnTouchListener implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(Pause.intersectsWithPause((int) (event.getX() / DisplayScale.getScale()), (int) (event.getY() / DisplayScale.getScale()))){
-            Pause.pauseGame();
-        }
-        else if (!GameEngine.isRunning()) {
-            GameEngine.start();
-        }
-        else if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
-            BulletTime.turnOnBulletTime();
+        if(GameEngine.isRunning()){
+            if(Pause.intersectsWithPause((int) (event.getX() / DisplayScale.getScale()), (int) (event.getY() / DisplayScale.getScale()))){
+                Pause.pauseGame();
+            } else if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+                BulletTime.turnOnBulletTime();
+            }
+
+        }else{
+            if (event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
+                GameEngine.start();
+            }
         }
         return true;
     }
-
-
 }

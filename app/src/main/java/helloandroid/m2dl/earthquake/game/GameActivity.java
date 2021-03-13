@@ -16,6 +16,7 @@ import helloandroid.m2dl.earthquake.game.background.Background;
 import helloandroid.m2dl.earthquake.game.header.Header;
 import helloandroid.m2dl.earthquake.game.header.LevelDisplay;
 import helloandroid.m2dl.earthquake.game.pause.Pause;
+import helloandroid.m2dl.earthquake.game.pause.PauseDisplay;
 import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.header.ScoreDisplay;
 import helloandroid.m2dl.earthquake.game.player.AccelerometerEventListener;
@@ -90,6 +91,7 @@ public class GameActivity extends MobeGameActivity {
                 new ScoreDisplay(),
                 new LevelDisplay(),
                 new Pause(),
+                new PauseDisplay(),
                 new BulletTime(),
                 background,
                 player

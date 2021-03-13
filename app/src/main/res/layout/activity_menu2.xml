@@ -121,7 +121,7 @@
         android:layout_width="206dp"
         android:layout_height="166dp"
         android:layout_marginEnd="37dp"
-        android:text="La pandémie de Covid-19 est une pandémie d'une maladie infectieuse. Le meilleur moyen de ne pas l'attraper est de se protéger et s'éloigner au plus de la maladie. Déplacez vous à l'aide de votre motricité et esquivé le dangeureux coronavirus."
+        android:text="La pandémie de Covid-19 est une pandémie d'une maladie infectieuse. Le meilleur moyen de ne pas l'attraper est de se protéger et s'éloigner au plus de la maladie. Déplacez vous à l'aide de votre motricité et esquivez le dangeureux coronavirus."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"

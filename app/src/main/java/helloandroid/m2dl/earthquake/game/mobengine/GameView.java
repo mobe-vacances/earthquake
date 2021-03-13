@@ -55,9 +55,5 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback {
         for(Drawable drawable : gameEngine.getDrawables()) {
             drawable.draw(canvas);
         }
-        if(!GameEngine.isRunning()){
-            PauseDisplay p = new PauseDisplay();
-            p.draw(canvas);
-        }
     }
 }
