@@ -54,9 +54,7 @@ public class Pause implements Drawable {
     }
 
     public static boolean intersectsWithPause(int x, int y) {
-        System.out.println(LEFT +" < " +x+ "  < " +RIGHT);
-
-        return Rect.intersects(Pause.createRect(), new Rect(x, y, x+1, y+1));
+        return createRect().contains(x, y);
     }
 
     public static void pauseGame(){

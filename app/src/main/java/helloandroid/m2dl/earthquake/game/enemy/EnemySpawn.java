@@ -22,9 +22,10 @@ public class EnemySpawn implements AutoHandler {
     private final Handler handler = new Handler();
 
     private final Runnable addEnemy = () -> {
-        Enemy enemy = new Enemy(playerHitbox, newEnemyRectOutsideOfGameRect());
-        GameEngine.addGameElements(enemy);
-
+        if(GameEngine.isRunning()) {
+            Enemy enemy = new Enemy(playerHitbox, newEnemyRectOutsideOfGameRect());
+            GameEngine.addGameElements(enemy);
+        }
         handler.postDelayed(this.addEnemy, (long) ((GameConstants.ENEMY_BASE_SPAWN_RATE + RandomService.get().nextInt(GameConstants.ENEMY_SPAWN_RATE_VARIATION))  / (GameState.getLevel() * BulletTime.getBulletTimeMultiplier())));
     };
 
