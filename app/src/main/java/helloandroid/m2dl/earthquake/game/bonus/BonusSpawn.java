@@ -21,7 +21,7 @@ public class BonusSpawn implements AutoHandler {
     private final Handler handler = new Handler();
 
     private final Runnable addBonus = () -> {
-        if(placedBonuses.size() < GameConstants.BONUS_MAX_OCCURRENCES) {
+        if(GameEngine.isRunning() && placedBonuses.size() < GameConstants.BONUS_MAX_OCCURRENCES) {
             Bonus newBonus = new Bonus(playerHitbox, this);
 
             while (intersectsWithPlacedBonuses(newBonus)){
