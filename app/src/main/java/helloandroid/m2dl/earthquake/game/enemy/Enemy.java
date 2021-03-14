@@ -10,6 +10,8 @@ import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
+import helloandroid.m2dl.earthquake.game.particle.Particle;
+import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
@@ -32,14 +34,14 @@ public class Enemy implements Drawable, Updatable {
 
     private EnemyState state = EnemyState.INOFFENSIVE;
 
-    private final Circle playerHitbox;
+    private final Player player;
 
-    public Enemy(Circle playerHitbox, Rect rect) {
-        this.playerHitbox = playerHitbox;
+    public Enemy(Player player, Rect rect) {
+        this.player = player;
         this.circle = new Circle(rect);
 
-        xSpeed = (playerHitbox.getEnclosingRect().exactCenterX() - rect.exactCenterX()) * GameConstants.ENEMY_INITIAL_SPEED;
-        ySpeed = (playerHitbox.getEnclosingRect().exactCenterY() - rect.exactCenterY()) * GameConstants.ENEMY_INITIAL_SPEED;
+        xSpeed = (player.getHitbox().getEnclosingRect().exactCenterX() - rect.exactCenterX()) * GameConstants.ENEMY_INITIAL_SPEED;
+        ySpeed = (player.getHitbox().getEnclosingRect().exactCenterY() - rect.exactCenterY()) * GameConstants.ENEMY_INITIAL_SPEED;
 
         Handler handler = new Handler();
         handler.postDelayed(
@@ -83,13 +85,27 @@ public class Enemy implements Drawable, Updatable {
             circle.getEnclosingRect().inset((int)(circle.getEnclosingRect().width() - size)/2, (int)(circle.getEnclosingRect().height() - size)/2);
         }
 
-        if(state == EnemyState.DANGER && Circle.intersects(circle, playerHitbox)) {
-            GameState.gameOver();
+        if(state == EnemyState.DANGER && Circle.intersects(circle, player.getHitbox())) {
+            player.die();
         }
 
         if(state == EnemyState.DANGER && !GameState.getGameRect().contains(circle.getEnclosingRect())) {
+            spawnEnemyDeathParticles(circle.getEnclosingRect().exactCenterX(), circle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);
         }
     }
 
+    private static void spawnEnemyDeathParticles(float x, float y) {
+        for (int i = RandomService.nextIntBetween(GameConstants.ENEMY_DEATH_PARTICLE_MIN_NUMBER, GameConstants.ENEMY_DEATH_PARTICLE_MAX_NUMBER); i > 0; i--) {
+            GameEngine.addGameElements(new Particle(
+                    x,
+                    y,
+                    GameConstants.ENEMY_DEATH_PARTICLE_RADIUS,
+                    RandomService.nextDoubleBetween(GameConstants.ENEMY_DEATH_PARTICLE_MIN_SPEED, GameConstants.ENEMY_DEATH_PARTICLE_MAX_SPEED),
+                    2*Math.PI*RandomService.get().nextDouble(),
+                    GameConstants.ENEMY_DEATH_PARTICLE_COLORS[RandomService.get().nextInt(GameConstants.ENEMY_DEATH_PARTICLE_COLORS.length)],
+                    true
+            ));
+        }
+    }
 }

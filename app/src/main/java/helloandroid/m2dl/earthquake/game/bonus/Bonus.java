@@ -53,7 +53,7 @@ public class Bonus implements Drawable, Updatable {
     @Override
     public void update(int delta) {
         if( Circle.intersects(playerHitbox, rect) ) {
-            GameState.increaseScore(GameConstants.BONUS_SCORE);
+            GameState.increaseScore(GameConstants.BONUS_SCORE*GameState.getLevel());
             bonusSpawn.removeBonus(this);
             return;
         }
