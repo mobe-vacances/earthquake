@@ -44,13 +44,13 @@
         app:srcCompat="@drawable/coronavirus_safe_img" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/congratulations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Le jeu du COVID19"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/usernameEditor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,9 +61,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="72dp"
-        android:onClick="test"
+        android:onClick="lauchGame"
         android:text="Survivre >"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,20 +101,20 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/usernameEditor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="Entrez un nom de joueur..."
         android:inputType="textPersonName"
-        android:text="Les décideurs"
         android:textAlignment="center"
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.946" />
+        app:layout_constraintVertical_bias="0.944" />
 
     <TextView
         android:id="@+id/textView"

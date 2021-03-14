@@ -11,24 +11,40 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import helloandroid.m2dl.earthquake.R;
+import helloandroid.m2dl.earthquake.game.database.FirebaseDatabaseHandler;
 import helloandroid.m2dl.earthquake.game.state.GameState;
+
+import static java.lang.Math.min;
 
 public class GameOver extends AppCompatActivity {
 
-    int highestScore;
+    private int highestScore;
 
-    int currentScore;
+    private int currentScore;
+
+    public Map<String, Integer> worldScore;
+
+    private FirebaseDatabaseHandler db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
+        db = new FirebaseDatabaseHandler(this);
+        worldScore = new HashMap<>();
         loadHighestScore();
         loadCurrentScore();
         updateHighestScore();
         showScore();
-        fillScoresTable();
+        updateTable();
     }
 
     private void loadHighestScore() {
@@ -43,7 +59,13 @@ public class GameOver extends AppCompatActivity {
     private void updateHighestScore() {
         if (currentScore > highestScore) {
             highestScore = currentScore;
+            db.addOrUpdateScore(getUsername(), highestScore);
         }
+    }
+
+    public String getUsername() {
+        SharedPreferences preferences = getSharedPreferences("score", MODE_PRIVATE);
+        return preferences.getString("username", "");
     }
 
     private void saveHighestScore() {
@@ -60,18 +82,22 @@ public class GameOver extends AppCompatActivity {
         highestScoreView.setText(highestScoreView.getText().toString() + highestScore);
     }
 
-    private void fillScoresTable() {
+    public void updateTable() {
+        db.getAllScores();
+    }
+
+    public void fillScoresTable() {
         LinearLayout scoresTable = findViewById(R.id.scoresLayout);
         ConstraintLayout scoresLayout = (ConstraintLayout) scoresTable.getChildAt(0);
 
-        for (int i = 0; i < scoresLayout.getChildCount(); i++) {
+        List<String> keys = new ArrayList<>(worldScore.keySet());
+        for (int i = 0; i < min(scoresLayout.getChildCount(), worldScore.size()); i++) {
             LinearLayout line = (LinearLayout) scoresLayout.getChildAt(i);
             ConstraintLayout cr = (ConstraintLayout) line.getChildAt(0);
             TextView name = (TextView) cr.getChildAt(1);
             TextView score = (TextView) cr.getChildAt(2);
-
-            name.setText("Name " + i);
-            score.setText("Score " + i);
+            name.setText(keys.get(i));
+            score.setText(worldScore.get(keys.get(i)).toString());
         }
     }
 
