@@ -8,7 +8,7 @@ public class GameConstants {
     public static final double PLAYER_MAX_SPEED = 0.35;
     public static final double PLAYER_ROTATION_SPEED = 0.2;
 
-    public static final double ACCELEROMETER_SENSIBILITY = 0.0033;
+    public static final double ACCELEROMETER_SENSIBILITY = 0.7;
 
     public static final double BACKGROUND_COLOR_INERTIA = 0.0007;
 
@@ -16,7 +16,10 @@ public class GameConstants {
     public static final int HEADER_HEIGHT = 100;
     public static final int HEADER_PADDING = 40;
 
-    public static final int HEADER_TEXT_SIZE = 80;
+    public static final int PAUSE_TEXT_SIZE  = 30;
+    public static final int PAUSE_TITLE_TEXT_SIZE  = 100;
+
+    public static final int HEADER_TEXT_SIZE = 40;
     public static final int HEADER_TEXT_COLOR = Color.rgb(72,118,130);
 
     public static final int ENEMY_SIZE = 40;

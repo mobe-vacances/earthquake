@@ -23,23 +23,22 @@ public class GameStep implements Runnable {
 
     @Override
     public void run() {
-        if(!GameEngine.isRunning()) {
-            return;
-        }
-
         long currentTimeStamp = System.currentTimeMillis();
-        int delta = (int) (currentTimeStamp - lastTimeStamp);
 
-        gameEngine.addElementsToAdd();
-        for(Updatable updatable : gameEngine.getUpdatables() ) {
-            updatable.update(delta);
+        if(GameEngine.isRunning()) {
+
+            int delta = (int) (currentTimeStamp - lastTimeStamp);
+
+            gameEngine.addElementsToAdd();
+            for (Updatable updatable : gameEngine.getUpdatables()) {
+                updatable.update(delta);
+            }
+            gameEngine.removeElementsToRemove();
         }
-        gameEngine.removeElementsToRemove();
-
         try {
             canvas = this.surfaceHolder.lockCanvas();
             synchronized (surfaceHolder) {
-                this.gameView.draw(canvas);
+                    this.gameView.draw(canvas);
             }
         } catch (Exception ignored) {
         } finally {
@@ -51,7 +50,10 @@ public class GameStep implements Runnable {
                 }
             }
         }
-
-        lastTimeStamp = currentTimeStamp;
+        if(GameEngine.isRunning()){
+            lastTimeStamp = currentTimeStamp;
+        }else{
+            lastTimeStamp= System.currentTimeMillis();
+        }
     }
 }

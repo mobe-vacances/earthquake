@@ -5,6 +5,7 @@ import android.os.Handler;
 
 import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
+import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
@@ -17,18 +18,19 @@ public class EnemySpawn implements AutoHandler {
     private static final int RIGHT = 2;
     private static final int BOTTOM = 3;
 
-    private Rect playerHitbox;
+    private Circle playerHitbox;
 
     private final Handler handler = new Handler();
 
     private final Runnable addEnemy = () -> {
-        Enemy enemy = new Enemy(playerHitbox, newEnemyRectOutsideOfGameRect());
-        GameEngine.addGameElements(enemy);
-
+        if(GameEngine.isRunning()) {
+            Enemy enemy = new Enemy(playerHitbox, newEnemyRectOutsideOfGameRect());
+            GameEngine.addGameElements(enemy);
+        }
         handler.postDelayed(this.addEnemy, (long) ((GameConstants.ENEMY_BASE_SPAWN_RATE + RandomService.get().nextInt(GameConstants.ENEMY_SPAWN_RATE_VARIATION))  / (GameState.getLevel() * BulletTime.getBulletTimeMultiplier())));
     };
 
-    public EnemySpawn(Rect playerHitbox) {
+    public EnemySpawn(Circle playerHitbox) {
         this.playerHitbox = playerHitbox;
         handler.postDelayed(this.addEnemy, (long) ((GameConstants.BONUS_MIN_DELAY + RandomService.get().nextInt(GameConstants.BONUS_MAX_DELAY_VARIATION)) / (GameState.getLevel() * BulletTime.getBulletTimeMultiplier())));
     }

@@ -24,9 +24,9 @@ public class LevelDisplay implements Drawable {
         paint.setTextAlign(Paint.Align.RIGHT);
 
         canvas.drawText(
-                "" + GameState.getLevel(),
+                GameState.getLevel() + " : Level",
                 DisplayScale.getRect().width() - GameConstants.HEADER_PADDING,
-                GameConstants.HEADER_TEXT_SIZE,
+                (2*GameConstants.HEADER_HEIGHT/3),
                 paint
         );
     }

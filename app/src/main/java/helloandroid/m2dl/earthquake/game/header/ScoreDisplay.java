@@ -22,9 +22,9 @@ public class ScoreDisplay implements Drawable {
         paint.setTextSize(GameConstants.HEADER_TEXT_SIZE);
 
         canvas.drawText(
-                "" + GameState.getScore(),
+                "Score : " + GameState.getScore(),
                 GameConstants.HEADER_PADDING,
-                GameConstants.HEADER_TEXT_SIZE,
+                (2*GameConstants.HEADER_HEIGHT/3),
                 paint
         );
     }
