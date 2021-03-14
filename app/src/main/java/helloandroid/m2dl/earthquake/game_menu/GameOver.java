@@ -12,7 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,13 +93,16 @@ public class GameOver extends AppCompatActivity {
         ConstraintLayout scoresLayout = (ConstraintLayout) scoresTable.getChildAt(0);
 
         List<String> keys = new ArrayList<>(worldScore.keySet());
+        List<Map.Entry<String, Integer>> entries = new LinkedList(worldScore.entrySet());
+        entries.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
         for (int i = 0; i < min(scoresLayout.getChildCount(), worldScore.size()); i++) {
             LinearLayout line = (LinearLayout) scoresLayout.getChildAt(i);
             ConstraintLayout cr = (ConstraintLayout) line.getChildAt(0);
             TextView name = (TextView) cr.getChildAt(1);
             TextView score = (TextView) cr.getChildAt(2);
-            name.setText(keys.get(i));
-            score.setText(worldScore.get(keys.get(i)).toString());
+            Map.Entry e = entries.get(i);
+            name.setText(e.getKey().toString());
+            score.setText(e.getValue().toString());
         }
     }
 
