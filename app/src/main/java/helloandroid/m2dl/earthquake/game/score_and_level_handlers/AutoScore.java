@@ -13,7 +13,7 @@ public class AutoScore implements AutoHandler {
 
     private Runnable addScore = () -> {
         if(GameEngine.isRunning()) {
-            GameState.increaseScore(GameConstants.SCORE_AUTO_INCREMENT_VALUE);
+            GameState.increaseScore(GameConstants.SCORE_AUTO_INCREMENT_BASE_VALUE*GameState.getLevel());
         }
         handler.postDelayed(this.addScore, GameConstants.SCORE_AUTO_INCREMENT_TIME);
     };

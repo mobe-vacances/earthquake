@@ -43,8 +43,8 @@ public class GameConstants {
 
     public static final double ENEMY_DEATH_PARTICLE_MIN_SPEED = 0.1;
     public static final double ENEMY_DEATH_PARTICLE_MAX_SPEED = 0.3;
-    public static final int ENEMY_DEATH_PARTICLE_MIN_NUMBER = 15;
-    public static final int ENEMY_DEATH_PARTICLE_MAX_NUMBER = 30;
+    public static final int ENEMY_DEATH_PARTICLE_MIN_NUMBER = 10;
+    public static final int ENEMY_DEATH_PARTICLE_MAX_NUMBER = 20;
     public static final float ENEMY_DEATH_PARTICLE_RADIUS = 3.0f;
     public static final int[] ENEMY_DEATH_PARTICLE_COLORS = {
             Color.rgb(238,97,97),
@@ -55,18 +55,22 @@ public class GameConstants {
 
     public static final int BONUS_SIZE = 50;
     public static final double BONUS_GROWING_SPEED = 0.005;
-    public static final int BONUS_SCORE = 50;
+    public static final int BONUS_BASE_SCORE = 10;
     public static final int BONUS_MIN_DELAY = 1000;
     public static final int BONUS_MAX_DELAY_VARIATION = 2000;
     public static final int BONUS_MAX_OCCURRENCES = 10;
+
+    public static final double BONUS_PICKUP_ROTATION_SPEED = 0.15;
+    public static final int BONUS_PICKUP_BASE_TEXT_SIZE = 40;
+    public static final double BONUS_PICKUP_DEGROWTH_SPEED = 0.01;
 
     public static final double BULLET_TIME_MULTIPLIER = 0.2;
     public static final int BULLET_TIME_DURATION = 3000;
     public static final int BULLET_TIME_COOLDOWN = 5000;
     public static final int BULLET_TIME_HEIGHT = 10;
 
-    public static final int SCORE_AUTO_INCREMENT_TIME = 1000;
-    public static final int SCORE_AUTO_INCREMENT_VALUE = 1;
+    public static final int SCORE_AUTO_INCREMENT_TIME = 2000;
+    public static final int SCORE_AUTO_INCREMENT_BASE_VALUE = 1;
 
     public static final int LEVEL_AUTO_INCREMENT_TIME = 20000;
 
@@ -75,7 +79,8 @@ public class GameConstants {
     public static final int GAME_OVER_DELAY = 4000;
 
     public static final int BACKGROUND_Z_INDEX = 0;
-    public static final int PARTICLE_Z_INDEX = 1;
+    public static final int BONUS_PICKUP_Z_INDEX = 1;
+    public static final int PARTICLE_Z_INDEX = 2;
     public static final int BONUS_Z_INDEX = 10;
     public static final int ENEMY_Z_INDEX = 20;
     public static final int PLAYER_Z_INDEX = 100;
