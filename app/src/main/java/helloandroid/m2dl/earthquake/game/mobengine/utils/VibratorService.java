@@ -8,8 +8,6 @@ public class VibratorService {
 
     private static Vibrator vibrator;
 
-    private static boolean canClick, canTick;
-
     public static void requestVibrator(Context context) {
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
@@ -20,15 +18,9 @@ public class VibratorService {
         }
     }
 
-    public static void heavyCLick() {
+    public static void heavyClick() {
         if(vibrator != null && vibrator.hasVibrator()) {
             vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK));
-        }
-    }
-
-    public static void doubleCLick() {
-        if(vibrator != null && vibrator.hasVibrator()) {
-            vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_DOUBLE_CLICK));
         }
     }
 
