@@ -12,7 +12,7 @@
         android:layout_width="221dp"
         android:layout_height="238dp"
         android:fontFamily="cursive"
-        android:text="Application créé dans le cadre de l'enseignement universitaire de MOBE (Conception d’applications ambiantes) du Master Développement Logiciel de l'Université Toulouse III - PAul Sabatier."
+        android:text="Application créée dans le cadre de l'enseignement universitaire de MOBE (Conception d’applications embarquées) du Master Développement Logiciel de l'Université Toulouse III - Paul Sabatier."
         android:textAlignment="center"
         android:textColor="#333"
         android:textSize="20sp"
