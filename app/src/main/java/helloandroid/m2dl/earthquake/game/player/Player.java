@@ -29,7 +29,7 @@ public class Player implements Drawable, Updatable {
     private double xAcceleration = 0.0;
     private double yAcceleration = 0.0;
 
-    private int rotation = 0;
+    private float rotation = 0;
 
     @Override
     public int getZIndex() {
@@ -51,7 +51,7 @@ public class Player implements Drawable, Updatable {
 
     @Override
     public void update(int delta) {
-        rotation = (int) ((rotation + GameConstants.PLAYER_ROTATION_SPEED*delta) % 360);
+        rotation = (float) ((rotation + GameConstants.PLAYER_ROTATION_SPEED*delta) % 360);
 
         double direction = Math.atan2(yAcceleration,xAcceleration);
         double speed = Math.min(Math.sqrt(xAcceleration*xAcceleration + yAcceleration*yAcceleration),GameConstants.PLAYER_MAX_SPEED);
