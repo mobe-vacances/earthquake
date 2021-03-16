@@ -3,7 +3,7 @@ package helloandroid.m2dl.earthquake.game.background;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 
-import helloandroid.m2dl.earthquake.game.mobengine.BaseSensorEventListener;
+import helloandroid.m2dl.earthquake.game.mobengine.event_listeners.BaseSensorEventListener;
 
 public class LightEventListener extends BaseSensorEventListener {
 

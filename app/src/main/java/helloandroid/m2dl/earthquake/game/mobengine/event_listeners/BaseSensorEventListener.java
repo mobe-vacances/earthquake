@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.mobengine;
+package helloandroid.m2dl.earthquake.game.mobengine.event_listeners;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

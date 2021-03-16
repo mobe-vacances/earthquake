@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import helloandroid.m2dl.earthquake.game.mobengine.event_listeners.BaseSensorEventListener;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.BitmapStore;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;

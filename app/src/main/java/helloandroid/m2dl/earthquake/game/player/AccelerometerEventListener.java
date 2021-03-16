@@ -4,8 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.player.Player;
-import helloandroid.m2dl.earthquake.game.mobengine.BaseSensorEventListener;
+import helloandroid.m2dl.earthquake.game.mobengine.event_listeners.BaseSensorEventListener;
 
 public class AccelerometerEventListener extends BaseSensorEventListener {
 
