@@ -17,9 +17,13 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.activity_menu2);
     }
 
-    public void lauchGame(View view){
+    public void launchGame(View view){
         Intent intent = new Intent(MainMenu.this, GameActivity.class);
         startActivity(intent);
+    }
 
+    public void launchCredit(View view) {
+        Intent intent = new Intent(MainMenu.this, Credit.class);
+        startActivity(intent);
     }
 }
