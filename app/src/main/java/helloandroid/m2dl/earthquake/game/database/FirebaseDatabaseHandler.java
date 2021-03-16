@@ -1,8 +1,5 @@
 package helloandroid.m2dl.earthquake.game.database;
 
-import android.view.View;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -14,7 +11,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game_menu.GameOver;
 
 public class FirebaseDatabaseHandler {
@@ -28,7 +24,7 @@ public class FirebaseDatabaseHandler {
         database = FirebaseDatabase.getInstance();
     }
 
-    public void getAllScores() {
+    public void getAllScores(String user, String id, int score) {
         DatabaseReference scoresReference = database.getReference().child("scores");
         final Map<String, Integer> scores = new HashMap<>();
         scoresReference.addValueEventListener(new ValueEventListener() {
@@ -39,7 +35,8 @@ public class FirebaseDatabaseHandler {
                     scores.put(element.getKey(), Integer.parseInt(element.getValue().toString()));
                 }
                 context.worldScore = scores;
-                context.fillScoresTable();
+                context.worldScore.put(id + '@' + user, score);
+                context.showScoresTable();
             }
 
             @Override
@@ -49,8 +46,8 @@ public class FirebaseDatabaseHandler {
         });
     }
 
-    public void addOrUpdateScore(String user, int score) {
+    public void addOrUpdateScore(String user, String id, int score) {
         DatabaseReference scoresReference = database.getReference().child("scores");
-        scoresReference.child(user).setValue(score);
+        scoresReference.child(id + '@' + user).setValue(score);
     }
 }
