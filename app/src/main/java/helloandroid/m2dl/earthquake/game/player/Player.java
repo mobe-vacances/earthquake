@@ -23,6 +23,9 @@ public class Player implements Drawable, Updatable {
             DisplayScale.getRect().centerY() + GameConstants.PLAYER_SIZE / 2
     ));
 
+    private float x = playerCircle.getEnclosingRect().left;
+    private float y = playerCircle.getEnclosingRect().top;
+
     private double xAcceleration = 0.0;
     private double yAcceleration = 0.0;
 
@@ -53,9 +56,12 @@ public class Player implements Drawable, Updatable {
         double direction = Math.atan2(yAcceleration,xAcceleration);
         double speed = Math.min(Math.sqrt(xAcceleration*xAcceleration + yAcceleration*yAcceleration),GameConstants.PLAYER_MAX_SPEED);
 
+        x += speed*Math.cos(direction)*delta;
+        y += speed*Math.sin(direction)*delta;
+
         playerCircle.getEnclosingRect().offsetTo(
-                (int)(playerCircle.getEnclosingRect().left + speed*Math.cos(direction)*delta),
-                (int)(playerCircle.getEnclosingRect().top + speed*Math.sin(direction)*delta)
+                (int) x,
+                (int) y
         );
 
         if(!GameState.getGameRect().contains(playerCircle.getEnclosingRect())) {
