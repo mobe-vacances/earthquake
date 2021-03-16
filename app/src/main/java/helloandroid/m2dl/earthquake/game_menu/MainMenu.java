@@ -20,6 +20,10 @@ public class MainMenu extends AppCompatActivity {
     public void lauchGame(View view){
         Intent intent = new Intent(MainMenu.this, GameActivity.class);
         startActivity(intent);
+    }
 
+    public void lauchCredit(View view) {
+        Intent intent = new Intent(MainMenu.this, Credit.class);
+        startActivity(intent);
     }
 }
