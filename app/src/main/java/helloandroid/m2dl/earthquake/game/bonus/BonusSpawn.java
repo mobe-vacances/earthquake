@@ -6,7 +6,7 @@ import android.os.Handler;
 import java.util.ArrayList;
 import java.util.List;
 
-import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;

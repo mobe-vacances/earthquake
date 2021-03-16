@@ -7,7 +7,7 @@ import android.graphics.Rect;
 import android.os.Handler;
 
 import helloandroid.m2dl.earthquake.R;
-import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.particle.Particle;
