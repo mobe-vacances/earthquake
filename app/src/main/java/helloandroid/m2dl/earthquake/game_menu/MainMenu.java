@@ -14,6 +14,8 @@ import java.util.UUID;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameActivity;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.PermissionUtil;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -21,8 +23,11 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu2);
+        PermissionUtil.checkAndRequestAllPermissions(this);
+        VibratorService.requestVibrator(this);
         findViewById(R.id.textViewObligatoire).setVisibility(View.GONE);
         getUsername();
+
     }
 
     public void launchGame(View view){
@@ -35,6 +40,7 @@ public class MainMenu extends AppCompatActivity {
             setUsername(userName);
             Intent intent = new Intent(MainMenu.this, GameActivity.class);
             startActivity(intent);
+            VibratorService.heavyClick();
         }
     }
 

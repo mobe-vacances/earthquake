@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.mobengine;
+package helloandroid.m2dl.earthquake.game.mobengine.utils;
 
 import java.util.Random;
 
