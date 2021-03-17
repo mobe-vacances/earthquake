@@ -1,15 +1,16 @@
-package helloandroid.m2dl.earthquake.game.mobengine.event_listeners;
+package helloandroid.m2dl.earthquake.game.mobengine.sensors;
 
 import android.hardware.Sensor;
-import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
+
+import helloandroid.m2dl.earthquake.game.mobengine.sensors.SensorManagerService;
 
 public abstract class BaseSensorEventListener implements SensorEventListener {
 
     private Sensor sensor;
 
-    public BaseSensorEventListener(Sensor sensor) {
-        this.sensor = sensor;
+    public BaseSensorEventListener(int type) {
+        this.sensor = SensorManagerService.getDefaultSensor(type);
     }
 
     public Sensor getSensor() {

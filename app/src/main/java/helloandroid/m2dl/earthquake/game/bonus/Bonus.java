@@ -6,13 +6,13 @@ import android.graphics.Rect;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
-import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.state.GameState;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.BitmapStore;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Updatable;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;
 
 public class Bonus implements Drawable, Updatable {
 

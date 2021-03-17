@@ -1,13 +1,12 @@
 package helloandroid.m2dl.earthquake.game.particle;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Updatable;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 
 public class Particle implements Drawable, Updatable {

@@ -3,16 +3,16 @@ package helloandroid.m2dl.earthquake.game.background;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 
-import helloandroid.m2dl.earthquake.game.mobengine.event_listeners.BaseSensorEventListener;
+import helloandroid.m2dl.earthquake.game.mobengine.sensors.BaseSensorEventListener;
 
 public class LightEventListener extends BaseSensorEventListener {
 
     private float maxLight = 0.0f;
 
-    private Background background;
+    private final Background background;
 
-    public LightEventListener(Sensor sensor, Background background) {
-        super(sensor);
+    public LightEventListener(Background background) {
+        super(Sensor.TYPE_LIGHT);
         this.background = background;
     }
 

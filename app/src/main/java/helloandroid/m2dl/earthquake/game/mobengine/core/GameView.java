@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.mobengine;
+package helloandroid.m2dl.earthquake.game.mobengine.core;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -12,8 +12,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
+import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.DisplayScale;
 
 
 public class GameView extends SurfaceView implements SurfaceHolder.Callback {

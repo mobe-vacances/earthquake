@@ -4,7 +4,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.DisplayScale;
 import helloandroid.m2dl.earthquake.game.pause.Pause;
 
 public class OnTouchListener implements View.OnTouchListener {

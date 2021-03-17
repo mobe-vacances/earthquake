@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.mobengine.statics;
+package helloandroid.m2dl.earthquake.game.mobengine.resource_stores;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

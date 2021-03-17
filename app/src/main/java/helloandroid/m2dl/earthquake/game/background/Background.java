@@ -4,8 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Updatable;
 
 public class Background implements Drawable, Updatable {
 

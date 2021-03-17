@@ -36,10 +36,9 @@ public class GameConstants {
     public static final int ENEMY_SIZE = 40;
     public static final double ENEMY_INITIAL_SPEED = 0.0002;
     public static final double ENEMY_ROTATION_SPEED = 0.5;
-    public static final double ENEMY_GROWING_SPEED = 0.05;
-    public static final int ENEMY_GROWING_TIME = 3000;
-    public static final int ENEMY_BASE_SPAWN_RATE = 3000;
-    public static final int ENEMY_SPAWN_RATE_VARIATION = 3000;
+    public static final double ENEMY_GROWING_SPEED = 0.025;
+    public static final int ENEMY_BASE_SPAWN_RATE_MIN = 3000;
+    public static final int ENEMY_BASE_SPAWN_RATE_MAX = 6000;
 
     public static final double ENEMY_DEATH_PARTICLE_MIN_SPEED = 0.1;
     public static final double ENEMY_DEATH_PARTICLE_MAX_SPEED = 0.3;
@@ -57,7 +56,7 @@ public class GameConstants {
     public static final double BONUS_GROWING_SPEED = 0.005;
     public static final int BONUS_BASE_SCORE = 10;
     public static final int BONUS_MIN_DELAY = 1000;
-    public static final int BONUS_MAX_DELAY_VARIATION = 2000;
+    public static final int BONUS_MAX_DELAY = 3000;
     public static final int BONUS_MAX_OCCURRENCES = 10;
 
     public static final double BONUS_PICKUP_ROTATION_SPEED = 0.15;

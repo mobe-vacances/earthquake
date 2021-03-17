@@ -3,7 +3,7 @@ package helloandroid.m2dl.earthquake.game.state;
 import android.graphics.Rect;
 
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.DisplayScale;
 
 public class GameState {
 

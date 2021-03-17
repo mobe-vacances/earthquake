@@ -5,7 +5,7 @@ import android.graphics.Paint;
 
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.state.GameState;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
 
 public class ScoreDisplay implements Drawable {
 

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
+import helloandroid.m2dl.earthquake.game.mobengine.auto_handlers.AutoHandlerStore;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Updatable;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
+import helloandroid.m2dl.earthquake.game.mobengine.sensors.SensorManagerService;
 
 
 public class GameEngine {
@@ -44,16 +46,22 @@ public class GameEngine {
     public static void start() {
         running = true;
         SoundStore.startAllPaused();
+        AutoHandlerStore.start();
+        SensorManagerService.registerListeners();
     }
 
     public static void pause() {
         running = false;
         SoundStore.pauseAll();
+        AutoHandlerStore.stop();
+        SensorManagerService.unregisterListeners();
     }
 
     public static void reset() {
         drawables.clear();
         updatables.clear();
+        AutoHandlerStore.stop();
+        AutoHandlerStore.getAutoHandlers().clear();
     }
 
     public void removeElementsToRemove() {

@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.mobengine.statics;
+package helloandroid.m2dl.earthquake.game.mobengine.resource_stores;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -10,13 +10,11 @@ import java.util.Map;
 
 public class SoundStore {
 
-    private static Map<Integer, MediaPlayer> mediaPlayerMap;
+    private static final Map<Integer, MediaPlayer> mediaPlayerMap = new HashMap<>();
 
-    private static List<MediaPlayer> pausedMediaPlayers;
+    private static final List<MediaPlayer> pausedMediaPlayers = new ArrayList<>();
 
     public static void createMediaPlayers(int[] soundIds, Context context) {
-        pausedMediaPlayers = new ArrayList<>();
-        mediaPlayerMap = new HashMap<>();
         for(Integer soundId : soundIds) {
             mediaPlayerMap.put(soundId, MediaPlayer.create(context, soundId));
         }

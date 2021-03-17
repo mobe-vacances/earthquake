@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.mobengine.elements;
+package helloandroid.m2dl.earthquake.game.mobengine.core;
 
 import android.graphics.Canvas;
 

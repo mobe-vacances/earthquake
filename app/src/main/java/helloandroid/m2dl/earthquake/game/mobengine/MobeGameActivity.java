@@ -2,30 +2,19 @@ package helloandroid.m2dl.earthquake.game.mobengine;
 
 import android.app.Activity;
 import android.graphics.Point;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import helloandroid.m2dl.earthquake.game.mobengine.event_listeners.BaseSensorEventListener;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.BitmapStore;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameView;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.DisplayScale;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
+import helloandroid.m2dl.earthquake.game.mobengine.sensors.SensorManagerService;
 
 
 public abstract class MobeGameActivity extends Activity {
-
-    protected abstract int[] getUsedSoundIds();
-
-    protected abstract int[] getUsedBitmapsIds();
-
-    private List<BaseSensorEventListener> baseSensorEventListeners;
-
-    private SensorManager sensorManager;
 
     private GameView gameView;
 
@@ -36,10 +25,6 @@ public abstract class MobeGameActivity extends Activity {
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getRealSize(size);
         DisplayScale.updateScale(size);
-
-        SoundStore.createMediaPlayers(getUsedSoundIds(), this);
-
-        BitmapStore.decodeBitmaps(getUsedBitmapsIds(), getResources());
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -54,10 +39,6 @@ public abstract class MobeGameActivity extends Activity {
                         | View.SYSTEM_UI_FLAG_FULLSCREEN
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
-
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-        baseSensorEventListeners = new ArrayList<>();
 
         gameView = new GameView(this, new GameEngine());
 
@@ -79,34 +60,13 @@ public abstract class MobeGameActivity extends Activity {
                         | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
 
-        for (BaseSensorEventListener baseSensorEventListener : baseSensorEventListeners) {
-            sensorManager.registerListener(baseSensorEventListener, baseSensorEventListener.getSensor(), SensorManager.SENSOR_DELAY_GAME);
-        }
-
         GameEngine.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        for (BaseSensorEventListener baseSensorEventListener : baseSensorEventListeners) {
-            sensorManager.unregisterListener(baseSensorEventListener);
-        }
         GameEngine.pause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        SoundStore.releaseMediaPlayers();
-    }
-
-    protected List<BaseSensorEventListener> getBaseSensorEventListeners() {
-        return baseSensorEventListeners;
-    }
-
-    public SensorManager getSensorManager() {
-        return sensorManager;
     }
 
     public GameView getGameView() {

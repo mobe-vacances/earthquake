@@ -7,7 +7,7 @@ import android.graphics.Rect;
 import android.os.Handler;
 
 import helloandroid.m2dl.earthquake.R;
-import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.particle.Particle;
@@ -15,9 +15,9 @@ import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
-import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.BitmapStore;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
+import helloandroid.m2dl.earthquake.game.mobengine.core.Updatable;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;
 
 public class Enemy implements Drawable, Updatable {
 
@@ -42,12 +42,6 @@ public class Enemy implements Drawable, Updatable {
 
         xSpeed = (player.getHitbox().getEnclosingRect().exactCenterX() - rect.exactCenterX()) * GameConstants.ENEMY_INITIAL_SPEED;
         ySpeed = (player.getHitbox().getEnclosingRect().exactCenterY() - rect.exactCenterY()) * GameConstants.ENEMY_INITIAL_SPEED;
-
-        Handler handler = new Handler();
-        handler.postDelayed(
-                () -> this.state = EnemyState.DANGER,
-                GameConstants.ENEMY_GROWING_TIME
-        );
     }
 
     @Override
@@ -80,9 +74,12 @@ public class Enemy implements Drawable, Updatable {
                 (int)(circle.getEnclosingRect().top + ySpeed*BulletTime.getBulletTimeMultiplier()*delta)
         );
 
-        if(size < GameConstants.ENEMY_SIZE) {
+        if(state == EnemyState.INOFFENSIVE && size < GameConstants.ENEMY_SIZE) {
             size = Math.min(size + GameConstants.ENEMY_GROWING_SPEED*delta, GameConstants.ENEMY_SIZE);
             circle.getEnclosingRect().inset((int)(circle.getEnclosingRect().width() - size)/2, (int)(circle.getEnclosingRect().height() - size)/2);
+            if (size >= GameConstants.ENEMY_SIZE) {
+                state = EnemyState.DANGER;
+            }
         }
 
         if(state == EnemyState.DANGER && Circle.intersects(circle, player.getHitbox())) {

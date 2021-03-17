@@ -1,18 +1,16 @@
 package helloandroid.m2dl.earthquake.game.enemy;
 
 import android.graphics.Rect;
-import android.os.Handler;
 
-import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.auto_handlers.AutoHandler;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
-import helloandroid.m2dl.earthquake.game.score_and_level_handlers.AutoHandler;
 
-public class EnemySpawn implements AutoHandler {
+public class EnemySpawn extends AutoHandler {
 
     private static final int LEFT = 0;
     private static final int TOP = 1;
@@ -21,19 +19,8 @@ public class EnemySpawn implements AutoHandler {
 
     private Player player;
 
-    private final Handler handler = new Handler();
-
-    private final Runnable addEnemy = () -> {
-        if(GameEngine.isRunning()) {
-            Enemy enemy = new Enemy(player, newEnemyRectOutsideOfGameRect());
-            GameEngine.addGameElements(enemy);
-        }
-        handler.postDelayed(this.addEnemy, (long) ((GameConstants.ENEMY_BASE_SPAWN_RATE + RandomService.get().nextInt(GameConstants.ENEMY_SPAWN_RATE_VARIATION))  / (GameState.getLevel() * BulletTime.getBulletTimeMultiplier())));
-    };
-
     public EnemySpawn(Player player) {
         this.player = player;
-        handler.postDelayed(this.addEnemy, (long) ((GameConstants.BONUS_MIN_DELAY + RandomService.get().nextInt(GameConstants.BONUS_MAX_DELAY_VARIATION)) / (GameState.getLevel() * BulletTime.getBulletTimeMultiplier())));
     }
 
     private static Rect newEnemyRectOutsideOfGameRect() {
@@ -75,9 +62,14 @@ public class EnemySpawn implements AutoHandler {
         return null;
     }
 
+    @Override
+    protected int getTriggerDelay() {
+        return (int) ( RandomService.nextIntBetween(GameConstants.ENEMY_BASE_SPAWN_RATE_MIN, GameConstants.ENEMY_BASE_SPAWN_RATE_MAX) / GameState.getLevel() * BulletTime.getBulletTimeMultiplier());
+    }
 
     @Override
-    public void removeCallback() {
-        handler.removeCallbacksAndMessages(null);
+    protected void onTrigger() {
+        Enemy enemy = new Enemy(player, newEnemyRectOutsideOfGameRect());
+        GameEngine.addGameElements(enemy);
     }
 }

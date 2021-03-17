@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.mobengine.statics;
+package helloandroid.m2dl.earthquake.game.mobengine.utils;
 
 import android.graphics.Point;
 import android.graphics.Rect;
