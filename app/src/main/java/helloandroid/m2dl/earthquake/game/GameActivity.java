@@ -3,9 +3,6 @@ package helloandroid.m2dl.earthquake.game;
 import android.content.Intent;
 import android.os.Bundle;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.bonus.BonusSpawn;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
@@ -28,7 +25,7 @@ import helloandroid.m2dl.earthquake.game.mobengine.MobeGameActivity;
 import helloandroid.m2dl.earthquake.game.score_and_level_handlers.AutoLevel;
 import helloandroid.m2dl.earthquake.game.score_and_level_handlers.AutoScore;
 import helloandroid.m2dl.earthquake.game.state.GameState;
-import helloandroid.m2dl.earthquake.game_menu.GameOver;
+import helloandroid.m2dl.earthquake.game_over.GameOver;
 
 public class GameActivity extends MobeGameActivity {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".game_menu.MainMenu">
+    tools:context=".main_menu.MainMenu">
 
     <ImageView
         android:id="@+id/imageView4"

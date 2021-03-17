@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game_menu;
+package helloandroid.m2dl.earthquake.main_menu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import helloandroid.m2dl.earthquake.R;
+import helloandroid.m2dl.earthquake.credits.Credit;
 import helloandroid.m2dl.earthquake.game.GameActivity;
 
 public class MainMenu extends AppCompatActivity {
