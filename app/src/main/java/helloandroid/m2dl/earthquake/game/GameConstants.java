@@ -2,7 +2,16 @@ package helloandroid.m2dl.earthquake.game;
 
 import android.graphics.Color;
 
+import helloandroid.m2dl.earthquake.R;
+
 public class GameConstants {
+
+    public static final int[] USED_BITMAP_IDS = {
+            R.drawable.world,
+            R.drawable.coronavirus_safe,
+            R.drawable.coronavirus,
+            R.drawable.mask
+    };
 
     public static final int PLAYER_SIZE = 50;
     public static final double PLAYER_MAX_SPEED = 0.35;

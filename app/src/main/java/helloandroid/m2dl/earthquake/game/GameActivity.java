@@ -29,19 +29,10 @@ import helloandroid.m2dl.earthquake.game_over.GameOver;
 
 public class GameActivity extends MobeGameActivity {
 
-    private static final int[] USED_BITMAP_IDS = {
-            R.drawable.world,
-            R.drawable.coronavirus_safe,
-            R.drawable.coronavirus,
-            R.drawable.mask
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         GameEngine.reset();
-
-        BitmapStore.decodeBitmaps(USED_BITMAP_IDS, getResources());
 
         GameState.resetGameState(() -> {
             startActivity(new Intent(GameActivity.this, GameOver.class));
