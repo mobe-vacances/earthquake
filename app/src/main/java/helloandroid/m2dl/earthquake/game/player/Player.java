@@ -5,15 +5,16 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.os.VibrationEffect;
 
 import java.util.function.Consumer;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.enemy.EnemyState;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
-import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.particle.Particle;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
@@ -95,6 +96,7 @@ public class Player implements Drawable, Updatable {
             dead = true;
             spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);
+            VibratorService.get().vibrate(VibrationEffect.createOneShot(GameConstants.GAME_OVER_DELAY/4, VibrationEffect.DEFAULT_AMPLITUDE));
 
             runOnUIThread.accept(() -> new Handler().postDelayed(
                     GameState::gameOver,
