@@ -15,10 +15,9 @@ public class SensorManagerService {
     private static final List<BaseSensorEventListener> eventListeners = new ArrayList<>();
 
     public static void requestSensorManager(Context context) {
-        if(eventListeners.size() > 0) {
-            unregisterListeners();
-            eventListeners.clear();
-        }
+        unregisterListeners();
+        eventListeners.clear();
+
         sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
     }
 

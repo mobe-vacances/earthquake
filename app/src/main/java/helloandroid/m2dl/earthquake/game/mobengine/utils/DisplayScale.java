@@ -19,11 +19,7 @@ public class DisplayScale {
             return;
         }
 
-        if( (float) min(size.x, size.y) / (float) BASE_WIDTH <= (float)  max(size.x, size.y) / (float) BASE_HEIGHT ) {
-            scale = (float) min(size.x, size.y) / (float) BASE_WIDTH;
-        } else {
-            scale = (float)  max(size.x, size.y) / (float) BASE_HEIGHT;
-        }
+        scale = Math.min((float) min(size.x, size.y) / (float) BASE_WIDTH, (float) max(size.x, size.y) / (float) BASE_HEIGHT);
         rect.bottom = (int) (size.y/scale);
         rect.right = (int) (size.x/scale);
     }
