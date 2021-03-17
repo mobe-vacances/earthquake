@@ -18,7 +18,6 @@ public class GameOver extends AppCompatActivity {
     }
 
     public void back(View view){
-        Intent intent = new Intent(GameOver.this, MainMenu.class);
-        startActivity(intent);
+        finish();
     }
 }
