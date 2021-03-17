@@ -4,10 +4,17 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.os.Handler;
+
+import java.util.function.Consumer;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
+import helloandroid.m2dl.earthquake.game.enemy.EnemyState;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
+import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.particle.Particle;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
@@ -27,6 +34,14 @@ public class Player implements Drawable, Updatable {
     private double yAcceleration = 0.0;
 
     private int rotation = 0;
+
+    private boolean dead = false;
+
+    private final Consumer<Runnable> runOnUIThread;
+
+    public Player(Consumer<Runnable> runOnUIThread) {
+        this.runOnUIThread = runOnUIThread;
+    }
 
     @Override
     public int getZIndex() {
@@ -59,7 +74,7 @@ public class Player implements Drawable, Updatable {
         );
 
         if(!GameState.getGameRect().contains(playerCircle.getEnclosingRect())) {
-            GameState.gameOver();
+            die();
         }
     }
 
@@ -73,5 +88,32 @@ public class Player implements Drawable, Updatable {
 
     public Circle getHitbox() {
         return playerCircle;
+    }
+
+    public void die() {
+        if(!dead) {
+            dead = true;
+            spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
+            GameEngine.removeGameElement(this);
+
+            runOnUIThread.accept(() -> new Handler().postDelayed(
+                    GameState::gameOver,
+                    GameConstants.GAME_OVER_DELAY
+            ));
+        }
+    }
+
+    private static void spawnPlayerDeathParticles(float x, float y) {
+        for (int i = GameConstants.PLAYER_DEATH_PARTICLE_NUMBER; i > 0; i--) {
+            GameEngine.addGameElements(new Particle(
+                    x,
+                    y,
+                    RandomService.nextFloatBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_RADIUS, GameConstants.PLAYER_DEATH_PARTICLE_MAX_RADIUS),
+                    RandomService.nextDoubleBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_SPEED, GameConstants.PLAYER_DEATH_PARTICLE_MAX_SPEED),
+                    2*Math.PI*RandomService.get().nextDouble(),
+                    GameConstants.PLAYER_DEATH_PARTICLE_COLORS[RandomService.get().nextInt(GameConstants.PLAYER_DEATH_PARTICLE_COLORS.length)],
+                    false
+            ));
+        }
     }
 }

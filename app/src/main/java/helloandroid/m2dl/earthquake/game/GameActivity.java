@@ -68,7 +68,7 @@ public class GameActivity extends MobeGameActivity {
 
         getGameView().setOnTouchListener(new OnTouchListener());
 
-        Player player = new Player();
+        Player player = new Player(this::runOnUiThread);
         Background background = new Background();
 
         getBaseSensorEventListeners().add(new AccelerometerEventListener(
@@ -82,7 +82,7 @@ public class GameActivity extends MobeGameActivity {
         ));
 
         autoHandlers.add(new BonusSpawn(player.getHitbox()));
-        autoHandlers.add(new EnemySpawn(player.getHitbox()));
+        autoHandlers.add(new EnemySpawn(player));
         autoHandlers.add(new AutoScore());
         autoHandlers.add(new AutoLevel());
 
@@ -99,4 +99,5 @@ public class GameActivity extends MobeGameActivity {
         );
         GameEngine.start();
     }
+
 }
