@@ -26,16 +26,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void launchGame(View view){
-        Intent intent = new Intent(MainMenu.this, GameActivity.class);
-        startActivity(intent);
-    }
-
-    public void launchCredit(View view) {
-        Intent intent = new Intent(MainMenu.this, Credit.class);
-        startActivity(intent);
-    public void lauchGame(View view) {
         String userName = ((EditText) findViewById(R.id.usernameEditor)).getText().toString();
-        System.out.println(userName);
         if(userName.replaceAll(" ","").length() == 0){
             findViewById(R.id.textViewObligatoire).setVisibility(View.VISIBLE);
             return ;
@@ -46,6 +37,12 @@ public class MainMenu extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    public void launchCredit(View view) {
+        Intent intent = new Intent(MainMenu.this, Credit.class);
+        startActivity(intent);
+    }
+
 
     public void setUsername(String newUsername) {
         SharedPreferences preferences = getSharedPreferences("score", MODE_PRIVATE);

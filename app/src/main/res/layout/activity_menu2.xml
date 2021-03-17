@@ -44,21 +44,6 @@
         app:srcCompat="@drawable/coronavirus_safe_img" />
 
     <TextView
-        android:id="@+id/congratulations"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Le jeu du COVID19"
-        android:textAlignment="center"
-        android:textColor="#333"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/usernameEditor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.941" />
-
-    <TextView
         android:id="@+id/textViewObligatoire"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,34 +52,7 @@
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.414" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="launchGame"
-        android:text="Survivre >"
-        android:textColor="#FFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
-        android:onClick="launchCredit"
-        android:text="Crédit"
-        android:textColor="#FFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.982" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameEditor" />
 
     <TextView
         android:id="@+id/textView6"
@@ -129,6 +87,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="206dp"
+        android:layout_height="143dp"
+        android:layout_marginTop="388dp"
+        android:text="La pandémie de Covid-19 menace la Terre. Le meilleur moyen de ne pas l'attraper est de se protéger et s'éloigner au plus de la maladie. Déplacez vous à l'aide de votre motricité et esquivez le dangeureux coronavirus."
+        android:textAlignment="center"
+        android:textColor="#333"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/usernameEditor"
         android:layout_width="wrap_content"
@@ -140,23 +111,47 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.946" />
+        app:layout_constraintVertical_bias="0.637" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="launchCredit"
+        android:text="Crédit"
+        android:textColor="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:onClick="launchGame"
+        android:text="Survivre >"
+        android:textColor="#FFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="206dp"
-        android:layout_height="143dp"
-        android:layout_marginTop="16dp"
-        android:text="La pandémie de Covid-19 menace la Terre. Le meilleur moyen de ne pas l'attraper est de se protéger et s'éloigner au plus de la maladie. Déplacez vous à l'aide de votre motricité et esquivez le dangeureux coronavirus."
+        android:id="@+id/congratulations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Le jeu du COVID19"
         android:textAlignment="center"
         android:textColor="#333"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/usernameEditor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.645" />
+        app:layout_constraintVertical_bias="0.956" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
