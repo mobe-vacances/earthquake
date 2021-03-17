@@ -10,10 +10,6 @@ public class RandomService {
         return random;
     }
 
-    public static double nextRelativeDouble() {
-        return random.nextDouble() - 0.5;
-    }
-
     public static int nextIntBetween(int min, int max) {
         return random.nextInt(max - min) + min;
     }

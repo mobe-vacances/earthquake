@@ -28,9 +28,9 @@ public class Enemy implements Drawable, Updatable {
     private double xSpeed;
     private double ySpeed;
 
-    private int rotation = 0;
+    private float rotation = 0;
 
-    private final double rotationSpeed = RandomService.nextRelativeDouble();
+    private final float rotationSpeed = RandomService.nextFloatBetween(GameConstants.ENEMY_MIN_ROTATION_SPEED, GameConstants.ENEMY_MAX_ROTATION_SPEED);
 
     private EnemyState state = EnemyState.INOFFENSIVE;
 
@@ -67,7 +67,7 @@ public class Enemy implements Drawable, Updatable {
 
     @Override
     public void update(int delta) {
-        rotation = (int) ((rotation + rotationSpeed*GameConstants.ENEMY_ROTATION_SPEED*delta) % 360);
+        rotation = (float) ((rotation + rotationSpeed*GameConstants.ENEMY_ROTATION_SPEED*delta) % 360);
 
         circle.getEnclosingRect().offsetTo(
                 (int)(circle.getEnclosingRect().left + xSpeed* BulletTime.getBulletTimeMultiplier()*delta),

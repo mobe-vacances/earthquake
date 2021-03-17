@@ -39,6 +39,8 @@ public class GameConstants {
     public static final double ENEMY_GROWING_SPEED = 0.025;
     public static final int ENEMY_BASE_SPAWN_RATE_MIN = 3000;
     public static final int ENEMY_BASE_SPAWN_RATE_MAX = 6000;
+    public static final float ENEMY_MIN_ROTATION_SPEED = -0.6f;
+    public static final float ENEMY_MAX_ROTATION_SPEED = 0.6f;
 
     public static final double ENEMY_DEATH_PARTICLE_MIN_SPEED = 0.1;
     public static final double ENEMY_DEATH_PARTICLE_MAX_SPEED = 0.3;
