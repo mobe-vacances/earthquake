@@ -98,7 +98,6 @@ public class GameOver extends AppCompatActivity {
     }
 
     public void back(View view){
-        music.stop();
         SoundStore.stopGameOverSoundMediaPlayer();
         SoundStore.playClickMediaPlayer();
         finish();
