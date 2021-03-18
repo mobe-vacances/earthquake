@@ -47,6 +47,8 @@ public class Player implements Drawable, Updatable {
         this.runOnUIThread = runOnUIThread;
     }
 
+    private static boolean animationActive;
+
     @Override
     public int getZIndex() {
         return GameConstants.PLAYER_Z_INDEX;
@@ -112,16 +114,26 @@ public class Player implements Drawable, Updatable {
     }
 
     private static void spawnPlayerDeathParticles(float x, float y) {
-        for (int i = GameConstants.PLAYER_DEATH_PARTICLE_NUMBER; i > 0; i--) {
-            GameEngine.addGameElements(new Particle(
-                    x,
-                    y,
-                    RandomService.nextFloatBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_RADIUS, GameConstants.PLAYER_DEATH_PARTICLE_MAX_RADIUS),
-                    RandomService.nextDoubleBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_SPEED, GameConstants.PLAYER_DEATH_PARTICLE_MAX_SPEED),
-                    2*Math.PI*RandomService.get().nextDouble(),
-                    GameConstants.PLAYER_DEATH_PARTICLE_COLORS[RandomService.get().nextInt(GameConstants.PLAYER_DEATH_PARTICLE_COLORS.length)],
-                    false
-            ));
+        if (animationActive) {
+            for (int i = GameConstants.PLAYER_DEATH_PARTICLE_NUMBER; i > 0; i--) {
+                GameEngine.addGameElements(new Particle(
+                        x,
+                        y,
+                        RandomService.nextFloatBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_RADIUS, GameConstants.PLAYER_DEATH_PARTICLE_MAX_RADIUS),
+                        RandomService.nextDoubleBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_SPEED, GameConstants.PLAYER_DEATH_PARTICLE_MAX_SPEED),
+                        2 * Math.PI * RandomService.get().nextDouble(),
+                        GameConstants.PLAYER_DEATH_PARTICLE_COLORS[RandomService.get().nextInt(GameConstants.PLAYER_DEATH_PARTICLE_COLORS.length)],
+                        false
+                ));
+            }
         }
+    }
+
+    public static void setAnimationActive(Boolean act){
+        animationActive = act;
+    }
+
+    public static Boolean getAnimationActive(){
+        return animationActive;
     }
 }

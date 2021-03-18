@@ -7,19 +7,32 @@ import android.os.Vibrator;
 public class VibratorService {
 
     private static Vibrator vibrator;
+    private static boolean animationActive;
+
+    public VibratorService(){
+        this.animationActive = true;
+    }
+
+    public static void setAnimationActive(boolean act){
+        animationActive = act;
+    }
+
+    public static boolean getAnimationActive(){
+        return animationActive;
+    }
 
     public static void requestVibrator(Context context) {
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     public static void click() {
-        if(vibrator != null && vibrator.hasVibrator()) {
+        if(animationActive && vibrator != null && vibrator.hasVibrator()) {
             vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK));
         }
     }
 
     public static void heavyClick() {
-        if(vibrator != null && vibrator.hasVibrator()) {
+        if(animationActive && vibrator != null && vibrator.hasVibrator()) {
             vibrator.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK));
         }
     }

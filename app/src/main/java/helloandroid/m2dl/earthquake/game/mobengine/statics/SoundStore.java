@@ -14,6 +14,20 @@ public class SoundStore {
 
     private static List<MediaPlayer> pausedMediaPlayers;
 
+    private static boolean animationActive;
+
+    public SoundStore(){
+        animationActive = true;
+    }
+
+    public static void setAnimationActive(boolean act){
+        animationActive = act;
+    }
+
+    public static boolean getAnimationActive(){
+        return animationActive;
+    }
+
     public static void createMediaPlayers(int[] soundIds, Context context) {
         pausedMediaPlayers = new ArrayList<>();
         mediaPlayerMap = new HashMap<>();
@@ -30,12 +44,18 @@ public class SoundStore {
     }
 
     public static void playSound(int soundId, float volume) {
+        if(!animationActive){
+            return;
+        }
         mediaPlayerMap.get(soundId).setVolume(volume, volume);
         mediaPlayerMap.get(soundId).seekTo(0);
         mediaPlayerMap.get(soundId).start();
     }
 
     public static void loopSound(int soundId, float volume) {
+        if(!animationActive){
+            return;
+        }
         mediaPlayerMap.get(soundId).setLooping(true);
         mediaPlayerMap.get(soundId).setVolume(volume, volume);
         mediaPlayerMap.get(soundId).seekTo(0);

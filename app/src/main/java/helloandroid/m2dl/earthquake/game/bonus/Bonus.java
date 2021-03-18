@@ -26,6 +26,8 @@ public class Bonus implements Drawable, Updatable {
 
     private BonusSpawn bonusSpawn;
 
+    private static boolean animationActive;
+
     public Bonus(Circle playerHitbox, BonusSpawn bonusSpawn) {
         this.playerHitbox = playerHitbox;
         this.bonusSpawn = bonusSpawn;
@@ -56,7 +58,9 @@ public class Bonus implements Drawable, Updatable {
         if( Circle.intersects(playerHitbox, rect) ) {
             GameState.increaseScore(GameConstants.BONUS_BASE_SCORE *GameState.getLevel());
             bonusSpawn.removeBonus(this);
-            GameEngine.addGameElements(new BonusPickupInfo(GameConstants.BONUS_BASE_SCORE *GameState.getLevel(), rect.exactCenterX(), rect.exactCenterY()));
+            if(animationActive) {
+                GameEngine.addGameElements(new BonusPickupInfo(GameConstants.BONUS_BASE_SCORE * GameState.getLevel(), rect.exactCenterX(), rect.exactCenterY()));
+            }
             return;
         }
 
@@ -82,5 +86,13 @@ public class Bonus implements Drawable, Updatable {
                 (int)(rect.exactCenterX() - GameConstants.BONUS_SIZE / 2),
                 (int)(rect.exactCenterY() + GameConstants.BONUS_SIZE / 2)
         );
+    }
+
+    public static void setAnimationActive(boolean act){
+        animationActive = act;
+    }
+
+    public static Boolean getAnimationActive(){
+        return animationActive;
     }
 }
