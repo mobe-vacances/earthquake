@@ -1,9 +1,11 @@
 package helloandroid.m2dl.earthquake.game.player;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.VibrationEffect;
 
@@ -42,6 +44,7 @@ public class Player implements Drawable, Updatable {
     private boolean dead = false;
 
     private final Consumer<Runnable> runOnUIThread;
+    private Context context;
 
     public Player(Consumer<Runnable> runOnUIThread) {
         this.runOnUIThread = runOnUIThread;
@@ -99,6 +102,8 @@ public class Player implements Drawable, Updatable {
 
     public void die() {
         if(!dead) {
+            MediaPlayer boom = MediaPlayer.create(context,R.raw.boom);
+            boom.start();
             dead = true;
             spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);
@@ -124,4 +129,10 @@ public class Player implements Drawable, Updatable {
             ));
         }
     }
+
+
+    public void setContext(Context context){
+        this.context = context;
+    }
+
 }
