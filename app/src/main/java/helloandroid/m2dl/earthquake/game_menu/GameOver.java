@@ -28,9 +28,9 @@ import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.scores.Score;
 
 import static java.lang.Math.min;
+import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 
 public class GameOver extends AppCompatActivity {
-    MediaPlayer music;
 
     private class ScoreAdapter extends ArrayAdapter {private Context mContext;
 
@@ -68,9 +68,8 @@ public class GameOver extends AppCompatActivity {
 
         showScore();
         showScoresTable();
-		
-        music = MediaPlayer.create(this,R.raw.libre_de_droit);
-        music.start();
+
+        SoundStore.playGameOverSoundMediaPlayer();
     }
 
     private int getHighestScore() {
@@ -100,8 +99,8 @@ public class GameOver extends AppCompatActivity {
 
     public void back(View view){
         music.stop();
-        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
-        click.start();
+        SoundStore.stopGameOverSoundMediaPlayer();
+        SoundStore.playClickMediaPlayer();
         finish();
     }
 

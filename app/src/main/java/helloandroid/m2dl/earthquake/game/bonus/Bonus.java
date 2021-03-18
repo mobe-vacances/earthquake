@@ -1,10 +1,8 @@
 package helloandroid.m2dl.earthquake.game.bonus;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
@@ -60,7 +58,9 @@ public class Bonus implements Drawable, Updatable {
             SoundStore.playSound(R.raw.coin,80);
             GameState.increaseScore(GameConstants.BONUS_BASE_SCORE *GameState.getLevel());
             bonusSpawn.removeBonus(this);
-            GameEngine.addGameElements(new BonusPickupInfo(GameConstants.BONUS_BASE_SCORE *GameState.getLevel(), rect.exactCenterX(), rect.exactCenterY()));
+            if(GameState.getAnimationsActive()) {
+                GameEngine.addGameElements(new BonusPickupInfo(GameConstants.BONUS_BASE_SCORE * GameState.getLevel(), rect.exactCenterX(), rect.exactCenterY()));
+            }
             return;
         }
 

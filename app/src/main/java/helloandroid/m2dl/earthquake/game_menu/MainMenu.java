@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -16,16 +18,19 @@ import java.util.UUID;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameActivity;
+import helloandroid.m2dl.earthquake.game.bonus.Bonus;
+import helloandroid.m2dl.earthquake.game.enemy.Enemy;
+import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.database.FirebaseInstallationService;
 import helloandroid.m2dl.earthquake.game.database.HighscoreHandler;
 import helloandroid.m2dl.earthquake.game.database.WorldScoresHandler;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.PermissionUtil;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
+import helloandroid.m2dl.earthquake.game.player.Player;
+import helloandroid.m2dl.earthquake.game.state.GameState;
 
 public class MainMenu extends AppCompatActivity {
-    private Intent svc;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,36 +52,49 @@ public class MainMenu extends AppCompatActivity {
         FirebaseInstallationService.init();
         WorldScoresHandler.init();
 
-        this.svc=new Intent(this, BackgroundSoundService.class);
-        startService(svc);
+        SoundStore.createMainMenuBackgroundSoundIntent(this);
+        startService(SoundStore.getMainMenuBackgroundSoundIntent());
+
+        SoundStore.createClickMediaPlayer(this);
+        SoundStore.createStartSoundMediaPlayer(this);
+        SoundStore.createGameOverSoundMediaPlayer(this);
 
         PermissionUtil.checkAndRequestAllPermissions(this);
         VibratorService.requestVibrator(this);
+
+        initSettings();
     }
 
     public void launchGame(View view){
-        stopService(this.svc);
-        MediaPlayer startSound = MediaPlayer.create(this,R.raw.start);
-        startSound.start();
+        stopService(SoundStore.getMainMenuBackgroundSoundIntent());
+
+        SoundStore.playStartSoundMediaPlayer();
+
         startActivity(new Intent(MainMenu.this, GameActivity.class));
         VibratorService.heavyClick();
     }
 
     public void launchCredit(View view) {
-        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
-        click.start();
+        SoundStore.playClickMediaPlayer();
         startActivity(new Intent(MainMenu.this, Credit.class));
     }
 
     public void launchRules(View view) {
-        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
-        click.start();
+        SoundStore.playClickMediaPlayer();
         startActivity(new Intent(MainMenu.this, Rules.class));
     }
 
-    public void lauchGame(View view) {
-        startActivity(new Intent(MainMenu.this, GameActivity.class));
+
+
+    public void launchSettings(View view) {
+        SoundStore.playClickMediaPlayer();
+        startActivity(new Intent(MainMenu.this, Settings.class));
     }
 
-
+    private void initSettings(){
+        SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        VibratorService.setVibrationsActive(preferences.getBoolean("vibrationActive", true));
+        SoundStore.setMute(preferences.getBoolean("mute", false));
+        GameState.setAnimationsActive(preferences.getBoolean("animationsActive", true));
+    }
 }
