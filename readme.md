@@ -16,7 +16,7 @@ RODRIGUEZ Nils (lui là)
 
 ## Fonctionalités
 
-Esquive le Covid et récupère un maximum de masque pour faire le plus gros score !
+Esquive le Covid et récupère un maximum de masques pour faire le plus gros score !
 
 **Capteur d'inclinaison** : Déplacement\
 **Capteur de luminosité** : background\
