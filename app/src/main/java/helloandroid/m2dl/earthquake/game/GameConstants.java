@@ -13,6 +13,12 @@ public class GameConstants {
             R.drawable.mask
     };
 
+    public static final int[] USED_SOUNDS_IDS = {
+            R.raw.rip_droit_auteur,
+            R.raw.boom,
+            R.raw.coin
+    };
+
     public static final int PLAYER_SIZE = 50;
     public static final double PLAYER_MAX_SPEED = 0.35;
     public static final double PLAYER_ROTATION_SPEED = 0.2;

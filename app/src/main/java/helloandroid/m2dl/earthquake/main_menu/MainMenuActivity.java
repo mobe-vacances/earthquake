@@ -12,13 +12,14 @@ import helloandroid.m2dl.earthquake.credits.CreditActivity;
 import helloandroid.m2dl.earthquake.game.GameActivity;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.PermissionUtil;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
+import helloandroid.m2dl.earthquake.game_menu.BackgroundSoundService;
 import helloandroid.m2dl.earthquake.rules.RulesActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
     private Intent svc;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class MainMenuActivity extends AppCompatActivity {
         PermissionUtil.checkAndRequestAllPermissions(this);
         VibratorService.requestVibrator(this);
         BitmapStore.decodeBitmaps(GameConstants.USED_BITMAP_IDS, getResources());
+        SoundStore.createMediaPlayers(GameConstants.USED_SOUNDS_IDS, this);
     }
 
     public void launchGame(View view){
