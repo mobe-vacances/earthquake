@@ -24,7 +24,7 @@
         android:id="@+id/textView16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Crédits :"
+        android:text="@string/credits_title"
         android:textAlignment="center"
         android:textColor="#333"
         android:textSize="24sp"
@@ -40,7 +40,7 @@
         android:layout_width="295dp"
         android:layout_height="369dp"
         android:fontFamily="sans-serif"
-        android:text="Application créée dans le cadre de l'enseignement universitaire de MOBE (Conception d’applications embarquées) du Master Développement Logiciel de l'Université Toulouse III - Paul Sabatier.\n\nAuteurs:\nANDRE Nicolas \nDELCOURT Kévin\nFRANZESE Alessandra\nRODRIGUEZ Nils\n\n(Superviseur)\nDA COSTA Georges\nLIEVRE Mathieu"
+        android:text="@string/credits_text"
         android:textAlignment="gravity"
         android:textColor="#333"
         android:textSize="14sp"
@@ -52,27 +52,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.512" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="602dp"
-        android:layout_height="26dp"
-        android:background="#FFFFFF"
-        android:text="Icons made by Freepik from www.flaticon.com"
-        android:textAlignment="center"
-        android:textColor="#333"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="backMenu"
-        android:text="RETOUR"
+        android:text="@string/back_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
