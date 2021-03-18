@@ -27,7 +27,7 @@ public class BackgroundSoundService extends Service {
 
     @SuppressLint("WrongConstant")
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if(SoundStore.getAnimationActive()){
+        if(!SoundStore.isMute()){
             player.start();
         }
         return 1;

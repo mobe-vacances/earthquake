@@ -27,8 +27,6 @@ public class Bonus implements Drawable, Updatable {
 
     private BonusSpawn bonusSpawn;
 
-    private static boolean animationActive;
-
     public Bonus(Circle playerHitbox, BonusSpawn bonusSpawn) {
         this.playerHitbox = playerHitbox;
         this.bonusSpawn = bonusSpawn;
@@ -60,7 +58,7 @@ public class Bonus implements Drawable, Updatable {
             SoundStore.playSound(R.raw.coin,80);
             GameState.increaseScore(GameConstants.BONUS_BASE_SCORE *GameState.getLevel());
             bonusSpawn.removeBonus(this);
-            if(animationActive) {
+            if(GameState.getAnimationsActive()) {
                 GameEngine.addGameElements(new BonusPickupInfo(GameConstants.BONUS_BASE_SCORE * GameState.getLevel(), rect.exactCenterX(), rect.exactCenterY()));
             }
             return;
@@ -90,11 +88,4 @@ public class Bonus implements Drawable, Updatable {
         );
     }
 
-    public static void setAnimationActive(boolean act){
-        animationActive = act;
-    }
-
-    public static Boolean getAnimationActive(){
-        return animationActive;
-    }
 }

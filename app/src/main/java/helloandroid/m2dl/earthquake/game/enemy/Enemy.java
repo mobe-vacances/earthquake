@@ -39,8 +39,6 @@ public class Enemy implements Drawable, Updatable {
 
     private final Player player;
 
-    private static boolean animationActive;
-
     public Enemy(Player player, Rect rect) {
         this.player = player;
         this.circle = new Circle(rect);
@@ -106,7 +104,7 @@ public class Enemy implements Drawable, Updatable {
     }
 
     private static void spawnEnemyDeathParticles(float x, float y) {
-        if(animationActive) {
+        if(GameState.getAnimationsActive()) {
             for (int i = RandomService.nextIntBetween(GameConstants.ENEMY_DEATH_PARTICLE_MIN_NUMBER, GameConstants.ENEMY_DEATH_PARTICLE_MAX_NUMBER); i > 0; i--) {
                 GameEngine.addGameElements(new Particle(
                         x,
@@ -119,13 +117,5 @@ public class Enemy implements Drawable, Updatable {
                 ));
             }
         }
-    }
-
-    public static void setAnimationActive(Boolean act){
-        animationActive = act;
-    }
-
-    public static Boolean getAnimationActive(){
-        return animationActive;
     }
 }

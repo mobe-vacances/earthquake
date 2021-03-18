@@ -14,6 +14,7 @@ import helloandroid.m2dl.earthquake.game.enemy.Enemy;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.player.Player;
+import helloandroid.m2dl.earthquake.game.state.GameState;
 
 public class Settings extends AppCompatActivity {
 
@@ -35,33 +36,33 @@ public class Settings extends AppCompatActivity {
     public void clickSettingVibration(View view){
         SoundStore.playClickMediaPlayer();
 
-        VibratorService.setAnimationActive(!VibratorService.getAnimationActive());
+        VibratorService.setVibrationsActive(!VibratorService.isVibrationsActive());
 
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor localScoreEditor = preferences.edit();
-        localScoreEditor.putBoolean("vibrationActive", VibratorService.getAnimationActive());
+        localScoreEditor.putBoolean("vibrationActive", VibratorService.isVibrationsActive());
         localScoreEditor.apply();
 
         setVibrationIconVisibiity();
     }
 
     private void setVibrationIconVisibiity(){
-        findViewById(R.id.idNoVibration).setVisibility(VibratorService.getAnimationActive() ? View.GONE : View.VISIBLE);
+        findViewById(R.id.idNoVibration).setVisibility(VibratorService.isVibrationsActive() ? View.GONE : View.VISIBLE);
     }
 
     public void clickSettingMusique(View view){
         SoundStore.playClickMediaPlayer();
 
-        SoundStore.setAnimationActive(!SoundStore.getAnimationActive());
+        SoundStore.setMute(!SoundStore.isMute());
 
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor localScoreEditor = preferences.edit();
-        localScoreEditor.putBoolean("soundActive", SoundStore.getAnimationActive());
+        localScoreEditor.putBoolean("mute", SoundStore.isMute());
         localScoreEditor.apply();
 
         setMusiqueIconVisibiity();
 
-        if(SoundStore.getAnimationActive()){
+        if(!SoundStore.isMute()){
             startService(SoundStore.getMainMenuBackgroundSoundIntent());
         }else{
             stopService(SoundStore.getMainMenuBackgroundSoundIntent());
@@ -69,27 +70,23 @@ public class Settings extends AppCompatActivity {
     }
 
     private void setMusiqueIconVisibiity(){
-        findViewById(R.id.idNoMusique).setVisibility(SoundStore.getAnimationActive() ? View.GONE : View.VISIBLE);
+        findViewById(R.id.idNoMusique).setVisibility(SoundStore.isMute() ? View.VISIBLE : View.GONE);
     }
 
     public void clickSettingAnimation(View view){
         SoundStore.playClickMediaPlayer();
 
-        Bonus.setAnimationActive(!Bonus.getAnimationActive());
-        Enemy.setAnimationActive(Bonus.getAnimationActive());
-        Player.setAnimationActive(Bonus.getAnimationActive());
+        GameState.setAnimationsActive(!GameState.getAnimationsActive());
 
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor localScoreEditor = preferences.edit();
-        localScoreEditor.putBoolean("bonusActive", Bonus.getAnimationActive());
-        localScoreEditor.putBoolean("enemyActive", Enemy.getAnimationActive());
-        localScoreEditor.putBoolean("playerActive", Player.getAnimationActive());
+        localScoreEditor.putBoolean("animationsActive", GameState.getAnimationsActive());
         localScoreEditor.apply();
 
         setAnimationIconVisibiity();
     }
 
     private void setAnimationIconVisibiity(){
-        findViewById(R.id.idNoAnimation).setVisibility(Bonus.getAnimationActive() ? View.GONE : View.VISIBLE);
+        findViewById(R.id.idNoAnimation).setVisibility(GameState.getAnimationsActive() ? View.GONE : View.VISIBLE);
     }
 }

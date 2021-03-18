@@ -48,8 +48,6 @@ public class Player implements Drawable, Updatable {
         this.runOnUIThread = runOnUIThread;
     }
 
-    private static boolean animationActive;
-
     @Override
     public int getZIndex() {
         return GameConstants.PLAYER_Z_INDEX;
@@ -107,7 +105,7 @@ public class Player implements Drawable, Updatable {
             spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);
 
-            if(VibratorService.getAnimationActive()){
+            if(VibratorService.isVibrationsActive()){
                 VibratorService.get().vibrate(VibrationEffect.createOneShot(GameConstants.GAME_OVER_DELAY/4, VibrationEffect.DEFAULT_AMPLITUDE));
             }
 
@@ -119,7 +117,7 @@ public class Player implements Drawable, Updatable {
     }
 
     private static void spawnPlayerDeathParticles(float x, float y) {
-        if (animationActive) {
+        if (GameState.getAnimationsActive()) {
             for (int i = GameConstants.PLAYER_DEATH_PARTICLE_NUMBER; i > 0; i--) {
                 GameEngine.addGameElements(new Particle(
                         x,
@@ -134,11 +132,4 @@ public class Player implements Drawable, Updatable {
         }
     }
 
-    public static void setAnimationActive(Boolean act){
-        animationActive = act;
-    }
-
-    public static Boolean getAnimationActive(){
-        return animationActive;
-    }
 }

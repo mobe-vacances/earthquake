@@ -17,6 +17,7 @@ import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.PermissionUtil;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.player.Player;
+import helloandroid.m2dl.earthquake.game.state.GameState;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -64,10 +65,8 @@ public class MainMenu extends AppCompatActivity {
 
     private void initSettings(){
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        VibratorService.setAnimationActive(preferences.getBoolean("vibrationActive", true));
-        SoundStore.setAnimationActive(preferences.getBoolean("soundActive", true));
-        Player.setAnimationActive(preferences.getBoolean("playerActive", true));
-        Enemy.setAnimationActive(preferences.getBoolean("enemyActive", true));
-        Bonus.setAnimationActive(preferences.getBoolean("bonusActive", true));
+        VibratorService.setVibrationsActive(preferences.getBoolean("vibrationActive", true));
+        SoundStore.setMute(preferences.getBoolean("mute", false));
+        GameState.setAnimationsActive(preferences.getBoolean("animationsActive", true));
     }
 }

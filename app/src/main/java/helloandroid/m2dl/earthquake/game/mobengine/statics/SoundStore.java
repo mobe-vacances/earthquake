@@ -18,18 +18,9 @@ public class SoundStore {
 
     private static Map<MediaPlayer, Integer> pausedMediaPlayers;
 
-    private static boolean animationActive;
+    private static boolean mute = false;
 
 
-    //########################################
-    public static void setAnimationActive(boolean act){
-        animationActive = act;
-    }
-
-    public static boolean getAnimationActive(){
-        return animationActive;
-    }
-    //########################################
     private static Intent mainMenuBackgroundSoundIntent;
 
     public static void createMainMenuBackgroundSoundIntent(Context context){
@@ -39,7 +30,7 @@ public class SoundStore {
     public static Intent getMainMenuBackgroundSoundIntent() {
         return mainMenuBackgroundSoundIntent;
     }
-    //########################################
+
     private static MediaPlayer click ;
 
     public static void createClickMediaPlayer(Context context){
@@ -47,11 +38,10 @@ public class SoundStore {
     }
 
     public static void playClickMediaPlayer(){
-        if(animationActive) {
+        if(!mute) {
             click.start();
         }
     }
-    //########################################
 
     private static MediaPlayer startSound ;
 
@@ -60,11 +50,10 @@ public class SoundStore {
     }
 
     public static void playStartSoundMediaPlayer(){
-        if(animationActive) {
+        if(!mute) {
             startSound.start();
         }
     }
-    //########################################
 
     private static MediaPlayer gameOverSound ;
 
@@ -73,18 +62,16 @@ public class SoundStore {
     }
 
     public static void playGameOverSoundMediaPlayer(){
-        if(animationActive) {
+        if(!mute) {
             gameOverSound.start();
         }
     }
 
     public static void stopGameOverSoundMediaPlayer(){
-        if(animationActive) {
+        if(!mute) {
             gameOverSound.stop();
         }
     }
-    //########################################
-
 
     public static void createMediaPlayers(int[] soundIds, Context context) {
         pausedMediaPlayers = new HashMap<>();
@@ -102,7 +89,7 @@ public class SoundStore {
     }
 
     public static void playSound(int soundId, float volume) {
-        if(animationActive) {
+        if(!mute) {
             mediaPlayerMap.get(soundId).setVolume(volume, volume);
             mediaPlayerMap.get(soundId).seekTo(0);
             mediaPlayerMap.get(soundId).start();
@@ -110,7 +97,7 @@ public class SoundStore {
     }
 
     public static void loopSound(int soundId, float volume) {
-        if(animationActive){
+        if(!mute){
             mediaPlayerMap.get(soundId).setLooping(true);
             mediaPlayerMap.get(soundId).setVolume(volume, volume);
             mediaPlayerMap.get(soundId).seekTo(0);
@@ -150,5 +137,13 @@ public class SoundStore {
         */
 
         pausedMediaPlayers.clear();
+    }
+
+    public static boolean isMute() {
+        return mute;
+    }
+
+    public static void setMute(boolean mute) {
+        SoundStore.mute = mute;
     }
 }
