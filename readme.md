@@ -16,11 +16,11 @@ RODRIGUEZ Nils (lui là)\
 
 ## Fonctionalités
 
-Esquive le Covid et récupère un maximum de masque pour faire le plus gros score !\
+Esquive le Covid et récupère un maximum de masque pour faire le plus gros score !
 
 **Capteur d'inclinaison** : Déplacement\
 **Capteur de luminosité** : background\
-**Capteur tactile** : THE WORLDO\
+**Capteur tactile** : THE WORLDO
 
 
 ## Lien Github
