@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import helloandroid.m2dl.earthquake.R;
+import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.bonus.Bonus;
 import helloandroid.m2dl.earthquake.game.enemy.Enemy;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
@@ -29,11 +30,12 @@ public class Settings extends AppCompatActivity {
 
 
     public void backMenu(View view) {
+        SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
         finish();
     }
 
     public void clickSettingVibration(View view){
-        SoundStore.playClickMediaPlayer();
+        SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
 
         VibratorService.setVibrationsActive(!VibratorService.isVibrationsActive());
 
@@ -50,7 +52,7 @@ public class Settings extends AppCompatActivity {
     }
 
     public void clickSettingMusique(View view){
-        SoundStore.playClickMediaPlayer();
+        SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
 
         SoundStore.setMute(!SoundStore.isMute());
 
@@ -61,11 +63,7 @@ public class Settings extends AppCompatActivity {
 
         setMusiqueIconVisibiity();
 
-        if(!SoundStore.isMute()){
-            startService(SoundStore.getMainMenuBackgroundSoundIntent());
-        }else{
-            stopService(SoundStore.getMainMenuBackgroundSoundIntent());
-        }
+        SoundStore.loopSound(R.raw.menu_encore_rip_droit, GameConstants.MENU_MUSIC_VOLUME);
     }
 
     private void setMusiqueIconVisibiity(){
@@ -73,7 +71,7 @@ public class Settings extends AppCompatActivity {
     }
 
     public void clickSettingAnimation(View view){
-        SoundStore.playClickMediaPlayer();
+        SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
 
         GameState.setAnimationsActive(!GameState.getAnimationsActive());
 

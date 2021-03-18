@@ -18,7 +18,11 @@ public class GameConstants {
     public static final int[] USED_SOUNDS_IDS = {
             R.raw.rip_droit_auteur,
             R.raw.boom,
-            R.raw.coin
+            R.raw.coin,
+            R.raw.click,
+            R.raw.start,
+            R.raw.libre_de_droit,
+            R.raw.menu_encore_rip_droit
     };
 
     public static final int PLAYER_SIZE = 50;
@@ -106,4 +110,12 @@ public class GameConstants {
     public static final int SCORE_Z_INDEX = 151;
     public static final int LEVEL_Z_INDEX = 152;
     public static final int BULLET_TIME_Z_INDEX = 160;
+
+    public static final float CLICK_SOUND_VOLUME = 0.9f;
+    public static final float START_SOUND_VOLUME = 0.9f;
+    public static final float BONUS_PICKUP_SOUND_VOLUME = 0.6f;
+    public static final float DEATH_SOUND_VOLUME = 0.9f;
+    public static final float MENU_MUSIC_VOLUME = 0.9f;
+    public static final float GAME_MUSIC_VOLUME = 0.9f;
+    public static final float GAME_OVER_MUSIC_VOLUME = 0.9f;
 }

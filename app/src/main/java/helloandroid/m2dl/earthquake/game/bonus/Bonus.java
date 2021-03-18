@@ -55,7 +55,7 @@ public class Bonus implements Drawable, Updatable {
     @Override
     public void update(int delta) {
         if( Circle.intersects(playerHitbox, rect) ) {
-            SoundStore.playSound(R.raw.coin,80);
+            SoundStore.playSound(R.raw.coin, GameConstants.BONUS_PICKUP_SOUND_VOLUME);
             GameState.increaseScore(GameConstants.BONUS_BASE_SCORE *GameState.getLevel());
             bonusSpawn.removeBonus(this);
             if(GameState.getAnimationsActive()) {

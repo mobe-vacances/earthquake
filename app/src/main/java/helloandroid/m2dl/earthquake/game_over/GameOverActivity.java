@@ -69,7 +69,7 @@ public class GameOverActivity extends AppCompatActivity {
         showScore();
         showScoresTable();
 
-        SoundStore.playGameOverSoundMediaPlayer();
+        SoundStore.loopSound(R.raw.libre_de_droit, GameConstants.GAME_OVER_MUSIC_VOLUME);
     }
 
     private int getHighestScore() {
@@ -98,8 +98,9 @@ public class GameOverActivity extends AppCompatActivity {
     }
 
     public void back(View view){
-        SoundStore.stopGameOverSoundMediaPlayer();
-        SoundStore.playClickMediaPlayer();
+        SoundStore.stopLoopedSound(R.raw.libre_de_droit);
+        SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
+        SoundStore.loopSound(R.raw.menu_encore_rip_droit, GameConstants.MENU_MUSIC_VOLUME);
         finish();
     }
 

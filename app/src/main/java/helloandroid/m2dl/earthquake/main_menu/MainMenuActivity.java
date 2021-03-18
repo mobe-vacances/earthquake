@@ -60,44 +60,41 @@ public class MainMenuActivity extends AppCompatActivity {
         FirebaseInstallationService.init();
         WorldScoresHandler.init();
 
-        SoundStore.createMainMenuBackgroundSoundIntent(this);
-        startService(SoundStore.getMainMenuBackgroundSoundIntent());
 
-        SoundStore.createClickMediaPlayer(this);
-        SoundStore.createStartSoundMediaPlayer(this);
-        SoundStore.createGameOverSoundMediaPlayer(this);
 
         PermissionUtil.checkAndRequestAllPermissions(this);
         VibratorService.requestVibrator(this);
         BitmapStore.decodeBitmaps(GameConstants.USED_BITMAP_IDS, getResources());
         SoundStore.createMediaPlayers(GameConstants.USED_SOUNDS_IDS, this);
 
+        SoundStore.loopSound(R.raw.menu_encore_rip_droit, GameConstants.MENU_MUSIC_VOLUME);
+
         initSettings();
     }
 
     public void launchGame(View view){
-        stopService(SoundStore.getMainMenuBackgroundSoundIntent());
+        SoundStore.stopLoopedSound(R.raw.menu_encore_rip_droit);
 
-        SoundStore.playStartSoundMediaPlayer();
+        SoundStore.playSound(R.raw.start, GameConstants.START_SOUND_VOLUME);
 
         startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
         VibratorService.heavyClick();
     }
 
     public void launchCredit(View view) {
-        SoundStore.playClickMediaPlayer();
+        SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
         startActivity(new Intent(MainMenuActivity.this, CreditActivity.class));
     }
 
     public void launchRules(View view) {
-        SoundStore.playClickMediaPlayer();
+        SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
         startActivity(new Intent(MainMenuActivity.this, RulesActivity.class));
     }
 
 
 
     public void launchSettings(View view) {
-        SoundStore.playClickMediaPlayer();
+        SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
         startActivity(new Intent(MainMenuActivity.this, Settings.class));
     }
 

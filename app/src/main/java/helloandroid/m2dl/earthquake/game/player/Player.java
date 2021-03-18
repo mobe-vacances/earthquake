@@ -100,8 +100,11 @@ public class Player implements Drawable, Updatable {
 
     public void die() {
         if(!dead) {
-            SoundStore.playSound(R.raw.boom,100);
             dead = true;
+
+            SoundStore.stopLoopedSound(R.raw.rip_droit_auteur);
+            SoundStore.playSound(R.raw.boom, GameConstants.DEATH_SOUND_VOLUME);
+
             spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);
 

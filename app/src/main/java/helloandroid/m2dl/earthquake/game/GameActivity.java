@@ -5,9 +5,11 @@ import android.hardware.Sensor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
+import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.bonus.BonusSpawn;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
 import helloandroid.m2dl.earthquake.game.mobengine.auto_handlers.AutoHandlerStore;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.sensors.SensorManagerService;
 import helloandroid.m2dl.earthquake.game.onTouch.OnTouchListener;
 import helloandroid.m2dl.earthquake.game.enemy.EnemySpawn;
@@ -69,6 +71,8 @@ public class GameActivity extends MobeGameActivity {
                 background,
                 player
         );
+
+        SoundStore.loopSound(R.raw.rip_droit_auteur, GameConstants.GAME_MUSIC_VOLUME);
     }
 
 }
