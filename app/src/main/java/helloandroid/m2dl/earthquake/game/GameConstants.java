@@ -4,6 +4,8 @@ import android.graphics.Color;
 
 public class GameConstants {
 
+    public static final String APP_SHARED_PREFERENCES_KEY = "localScore";
+
     public static final int PLAYER_SIZE = 50;
     public static final double PLAYER_MAX_SPEED = 0.35;
     public static final double PLAYER_ROTATION_SPEED = 0.2;

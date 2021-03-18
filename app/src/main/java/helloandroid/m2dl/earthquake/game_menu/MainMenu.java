@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameActivity;
+import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.database.FirebaseInstallationService;
 import helloandroid.m2dl.earthquake.game.database.HighscoreHandler;
 import helloandroid.m2dl.earthquake.game.database.WorldScoresHandler;
@@ -26,11 +27,11 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu2);
 
-        EditText editText = (EditText) findViewById(R.id.usernameEditor);
-        SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+        EditText editText = findViewById(R.id.usernameEditor);
+        SharedPreferences preferences = getSharedPreferences(GameConstants.APP_SHARED_PREFERENCES_KEY, MODE_PRIVATE);
 
         editText.setText(
-                preferences.getString(
+                    preferences.getString(
                         "username",
                         getResources().getString(R.string.default_player_name)
                 )
