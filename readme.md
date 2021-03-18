@@ -25,4 +25,4 @@ Esquive le Covid et récupère un maximum de masque pour faire le plus gros scor
 
 ## Lien Github
 
-> https://github.com/mobe-vacances
+https://github.com/mobe-vacances/earthquake
