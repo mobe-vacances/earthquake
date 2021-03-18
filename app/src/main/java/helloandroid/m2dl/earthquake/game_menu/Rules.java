@@ -16,8 +16,7 @@ public class Rules extends AppCompatActivity {
         setContentView(R.layout.activity_rules);
     }
 
-    public void back(View view){
-        Intent intent = new Intent(Rules.this, MainMenu.class);
-        startActivity(intent);
+    public void backMenu(View view){
+        finish();
     }
 }
