@@ -14,14 +14,13 @@ import helloandroid.m2dl.earthquake.game.GameActivity;
 import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundAppCompatActivity;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.database.FirebaseInstallationService;
-import helloandroid.m2dl.earthquake.game.database.WorldScoresHandler;
+import helloandroid.m2dl.earthquake.game_over.FirebaseInstallationService;
+import helloandroid.m2dl.earthquake.game_over.WorldScoresHandler;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.PermissionUtil;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.state.GameState;
-import helloandroid.m2dl.earthquake.game_menu.Settings;
-import helloandroid.m2dl.earthquake.game_menu.UsernameChangedListener;
+import helloandroid.m2dl.earthquake.settings.SettingsActivity;
 import helloandroid.m2dl.earthquake.rules.RulesActivity;
 
 public class MainMenuActivity extends SoundAppCompatActivity {
@@ -81,7 +80,7 @@ public class MainMenuActivity extends SoundAppCompatActivity {
 
     public void launchSettings(View view) {
         SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
-        startActivity(new Intent(MainMenuActivity.this, Settings.class));
+        startActivity(new Intent(MainMenuActivity.this, SettingsActivity.class));
     }
 
     private void initSettings(){

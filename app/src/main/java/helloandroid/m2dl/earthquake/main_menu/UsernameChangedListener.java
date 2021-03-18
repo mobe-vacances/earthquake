@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game_menu;
+package helloandroid.m2dl.earthquake.main_menu;
 
 import android.content.SharedPreferences;
 import android.text.Editable;

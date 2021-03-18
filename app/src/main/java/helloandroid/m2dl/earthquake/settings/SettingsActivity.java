@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game_menu;
+package helloandroid.m2dl.earthquake.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +12,7 @@ import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 
-public class Settings extends SoundAppCompatActivity {
+public class SettingsActivity extends SoundAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

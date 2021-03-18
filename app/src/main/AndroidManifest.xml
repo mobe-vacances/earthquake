@@ -11,9 +11,9 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Earthquake">
-        <activity android:name=".game_menu.Settings"></activity>
-        <activity android:name=".credits.CreditActivity"></activity>
-        <activity android:name=".rules.RulesActivity"></activity>
+        <activity android:name=".settings.SettingsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".credits.CreditActivity" android:screenOrientation="portrait" />
+        <activity android:name=".rules.RulesActivity" android:screenOrientation="portrait" />
 
         <activity
             android:name=".game_over.GameOverActivity"

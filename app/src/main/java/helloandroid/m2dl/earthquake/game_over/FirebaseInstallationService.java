@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.database;
+package helloandroid.m2dl.earthquake.game_over;
 
 import com.google.firebase.installations.FirebaseInstallations;
 

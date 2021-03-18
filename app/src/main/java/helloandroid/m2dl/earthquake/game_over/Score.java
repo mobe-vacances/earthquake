@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.scores;
+package helloandroid.m2dl.earthquake.game_over;
 
 public class Score {
 
