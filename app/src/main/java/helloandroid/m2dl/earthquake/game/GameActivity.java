@@ -3,11 +3,9 @@ package helloandroid.m2dl.earthquake.game;
 import android.content.Intent;
 import android.os.Bundle;
 
-import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.bonus.BonusSpawn;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
 import helloandroid.m2dl.earthquake.game.mobengine.auto_handlers.AutoHandlerStore;
-import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;
 import helloandroid.m2dl.earthquake.game.mobengine.sensors.SensorManagerService;
 import helloandroid.m2dl.earthquake.game.onTouch.OnTouchListener;
 import helloandroid.m2dl.earthquake.game.enemy.EnemySpawn;
@@ -25,7 +23,7 @@ import helloandroid.m2dl.earthquake.game.mobengine.MobeGameActivity;
 import helloandroid.m2dl.earthquake.game.score_and_level_handlers.AutoLevel;
 import helloandroid.m2dl.earthquake.game.score_and_level_handlers.AutoScore;
 import helloandroid.m2dl.earthquake.game.state.GameState;
-import helloandroid.m2dl.earthquake.game_over.GameOver;
+import helloandroid.m2dl.earthquake.game_over.GameOverActivity;
 
 public class GameActivity extends MobeGameActivity {
 
@@ -35,7 +33,7 @@ public class GameActivity extends MobeGameActivity {
         GameEngine.reset();
 
         GameState.resetGameState(() -> {
-            startActivity(new Intent(GameActivity.this, GameOver.class));
+            startActivity(new Intent(GameActivity.this, GameOverActivity.class));
             GameEngine.reset();
             finish();
         });

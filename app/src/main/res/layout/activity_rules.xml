@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:onClick="back"
-    tools:context=".game_menu.Rules">
+    tools:context=".rules.RulesActivity">
 
     <ImageView
         android:id="@+id/imageView3"

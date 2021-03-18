@@ -7,14 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import helloandroid.m2dl.earthquake.R;
-import helloandroid.m2dl.earthquake.credits.Credit;
+import helloandroid.m2dl.earthquake.credits.CreditActivity;
 import helloandroid.m2dl.earthquake.game.GameActivity;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.PermissionUtil;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
+import helloandroid.m2dl.earthquake.rules.RulesActivity;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +28,15 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void launchGame(View view){
-        startActivity(new Intent(MainMenu.this, GameActivity.class));
+        startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
         VibratorService.heavyClick();
     }
 
     public void launchCredit(View view) {
-        startActivity(new Intent(MainMenu.this, Credit.class));
+        startActivity(new Intent(MainMenuActivity.this, CreditActivity.class));
     }
 
     public void launchRules(View view) {
-        startActivity(new Intent(MainMenu.this, Rules.class));
+        startActivity(new Intent(MainMenuActivity.this, RulesActivity.class));
     }
 }
