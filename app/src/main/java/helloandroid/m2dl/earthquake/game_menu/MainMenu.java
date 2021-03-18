@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.view.View;
 
@@ -17,16 +19,18 @@ import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.player.Player;
 
 public class MainMenu extends AppCompatActivity {
-    private Intent svc;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu2);
 
-        this.svc=new Intent(this, BackgroundSoundService.class);
-        startService(svc);
+        SoundStore.createMainMenuBackgroundSoundIntent(this);
+        startService(SoundStore.getMainMenuBackgroundSoundIntent());
+
+        SoundStore.createClickMediaPlayer(this);
+        SoundStore.createStartSoundMediaPlayer(this);
+        SoundStore.createGameOverSoundMediaPlayer(this);
 
         PermissionUtil.checkAndRequestAllPermissions(this);
         VibratorService.requestVibrator(this);
@@ -35,26 +39,26 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void launchGame(View view){
-        stopService(this.svc);
-        MediaPlayer startSound = MediaPlayer.create(this,R.raw.start);
-        startSound.start();
+        stopService(SoundStore.getMainMenuBackgroundSoundIntent());
+
+        SoundStore.playStartSoundMediaPlayer();
+
         startActivity(new Intent(MainMenu.this, GameActivity.class));
         VibratorService.heavyClick();
     }
 
     public void launchCredit(View view) {
-        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
-        click.start();
+        SoundStore.playClickMediaPlayer();
         startActivity(new Intent(MainMenu.this, Credit.class));
     }
 
     public void launchRules(View view) {
-        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
-        click.start();
+        SoundStore.playClickMediaPlayer();
         startActivity(new Intent(MainMenu.this, Rules.class));
     }
 
     public void launchSettings(View view) {
+        SoundStore.playClickMediaPlayer();
         startActivity(new Intent(MainMenu.this, Settings.class));
     }
 

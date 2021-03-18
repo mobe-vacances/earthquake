@@ -1,11 +1,9 @@
 package helloandroid.m2dl.earthquake.game.player;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.VibrationEffect;
 

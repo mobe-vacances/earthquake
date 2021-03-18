@@ -33,6 +33,8 @@ public class Settings extends AppCompatActivity {
     }
 
     public void clickSettingVibration(View view){
+        SoundStore.playClickMediaPlayer();
+
         VibratorService.setAnimationActive(!VibratorService.getAnimationActive());
 
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
@@ -48,6 +50,8 @@ public class Settings extends AppCompatActivity {
     }
 
     public void clickSettingMusique(View view){
+        SoundStore.playClickMediaPlayer();
+
         SoundStore.setAnimationActive(!SoundStore.getAnimationActive());
 
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
@@ -56,6 +60,12 @@ public class Settings extends AppCompatActivity {
         localScoreEditor.apply();
 
         setMusiqueIconVisibiity();
+
+        if(SoundStore.getAnimationActive()){
+            startService(SoundStore.getMainMenuBackgroundSoundIntent());
+        }else{
+            stopService(SoundStore.getMainMenuBackgroundSoundIntent());
+        }
     }
 
     private void setMusiqueIconVisibiity(){
@@ -63,18 +73,17 @@ public class Settings extends AppCompatActivity {
     }
 
     public void clickSettingAnimation(View view){
+        SoundStore.playClickMediaPlayer();
+
         Bonus.setAnimationActive(!Bonus.getAnimationActive());
         Enemy.setAnimationActive(Bonus.getAnimationActive());
         Player.setAnimationActive(Bonus.getAnimationActive());
-
-
 
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor localScoreEditor = preferences.edit();
         localScoreEditor.putBoolean("bonusActive", Bonus.getAnimationActive());
         localScoreEditor.putBoolean("enemyActive", Enemy.getAnimationActive());
         localScoreEditor.putBoolean("playerActive", Player.getAnimationActive());
-
         localScoreEditor.apply();
 
         setAnimationIconVisibiity();
