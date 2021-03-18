@@ -3,6 +3,7 @@ package helloandroid.m2dl.earthquake.game_menu;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
@@ -29,11 +30,15 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void launchCredit(View view) {
+        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
+        click.start();
         Intent intent = new Intent(MainMenu.this, Credit.class);
         startActivity(intent);
     }
 
     public void launchRules(View view) {
+        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
+        click.start();
         Intent intent = new Intent(MainMenu.this, Rules.class);
         startActivity(intent);
     }
