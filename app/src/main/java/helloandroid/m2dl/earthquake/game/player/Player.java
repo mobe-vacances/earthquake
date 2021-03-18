@@ -1,11 +1,9 @@
 package helloandroid.m2dl.earthquake.game.player;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.VibrationEffect;
 
@@ -106,7 +104,10 @@ public class Player implements Drawable, Updatable {
             dead = true;
             spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);
-            VibratorService.get().vibrate(VibrationEffect.createOneShot(GameConstants.GAME_OVER_DELAY/4, VibrationEffect.DEFAULT_AMPLITUDE));
+
+            if(VibratorService.isVibrationsActive()){
+                VibratorService.get().vibrate(VibrationEffect.createOneShot(GameConstants.GAME_OVER_DELAY/4, VibrationEffect.DEFAULT_AMPLITUDE));
+            }
 
             runOnUIThread.accept(() -> new Handler().postDelayed(
                     GameState::gameOver,
@@ -116,18 +117,19 @@ public class Player implements Drawable, Updatable {
     }
 
     private static void spawnPlayerDeathParticles(float x, float y) {
-        for (int i = GameConstants.PLAYER_DEATH_PARTICLE_NUMBER; i > 0; i--) {
-            GameEngine.addGameElements(new Particle(
-                    x,
-                    y,
-                    RandomService.nextFloatBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_RADIUS, GameConstants.PLAYER_DEATH_PARTICLE_MAX_RADIUS),
-                    RandomService.nextDoubleBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_SPEED, GameConstants.PLAYER_DEATH_PARTICLE_MAX_SPEED),
-                    2*Math.PI*RandomService.get().nextDouble(),
-                    GameConstants.PLAYER_DEATH_PARTICLE_COLORS[RandomService.get().nextInt(GameConstants.PLAYER_DEATH_PARTICLE_COLORS.length)],
-                    false
-            ));
+        if (GameState.getAnimationsActive()) {
+            for (int i = GameConstants.PLAYER_DEATH_PARTICLE_NUMBER; i > 0; i--) {
+                GameEngine.addGameElements(new Particle(
+                        x,
+                        y,
+                        RandomService.nextFloatBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_RADIUS, GameConstants.PLAYER_DEATH_PARTICLE_MAX_RADIUS),
+                        RandomService.nextDoubleBetween(GameConstants.PLAYER_DEATH_PARTICLE_MIN_SPEED, GameConstants.PLAYER_DEATH_PARTICLE_MAX_SPEED),
+                        2 * Math.PI * RandomService.get().nextDouble(),
+                        GameConstants.PLAYER_DEATH_PARTICLE_COLORS[RandomService.get().nextInt(GameConstants.PLAYER_DEATH_PARTICLE_COLORS.length)],
+                        false
+                ));
+            }
         }
     }
-
 
 }

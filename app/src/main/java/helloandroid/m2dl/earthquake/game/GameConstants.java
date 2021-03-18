@@ -6,6 +6,8 @@ import helloandroid.m2dl.earthquake.R;
 
 public class GameConstants {
 
+    public static final String APP_SHARED_PREFERENCES_KEY = "localScore";
+
     public static final int[] USED_BITMAP_IDS = {
             R.drawable.world,
             R.drawable.coronavirus_safe,

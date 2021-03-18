@@ -38,7 +38,7 @@ public class GameActivity extends MobeGameActivity {
             startActivity(new Intent(GameActivity.this, GameOverActivity.class));
             GameEngine.reset();
             finish();
-        });
+        }, getSharedPreferences("settings", MODE_PRIVATE).getBoolean("animationsActive", true));
 
         getGameView().setOnTouchListener(new OnTouchListener());
 

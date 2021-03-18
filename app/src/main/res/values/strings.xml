@@ -16,4 +16,6 @@
 
     <string name="credits_title">Crédits</string>
     <string name="credits_text">Application créée dans le cadre de l\`enseignement universitaire de MOBE (Conception d’applications embarquées) du Master Développement Logiciel de l\`Université Toulouse III - Paul Sabatier.\n\nAuteurs:\nANDRE Nicolas \nDELCOURT Kévin\nFRANZESE Alessandra\nRODRIGUEZ Nils\n\n(Encadrement)\nDA COSTA Georges\nLIEVRE Mathieu\n\nIcons made by Freepik from www.flaticon.com</string>
+
+    <string name="default_player_name">Joueur</string>
 </resources>
