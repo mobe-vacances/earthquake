@@ -41,7 +41,7 @@
         android:layout_width="293dp"
         android:layout_height="252dp"
         android:fontFamily="sans-serif"
-        android:text="- Faites bouger la Terre en penchant votre appareil\n\n - Vous perdez si vous touchez le bord de l'écran, ou un Covid rouge\n\n - Ramassez des masques pour gagner plus de points\n\n - Appuyez sur l'écran pour ralentir les ennemis pendant un court instant, la barre verte en haut de l'écran indique le tauc de charge de ce pouvoir."
+        android:text="- Faites bouger la Terre en penchant votre appareil\n\n - Vous perdez si vous touchez le bord de l'écran, ou un Covid rouge\n\n - Ramassez des masques pour gagner plus de points\n\n - Appuyez sur l'écran pour ralentir les ennemis pendant un court instant, la barre verte en haut de l'écran indique le taux de charge de ce pouvoir."
         android:textAlignment="gravity"
         android:textColor="#333"
         android:textSize="14sp"

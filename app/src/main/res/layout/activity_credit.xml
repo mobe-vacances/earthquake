@@ -40,7 +40,7 @@
         android:layout_width="295dp"
         android:layout_height="369dp"
         android:fontFamily="sans-serif"
-        android:text="Application créée dans le cadre de l'enseignement universitaire de MOBE (Conception d’applications embarquées) du Master Développement Logiciel de l'Université Toulouse III - Paul Sabatier.\n\nAuteurs:\nANDRE Nicolas \nDELCOURT Kévin\nFRANZESE Alessandra\nRODRIGUEZ Nils\n\n(Superviseur)\nDA COSTA Georgues\nMATHIEU Lievre"
+        android:text="Application créée dans le cadre de l'enseignement universitaire de MOBE (Conception d’applications embarquées) du Master Développement Logiciel de l'Université Toulouse III - Paul Sabatier.\n\nAuteurs:\nANDRE Nicolas \nDELCOURT Kévin\nFRANZESE Alessandra\nRODRIGUEZ Nils\n\n(Superviseur)\nDA COSTA Georges\nLIEVRE Mathieu"
         android:textAlignment="gravity"
         android:textColor="#333"
         android:textSize="14sp"
