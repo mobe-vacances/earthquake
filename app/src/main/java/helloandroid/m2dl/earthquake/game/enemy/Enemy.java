@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.os.Handler;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
@@ -14,7 +13,7 @@ import helloandroid.m2dl.earthquake.game.particle.Particle;
 import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameEngine;
 import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.core.Updatable;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;

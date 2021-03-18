@@ -1,8 +1,6 @@
 package helloandroid.m2dl.earthquake.game;
 
 import android.content.Intent;
-import android.hardware.Sensor;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import helloandroid.m2dl.earthquake.R;
@@ -22,8 +20,8 @@ import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.header.ScoreDisplay;
 import helloandroid.m2dl.earthquake.game.player.AccelerometerEventListener;
 import helloandroid.m2dl.earthquake.game.background.LightEventListener;
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
-import helloandroid.m2dl.earthquake.game.mobengine.MobeGameActivity;
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.activities.MobeGameActivity;
 import helloandroid.m2dl.earthquake.game.score_and_level_handlers.AutoLevel;
 import helloandroid.m2dl.earthquake.game.score_and_level_handlers.AutoScore;
 import helloandroid.m2dl.earthquake.game.state.GameState;

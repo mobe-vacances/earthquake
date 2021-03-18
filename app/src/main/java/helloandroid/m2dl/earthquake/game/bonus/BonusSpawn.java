@@ -8,7 +8,7 @@ import java.util.List;
 import helloandroid.m2dl.earthquake.game.mobengine.auto_handlers.AutoHandler;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameEngine;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
 
 public class BonusSpawn extends AutoHandler {

@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 import helloandroid.m2dl.earthquake.R;
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameEngine;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;

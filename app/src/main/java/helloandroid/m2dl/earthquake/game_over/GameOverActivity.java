@@ -24,13 +24,15 @@ import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.database.HighscoreHandler;
 import helloandroid.m2dl.earthquake.game.database.WorldScoresHandler;
+import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundActivity;
+import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundAppCompatActivity;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.scores.Score;
 
 import static java.lang.Math.min;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 
-public class GameOverActivity extends AppCompatActivity {
+public class GameOverActivity extends SoundAppCompatActivity {
 
     private class ScoreAdapter extends ArrayAdapter {private Context mContext;
 

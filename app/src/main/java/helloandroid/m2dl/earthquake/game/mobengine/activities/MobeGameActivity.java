@@ -1,4 +1,4 @@
-package helloandroid.m2dl.earthquake.game.mobengine;
+package helloandroid.m2dl.earthquake.game.mobengine.activities;
 
 import android.app.Activity;
 import android.graphics.Point;
@@ -7,14 +7,12 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameEngine;
 import helloandroid.m2dl.earthquake.game.mobengine.core.GameView;
-import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.BitmapStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.DisplayScale;
-import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
-import helloandroid.m2dl.earthquake.game.mobengine.sensors.SensorManagerService;
 
 
-public abstract class MobeGameActivity extends Activity {
+public abstract class MobeGameActivity extends SoundActivity {
 
     private GameView gameView;
 

@@ -3,8 +3,6 @@ package helloandroid.m2dl.earthquake.game.mobengine.core;
 import android.graphics.Canvas;
 import android.view.SurfaceHolder;
 
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
-
 
 public class GameStep implements Runnable {
 

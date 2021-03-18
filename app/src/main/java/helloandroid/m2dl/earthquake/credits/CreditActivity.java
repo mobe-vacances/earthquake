@@ -7,9 +7,11 @@ import android.view.View;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
+import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundActivity;
+import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundAppCompatActivity;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 
-public class CreditActivity extends AppCompatActivity {
+public class CreditActivity extends SoundAppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

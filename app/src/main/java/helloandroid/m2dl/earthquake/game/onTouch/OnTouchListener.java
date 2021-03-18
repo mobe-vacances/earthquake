@@ -3,7 +3,7 @@ package helloandroid.m2dl.earthquake.game.onTouch;
 import android.view.MotionEvent;
 import android.view.View;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameEngine;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.DisplayScale;
 import helloandroid.m2dl.earthquake.game.pause.Pause;

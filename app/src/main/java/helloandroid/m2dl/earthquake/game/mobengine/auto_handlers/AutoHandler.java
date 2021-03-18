@@ -2,7 +2,7 @@ package helloandroid.m2dl.earthquake.game.mobengine.auto_handlers;
 
 import android.os.Handler;
 
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameEngine;
 
 public abstract class AutoHandler {
 

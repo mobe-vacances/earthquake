@@ -7,7 +7,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.core.GameEngine;
 import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.DisplayScale;
 

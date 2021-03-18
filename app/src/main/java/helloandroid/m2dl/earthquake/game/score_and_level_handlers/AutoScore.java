@@ -1,10 +1,7 @@
 package helloandroid.m2dl.earthquake.game.score_and_level_handlers;
 
 
-import android.os.Handler;
-
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
 import helloandroid.m2dl.earthquake.game.mobengine.auto_handlers.AutoHandler;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 

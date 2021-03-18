@@ -14,7 +14,6 @@
         <activity android:name=".game_menu.Settings"></activity>
         <activity android:name=".credits.CreditActivity"></activity>
         <activity android:name=".rules.RulesActivity"></activity>
-        <service android:enabled="true" android:name=".game_menu.BackgroundSoundService" />
 
         <activity
             android:name=".game_over.GameOverActivity"
