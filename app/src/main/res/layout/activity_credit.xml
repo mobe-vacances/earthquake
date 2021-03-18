@@ -37,8 +37,8 @@
 
     <TextView
         android:id="@+id/textView17"
-        android:layout_width="295dp"
-        android:layout_height="369dp"
+        android:layout_width="345dp"
+        android:layout_height="418dp"
         android:fontFamily="sans-serif"
         android:text="@string/credits_text"
         android:textAlignment="gravity"

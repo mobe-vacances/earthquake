@@ -53,13 +53,13 @@ public class MainMenuActivity extends SoundAppCompatActivity {
         BitmapStore.decodeBitmaps(GameConstants.USED_BITMAP_IDS, getResources());
         SoundStore.createMediaPlayers(GameConstants.USED_SOUNDS_IDS, this);
 
-        SoundStore.loopSound(R.raw.menu_encore_rip_droit, GameConstants.MENU_MUSIC_VOLUME);
+        SoundStore.loopSound(R.raw.menu, GameConstants.MENU_MUSIC_VOLUME);
 
         initSettings();
     }
 
     public void launchGame(View view){
-        SoundStore.stopLoopedSound(R.raw.menu_encore_rip_droit);
+        SoundStore.stopLoopedSound(R.raw.menu);
 
         SoundStore.playSound(R.raw.start, GameConstants.START_SOUND_VOLUME);
 

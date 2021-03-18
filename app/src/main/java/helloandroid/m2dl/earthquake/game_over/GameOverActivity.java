@@ -1,30 +1,22 @@
 package helloandroid.m2dl.earthquake.game_over;
 
-import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.database.HighscoreHandler;
 import helloandroid.m2dl.earthquake.game.database.WorldScoresHandler;
-import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundActivity;
 import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundAppCompatActivity;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.scores.Score;
@@ -71,7 +63,7 @@ public class GameOverActivity extends SoundAppCompatActivity {
         showScore();
         showScoresTable();
 
-        SoundStore.loopSound(R.raw.libre_de_droit, GameConstants.GAME_OVER_MUSIC_VOLUME);
+        SoundStore.loopSound(R.raw.menu, GameConstants.MENU_MUSIC_VOLUME);
     }
 
     private int getHighestScore() {
@@ -100,9 +92,7 @@ public class GameOverActivity extends SoundAppCompatActivity {
     }
 
     public void back(View view){
-        SoundStore.stopLoopedSound(R.raw.libre_de_droit);
         SoundStore.playSound(R.raw.click, GameConstants.CLICK_SOUND_VOLUME);
-        SoundStore.loopSound(R.raw.menu_encore_rip_droit, GameConstants.MENU_MUSIC_VOLUME);
         finish();
     }
 

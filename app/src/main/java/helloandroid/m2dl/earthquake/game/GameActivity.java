@@ -70,7 +70,7 @@ public class GameActivity extends MobeGameActivity {
                 player
         );
 
-        SoundStore.loopSound(R.raw.rip_droit_auteur, GameConstants.GAME_MUSIC_VOLUME);
+        SoundStore.loopSound(R.raw.game, GameConstants.GAME_MUSIC_VOLUME);
     }
 
 }

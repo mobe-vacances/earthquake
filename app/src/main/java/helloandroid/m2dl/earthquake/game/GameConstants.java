@@ -16,13 +16,12 @@ public class GameConstants {
     };
 
     public static final int[] USED_SOUNDS_IDS = {
-            R.raw.rip_droit_auteur,
-            R.raw.boom,
+            R.raw.game,
+            R.raw.die,
             R.raw.coin,
             R.raw.click,
             R.raw.start,
-            R.raw.libre_de_droit,
-            R.raw.menu_encore_rip_droit
+            R.raw.menu
     };
 
     public static final int PLAYER_SIZE = 50;

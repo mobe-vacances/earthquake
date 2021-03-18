@@ -1,22 +1,15 @@
 package helloandroid.m2dl.earthquake.game_menu;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.bonus.Bonus;
-import helloandroid.m2dl.earthquake.game.enemy.Enemy;
-import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundActivity;
 import helloandroid.m2dl.earthquake.game.mobengine.activities.SoundAppCompatActivity;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
-import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 
 public class Settings extends SoundAppCompatActivity {
@@ -65,7 +58,7 @@ public class Settings extends SoundAppCompatActivity {
 
         setMusiqueIconVisibiity();
 
-        SoundStore.loopSound(R.raw.menu_encore_rip_droit, GameConstants.MENU_MUSIC_VOLUME);
+        SoundStore.loopSound(R.raw.menu, GameConstants.MENU_MUSIC_VOLUME);
     }
 
     private void setMusiqueIconVisibiity(){
