@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
@@ -27,7 +28,6 @@ public class Bonus implements Drawable, Updatable {
     private BonusState state = BonusState.GROWING;
 
     private BonusSpawn bonusSpawn;
-    private Context context;
 
     public Bonus(Circle playerHitbox, BonusSpawn bonusSpawn) {
         this.playerHitbox = playerHitbox;
@@ -57,8 +57,7 @@ public class Bonus implements Drawable, Updatable {
     @Override
     public void update(int delta) {
         if( Circle.intersects(playerHitbox, rect) ) {
-            MediaPlayer sound = MediaPlayer.create(context,R.raw.coin);
-            sound.start();
+            SoundStore.playSound(R.raw.coin,80);
             GameState.increaseScore(GameConstants.BONUS_BASE_SCORE *GameState.getLevel());
             bonusSpawn.removeBonus(this);
             GameEngine.addGameElements(new BonusPickupInfo(GameConstants.BONUS_BASE_SCORE *GameState.getLevel(), rect.exactCenterX(), rect.exactCenterY()));
@@ -89,7 +88,4 @@ public class Bonus implements Drawable, Updatable {
         );
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
 }

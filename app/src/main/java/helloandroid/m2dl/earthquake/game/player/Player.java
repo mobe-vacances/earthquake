@@ -15,6 +15,7 @@ import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.particle.Particle;
@@ -44,7 +45,6 @@ public class Player implements Drawable, Updatable {
     private boolean dead = false;
 
     private final Consumer<Runnable> runOnUIThread;
-    private Context context;
 
     public Player(Consumer<Runnable> runOnUIThread) {
         this.runOnUIThread = runOnUIThread;
@@ -102,8 +102,7 @@ public class Player implements Drawable, Updatable {
 
     public void die() {
         if(!dead) {
-            MediaPlayer boom = MediaPlayer.create(context,R.raw.boom);
-            boom.start();
+            SoundStore.playSound(R.raw.boom,100);
             dead = true;
             spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);
@@ -130,9 +129,5 @@ public class Player implements Drawable, Updatable {
         }
     }
 
-
-    public void setContext(Context context){
-        this.context = context;
-    }
 
 }

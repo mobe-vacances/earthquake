@@ -21,12 +21,10 @@ public class BonusSpawn implements AutoHandler {
 
     private final Handler handler = new Handler();
 
-    private Context context;
 
     private final Runnable addBonus = () -> {
         if(GameEngine.isRunning() && placedBonuses.size() < GameConstants.BONUS_MAX_OCCURRENCES) {
             Bonus newBonus = new Bonus(playerHitbox, this);
-            newBonus.setContext(context);
             while (intersectsWithPlacedBonuses(newBonus)){
                 newBonus = new Bonus(playerHitbox, this);
             }
@@ -60,7 +58,5 @@ public class BonusSpawn implements AutoHandler {
         handler.removeCallbacksAndMessages(null);
     }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
+
 }

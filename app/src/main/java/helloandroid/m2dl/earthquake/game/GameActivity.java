@@ -42,7 +42,9 @@ public class GameActivity extends MobeGameActivity {
     @Override
     protected int[] getUsedSoundIds() {
         return new int[]{
-                R.raw.rip_droit_auteur
+                R.raw.rip_droit_auteur,
+                R.raw.boom,
+                R.raw.coin
         };
     }
 
@@ -69,7 +71,6 @@ public class GameActivity extends MobeGameActivity {
         getGameView().setOnTouchListener(new OnTouchListener());
 
         Player player = new Player(this::runOnUiThread);
-        player.setContext(this);
         Background background = new Background();
 
         getBaseSensorEventListeners().add(new AccelerometerEventListener(
@@ -82,9 +83,7 @@ public class GameActivity extends MobeGameActivity {
                 background
         ));
 
-        BonusSpawn bonusSpawn = new BonusSpawn(player.getHitbox());
-        bonusSpawn.setContext(this);
-        autoHandlers.add(bonusSpawn);
+        autoHandlers.add(new BonusSpawn(player.getHitbox()));
         autoHandlers.add(new EnemySpawn(player));
         autoHandlers.add(new AutoScore());
         autoHandlers.add(new AutoLevel());
