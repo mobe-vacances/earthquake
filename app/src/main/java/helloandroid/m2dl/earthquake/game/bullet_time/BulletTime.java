@@ -3,11 +3,14 @@ package helloandroid.m2dl.earthquake.game.bullet_time;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.VibrationEffect;
 
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.core.Updatable;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.DisplayScale;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
+
 
 public class BulletTime implements Drawable,Updatable {
 
@@ -25,6 +28,7 @@ public class BulletTime implements Drawable,Updatable {
 
     public static void turnOnBulletTime() {
         if(state == BulletTimeState.READY) {
+            VibratorService.heavyClick();
             bulletTimeMultiplier = GameConstants.BULLET_TIME_MULTIPLIER;
             state = BulletTimeState.ACTIVE;
         }
@@ -72,6 +76,7 @@ public class BulletTime implements Drawable,Updatable {
         msCount += delta;
 
         if(state == BulletTimeState.ACTIVE && msCount >= GameConstants.BULLET_TIME_DURATION) {
+            VibratorService.heavyClick();
             bulletTimeMultiplier = 1;
             msCount = 0;
             state = BulletTimeState.CHARGING;

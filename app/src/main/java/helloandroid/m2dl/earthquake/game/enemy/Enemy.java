@@ -25,6 +25,9 @@ public class Enemy implements Drawable, Updatable {
 
     private double size = 1.0;
 
+    private float x;
+    private float y;
+
     private double xSpeed;
     private double ySpeed;
 
@@ -39,6 +42,8 @@ public class Enemy implements Drawable, Updatable {
     public Enemy(Player player, Rect rect) {
         this.player = player;
         this.circle = new Circle(rect);
+        this.x = rect.left;
+        this.y = rect.top;
 
         xSpeed = (player.getHitbox().getEnclosingRect().exactCenterX() - rect.exactCenterX()) * GameConstants.ENEMY_INITIAL_SPEED;
         ySpeed = (player.getHitbox().getEnclosingRect().exactCenterY() - rect.exactCenterY()) * GameConstants.ENEMY_INITIAL_SPEED;
@@ -69,9 +74,12 @@ public class Enemy implements Drawable, Updatable {
     public void update(int delta) {
         rotation = (float) ((rotation + rotationSpeed*GameConstants.ENEMY_ROTATION_SPEED*delta) % 360);
 
+        x += xSpeed*BulletTime.getBulletTimeMultiplier()*delta;
+        y += ySpeed*BulletTime.getBulletTimeMultiplier()*delta;
+
         circle.getEnclosingRect().offsetTo(
-                (int)(circle.getEnclosingRect().left + xSpeed* BulletTime.getBulletTimeMultiplier()*delta),
-                (int)(circle.getEnclosingRect().top + ySpeed*BulletTime.getBulletTimeMultiplier()*delta)
+                (int) x,
+                (int) y
         );
 
         if(state == EnemyState.INOFFENSIVE && size < GameConstants.ENEMY_SIZE) {
