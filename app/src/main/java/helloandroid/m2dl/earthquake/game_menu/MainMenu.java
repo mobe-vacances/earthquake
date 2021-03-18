@@ -32,7 +32,6 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void launchRules(View view) {
-        Intent intent = new Intent(MainMenu.this, Rules.class);
         startActivity(new Intent(MainMenu.this, Rules.class));
     }
 }
