@@ -3,6 +3,7 @@ package helloandroid.m2dl.earthquake.game_menu;
 import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -14,6 +15,9 @@ import java.util.UUID;
 
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameActivity;
+import helloandroid.m2dl.earthquake.game.database.FirebaseInstallationService;
+import helloandroid.m2dl.earthquake.game.database.HighscoreHandler;
+import helloandroid.m2dl.earthquake.game.database.WorldScoresHandler;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -21,42 +25,25 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu2);
-        findViewById(R.id.textViewObligatoire).setVisibility(View.GONE);
-        getUsername();
+
+        EditText editText = (EditText) findViewById(R.id.usernameEditor);
+        SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+
+        editText.setText(
+                preferences.getString(
+                        "username",
+                        getResources().getString(R.string.default_player_name)
+                )
+        );
+
+        editText.addTextChangedListener(new UsernameChangedListener(preferences));
+
+        FirebaseInstallationService.init();
+        WorldScoresHandler.init();
     }
 
     public void lauchGame(View view) {
-        String userName = ((EditText) findViewById(R.id.usernameEditor)).getText().toString();
-        System.out.println(userName);
-        if(userName.replaceAll(" ","").length() == 0){
-            findViewById(R.id.textViewObligatoire).setVisibility(View.VISIBLE);
-            return ;
-        } else {
-            findViewById(R.id.textViewObligatoire).setVisibility(View.GONE);
-            setUsername(userName);
-            Intent intent = new Intent(MainMenu.this, GameActivity.class);
-            startActivity(intent);
-        }
-    }
-
-    public void setUsername(String newUsername) {
-        SharedPreferences preferences = getSharedPreferences("score", MODE_PRIVATE);
-        String oldUSername = preferences.getString("username", "");
-        if(!newUsername.equals(oldUSername)) {
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("id", UUID.randomUUID().toString());
-            editor.putString("username", newUsername);
-            editor.putInt("highest_score", 0);
-            editor.apply();
-        }
-    }
-
-    public void getUsername() {
-        SharedPreferences preferences = getSharedPreferences("score", MODE_PRIVATE);
-        String username = preferences.getString("username", "");
-
-        EditText usernameTextEditor = findViewById(R.id.usernameEditor);
-        usernameTextEditor.setText(username);
+        startActivity(new Intent(MainMenu.this, GameActivity.class));
     }
 
 

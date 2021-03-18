@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:id="@+id/scoresLayout"
-        android:layout_width="346dp"
-        android:layout_height="241dp"
+        android:layout_width="340dp"
+        android:layout_height="171dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/restartButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,14 +44,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="none" />
+                    android:text="none"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/name1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="none" />
+                    android:text="none"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
