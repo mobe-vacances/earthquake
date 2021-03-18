@@ -3,6 +3,7 @@
     package="helloandroid.m2dl.earthquake">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
@@ -10,7 +11,8 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Earthquake">
-        <activity android:name=".game_menu.Credit"></activity>
+        <activity android:name=".game_menu.Rules"></activity>
+        <activity android:name=".game_menu.Credit" />
         <activity
             android:name=".game_menu.GameOver"
             android:screenOrientation="portrait" />

@@ -32,4 +32,9 @@ public class MainMenu extends AppCompatActivity {
         Intent intent = new Intent(MainMenu.this, Credit.class);
         startActivity(intent);
     }
+
+    public void launchRules(View view) {
+        Intent intent = new Intent(MainMenu.this, Rules.class);
+        startActivity(intent);
+    }
 }
