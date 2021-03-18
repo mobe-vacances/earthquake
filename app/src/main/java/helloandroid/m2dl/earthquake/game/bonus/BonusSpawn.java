@@ -1,7 +1,6 @@
 package helloandroid.m2dl.earthquake.game.bonus;
 
 import android.graphics.Rect;
-import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,4 +53,6 @@ public class BonusSpawn extends AutoHandler {
             GameEngine.addGameElements(newBonus);
         }
     }
+
+
 }

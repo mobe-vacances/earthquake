@@ -9,7 +9,7 @@ import helloandroid.m2dl.earthquake.game.mobengine.core.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.core.Updatable;
 import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.sensors.SensorManagerService;
-
+import helloandroid.m2dl.earthquake.R;
 
 public class GameEngine {
 
@@ -45,6 +45,7 @@ public class GameEngine {
 
     public static void start() {
         running = true;
+        SoundStore.playSound(R.raw.rip_droit_auteur,100);
         SoundStore.startAllPaused();
         AutoHandlerStore.start();
         SensorManagerService.registerListeners();

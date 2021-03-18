@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="helloandroid.m2dl.earthquake">
 
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -13,6 +14,8 @@
         android:theme="@style/Theme.Earthquake">
         <activity android:name=".credits.CreditActivity"></activity>
         <activity android:name=".rules.RulesActivity"></activity>
+        <service android:enabled="true" android:name=".game_menu.BackgroundSoundService" />
+
         <activity
             android:name=".game_over.GameOverActivity"
             android:screenOrientation="portrait" />

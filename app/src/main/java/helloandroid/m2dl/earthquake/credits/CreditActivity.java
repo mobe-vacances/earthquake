@@ -2,6 +2,7 @@ package helloandroid.m2dl.earthquake.credits;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,6 +17,8 @@ public class CreditActivity extends AppCompatActivity {
     }
 
     public void backMenu(View view) {
+        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
+        click.start();
         finish();
     }
 }

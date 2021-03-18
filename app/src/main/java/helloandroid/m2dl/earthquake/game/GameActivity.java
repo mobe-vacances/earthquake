@@ -1,6 +1,8 @@
 package helloandroid.m2dl.earthquake.game;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import helloandroid.m2dl.earthquake.game.bonus.BonusSpawn;
