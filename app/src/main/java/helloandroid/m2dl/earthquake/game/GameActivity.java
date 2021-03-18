@@ -2,6 +2,7 @@ package helloandroid.m2dl.earthquake.game;
 
 import android.content.Intent;
 import android.hardware.Sensor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -31,8 +32,6 @@ import helloandroid.m2dl.earthquake.game_menu.GameOver;
 
 public class GameActivity extends MobeGameActivity {
 
-
-
     private static final int[] USED_BITMAP_IDS = {
             R.drawable.world,
             R.drawable.coronavirus_safe,
@@ -42,7 +41,11 @@ public class GameActivity extends MobeGameActivity {
 
     @Override
     protected int[] getUsedSoundIds() {
-        return new int[0];
+        return new int[]{
+                R.raw.rip_droit_auteur,
+                R.raw.boom,
+                R.raw.coin
+        };
     }
 
     @Override
