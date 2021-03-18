@@ -24,8 +24,7 @@ public class GameOver extends AppCompatActivity {
         music.stop();
         MediaPlayer click = MediaPlayer.create(this,R.raw.click);
         click.start();
-        Intent intent = new Intent(GameOver.this, MainMenu.class);
-        startActivity(intent);
 
+        finish();
     }
 }

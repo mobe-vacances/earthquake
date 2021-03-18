@@ -30,24 +30,21 @@ public class MainMenu extends AppCompatActivity {
 
     public void launchGame(View view){
         stopService(this.svc);
-        Intent intent = new Intent(MainMenu.this, GameActivity.class);
         MediaPlayer startSound = MediaPlayer.create(this,R.raw.start);
         startSound.start();
-        startActivity(intent);
+        startActivity(new Intent(MainMenu.this, GameActivity.class));
         VibratorService.heavyClick();
     }
 
     public void launchCredit(View view) {
         MediaPlayer click = MediaPlayer.create(this,R.raw.click);
         click.start();
-        Intent intent = new Intent(MainMenu.this, Credit.class);
-        startActivity(intent);
+        startActivity(new Intent(MainMenu.this, Credit.class));
     }
 
     public void launchRules(View view) {
         MediaPlayer click = MediaPlayer.create(this,R.raw.click);
         click.start();
-        Intent intent = new Intent(MainMenu.this, Rules.class);
-        startActivity(intent);
+        startActivity(new Intent(MainMenu.this, Rules.class));
     }
 }
