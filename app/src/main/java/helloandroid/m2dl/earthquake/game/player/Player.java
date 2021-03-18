@@ -1,9 +1,11 @@
 package helloandroid.m2dl.earthquake.game.player;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.os.VibrationEffect;
 
@@ -13,6 +15,7 @@ import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
+import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.particle.Particle;
@@ -101,6 +104,7 @@ public class Player implements Drawable, Updatable {
 
     public void die() {
         if(!dead) {
+            SoundStore.playSound(R.raw.boom,100);
             dead = true;
             spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);

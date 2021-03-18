@@ -5,14 +5,16 @@ import android.media.MediaPlayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SoundStore {
 
     private static Map<Integer, MediaPlayer> mediaPlayerMap;
 
-    private static List<MediaPlayer> pausedMediaPlayers;
+    private static Map<MediaPlayer, Integer> pausedMediaPlayers;
 
     private static boolean animationActive;
 
@@ -25,7 +27,7 @@ public class SoundStore {
     }
 
     public static void createMediaPlayers(int[] soundIds, Context context) {
-        pausedMediaPlayers = new ArrayList<>();
+        pausedMediaPlayers = new HashMap<>();
         mediaPlayerMap = new HashMap<>();
         for(Integer soundId : soundIds) {
             mediaPlayerMap.put(soundId, MediaPlayer.create(context, soundId));
@@ -67,15 +69,28 @@ public class SoundStore {
         for(MediaPlayer mp : mediaPlayerMap.values()) {
             if(mp.isPlaying()) {
                 mp.pause();
-                pausedMediaPlayers.add(mp);
+                pausedMediaPlayers.put(mp,mp.getCurrentPosition());
             }
         }
     }
 
     public static void startAllPaused() {
-        for(MediaPlayer mp : pausedMediaPlayers) {
+        Set setOfKey = pausedMediaPlayers.keySet();
+        Iterator i = setOfKey.iterator();
+        while (i.hasNext()){
+            MediaPlayer mp = (MediaPlayer) i.next();
+            Integer truc = pausedMediaPlayers.get(mp);
+            mp.seekTo(truc);
             mp.start();
         }
+
+        /*
+        for(MediaPlayer mp : pausedMediaPlayers) {
+            mp.
+            mp.start();
+        }
+        */
+
         pausedMediaPlayers.clear();
     }
 }

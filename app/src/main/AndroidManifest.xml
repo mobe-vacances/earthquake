@@ -13,6 +13,8 @@
         android:theme="@style/Theme.Earthquake">
         <activity android:name=".game_menu.Settings"></activity>
         <activity android:name=".game_menu.Rules" />
+        <service android:enabled="true" android:name=".game_menu.BackgroundSoundService" />
+        <activity android:name=".game_menu.Rules"></activity>
         <activity android:name=".game_menu.Credit" />
         <activity
             android:name=".game_menu.GameOver"

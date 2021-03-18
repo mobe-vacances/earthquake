@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Drawable;
 import helloandroid.m2dl.earthquake.game.mobengine.elements.Updatable;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
@@ -43,6 +44,7 @@ public class GameEngine {
 
     public static void start() {
         running = true;
+        SoundStore.playSound(R.raw.rip_droit_auteur,100);
         SoundStore.startAllPaused();
     }
 
