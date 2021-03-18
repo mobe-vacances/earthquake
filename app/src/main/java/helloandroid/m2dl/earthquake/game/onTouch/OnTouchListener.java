@@ -1,6 +1,5 @@
 package helloandroid.m2dl.earthquake.game.onTouch;
 
-import android.os.VibrationEffect;
 import android.view.MotionEvent;
 import android.view.View;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
