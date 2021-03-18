@@ -16,9 +16,7 @@ public class Credit extends AppCompatActivity {
         setContentView(R.layout.activity_credit);
     }
 
-
     public void backMenu(View view) {
-        Intent intent = new Intent(Credit.this, MainMenu.class);
-        startActivity(intent);
+        finish();
     }
 }
