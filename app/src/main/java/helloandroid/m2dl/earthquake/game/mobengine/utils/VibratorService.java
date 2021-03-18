@@ -9,10 +9,6 @@ public class VibratorService {
     private static Vibrator vibrator;
     private static boolean animationActive;
 
-    public VibratorService(){
-        this.animationActive = true;
-    }
-
     public static void setAnimationActive(boolean act){
         animationActive = act;
     }

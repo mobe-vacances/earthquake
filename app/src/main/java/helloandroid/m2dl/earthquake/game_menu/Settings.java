@@ -71,9 +71,10 @@ public class Settings extends AppCompatActivity {
 
         SharedPreferences preferences = getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor localScoreEditor = preferences.edit();
-        localScoreEditor.putBoolean("playerActive", SoundStore.getAnimationActive());
-        localScoreEditor.putBoolean("enemyActive", SoundStore.getAnimationActive());
-        localScoreEditor.putBoolean("bonusActive", SoundStore.getAnimationActive());
+        localScoreEditor.putBoolean("bonusActive", Bonus.getAnimationActive());
+        localScoreEditor.putBoolean("enemyActive", Enemy.getAnimationActive());
+        localScoreEditor.putBoolean("playerActive", Player.getAnimationActive());
+
         localScoreEditor.apply();
 
         setAnimationIconVisibiity();

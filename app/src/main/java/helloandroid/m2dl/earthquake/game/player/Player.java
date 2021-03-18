@@ -104,7 +104,10 @@ public class Player implements Drawable, Updatable {
             dead = true;
             spawnPlayerDeathParticles(playerCircle.getEnclosingRect().exactCenterX(), playerCircle.getEnclosingRect().exactCenterY());
             GameEngine.removeGameElement(this);
-            VibratorService.get().vibrate(VibrationEffect.createOneShot(GameConstants.GAME_OVER_DELAY/4, VibrationEffect.DEFAULT_AMPLITUDE));
+
+            if(VibratorService.getAnimationActive()){
+                VibratorService.get().vibrate(VibrationEffect.createOneShot(GameConstants.GAME_OVER_DELAY/4, VibrationEffect.DEFAULT_AMPLITUDE));
+            }
 
             runOnUIThread.accept(() -> new Handler().postDelayed(
                     GameState::gameOver,

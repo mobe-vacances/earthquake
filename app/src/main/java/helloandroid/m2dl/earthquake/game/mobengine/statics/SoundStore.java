@@ -16,10 +16,6 @@ public class SoundStore {
 
     private static boolean animationActive;
 
-    public SoundStore(){
-        animationActive = true;
-    }
-
     public static void setAnimationActive(boolean act){
         animationActive = act;
     }
