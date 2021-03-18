@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
-import android.graphics.Movie;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +30,7 @@ import helloandroid.m2dl.earthquake.scores.Score;
 import static java.lang.Math.min;
 
 public class GameOver extends AppCompatActivity {
+    MediaPlayer music;
 
     private class ScoreAdapter extends ArrayAdapter {private Context mContext;
 
@@ -51,7 +52,7 @@ public class GameOver extends AppCompatActivity {
 
             Score score = scores.get(position);
             ((TextView) listItem.findViewById(R.id.name)).setText(score.getName());
-            ((TextView) listItem.findViewById(R.id.score)).setText(score.getValue() + "");
+            ((TextView) listItem.findViewById(R.id.score)).setText(String.valueOf(score.getValue()));
             return listItem;
         }
 
@@ -63,11 +64,13 @@ public class GameOver extends AppCompatActivity {
         setContentView(R.layout.activity_game_over);
 
         Score score = new Score(getUsername(), GameState.getScore());
-        System.out.println(getUsername());
         HighscoreHandler.updateHighScore(score);
 
         showScore();
         showScoresTable();
+		
+        music = MediaPlayer.create(this,R.raw.libre_de_droit);
+        music.start();
     }
 
     private int getHighestScore() {
@@ -95,8 +98,10 @@ public class GameOver extends AppCompatActivity {
 
     }
 
-
-    public void back(View view) {
+    public void back(View view){
+        music.stop();
+        MediaPlayer click = MediaPlayer.create(this,R.raw.click);
+        click.start();
         finish();
     }
 

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="helloandroid.m2dl.earthquake">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -9,9 +12,12 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.Earthquake">
+        <service android:enabled="true" android:name=".game_menu.BackgroundSoundService" />
+        <activity android:name=".game_menu.Rules"></activity>
+        <activity android:name=".game_menu.Credit" />
         <activity
             android:name=".game_menu.GameOver"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".game_menu.MainMenu"
             android:label="@string/app_name"
@@ -25,8 +31,7 @@
         <activity
             android:name=".game.GameActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            ></activity>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

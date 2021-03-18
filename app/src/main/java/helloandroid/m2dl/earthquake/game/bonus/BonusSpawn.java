@@ -1,12 +1,13 @@
 package helloandroid.m2dl.earthquake.game.bonus;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
 import helloandroid.m2dl.earthquake.game.geometry.Circle;
@@ -20,10 +21,10 @@ public class BonusSpawn implements AutoHandler {
 
     private final Handler handler = new Handler();
 
+
     private final Runnable addBonus = () -> {
         if(GameEngine.isRunning() && placedBonuses.size() < GameConstants.BONUS_MAX_OCCURRENCES) {
             Bonus newBonus = new Bonus(playerHitbox, this);
-
             while (intersectsWithPlacedBonuses(newBonus)){
                 newBonus = new Bonus(playerHitbox, this);
             }
@@ -56,4 +57,6 @@ public class BonusSpawn implements AutoHandler {
     public void removeCallback() {
         handler.removeCallbacksAndMessages(null);
     }
+
+
 }

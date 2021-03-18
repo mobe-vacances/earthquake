@@ -3,9 +3,8 @@ package helloandroid.m2dl.earthquake.game.enemy;
 import android.graphics.Rect;
 import android.os.Handler;
 
-import helloandroid.m2dl.earthquake.game.mobengine.RandomService;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.RandomService;
 import helloandroid.m2dl.earthquake.game.GameConstants;
-import helloandroid.m2dl.earthquake.game.geometry.Circle;
 import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;

@@ -1,10 +1,12 @@
 package helloandroid.m2dl.earthquake.game.onTouch;
 
+import android.os.VibrationEffect;
 import android.view.MotionEvent;
 import android.view.View;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
 import helloandroid.m2dl.earthquake.game.mobengine.GameEngine;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.DisplayScale;
+import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.pause.Pause;
 
 public class OnTouchListener implements View.OnTouchListener {
@@ -14,12 +16,14 @@ public class OnTouchListener implements View.OnTouchListener {
         if(event.getAction() == android.view.MotionEvent.ACTION_DOWN) {
             if (GameEngine.isRunning()) {
                 if (Pause.intersectsWithPause((int) (event.getX() / DisplayScale.getScale()), (int) (event.getY() / DisplayScale.getScale()))) {
+                    VibratorService.click();
                     Pause.pauseGame();
                 } else {
                     BulletTime.turnOnBulletTime();
                 }
             } else {
                 GameEngine.start();
+                VibratorService.click();
             }
         }
         return true;
