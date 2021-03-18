@@ -29,8 +29,7 @@ public class Settings extends AppCompatActivity {
 
 
     public void backMenu(View view) {
-        Intent intent = new Intent(Settings.this, MainMenu.class);
-        startActivity(intent);
+        finish();
     }
 
     public void clickSettingVibration(View view){

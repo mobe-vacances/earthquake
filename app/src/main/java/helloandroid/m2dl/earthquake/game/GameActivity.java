@@ -36,7 +36,8 @@ public class GameActivity extends MobeGameActivity {
             R.drawable.world,
             R.drawable.coronavirus_safe,
             R.drawable.coronavirus,
-            R.drawable.mask
+            R.drawable.mask,
+            R.drawable.player
     };
 
     @Override
