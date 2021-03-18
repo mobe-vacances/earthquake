@@ -52,12 +52,13 @@ public class MainMenu extends AppCompatActivity {
         FirebaseInstallationService.init();
         WorldScoresHandler.init();
 
-        SoundStore.createMainMenuBackgroundSoundIntent(this);
-        startService(SoundStore.getMainMenuBackgroundSoundIntent());
+        SoundStore.createBackgroundGameSoundIntent(this);
+        SoundStore.createBackgroundMenuSoundIntent(this);
+
+        startService(SoundStore.getBackgroundMenuSoundIntent());
 
         SoundStore.createClickMediaPlayer(this);
         SoundStore.createStartSoundMediaPlayer(this);
-        SoundStore.createGameOverSoundMediaPlayer(this);
 
         PermissionUtil.checkAndRequestAllPermissions(this);
         VibratorService.requestVibrator(this);
@@ -66,7 +67,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void launchGame(View view){
-        stopService(SoundStore.getMainMenuBackgroundSoundIntent());
+        stopService(SoundStore.getBackgroundMenuSoundIntent());
 
         SoundStore.playStartSoundMediaPlayer();
 

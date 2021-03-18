@@ -37,10 +37,10 @@
 
     <TextView
         android:id="@+id/textView17"
-        android:layout_width="295dp"
-        android:layout_height="369dp"
+        android:layout_width="337dp"
+        android:layout_height="425dp"
         android:fontFamily="sans-serif"
-        android:text="Application créée dans le cadre de l'enseignement universitaire de MOBE (Conception d’applications embarquées) du Master Développement Logiciel de l'Université Toulouse III - Paul Sabatier.\n\nAuteurs:\nANDRE Nicolas \nDELCOURT Kévin\nFRANZESE Alessandra\nRODRIGUEZ Nils\n\n(Superviseur)\nDA COSTA Georges\nLIEVRE Mathieu"
+        android:text="Application créée dans le cadre de l'enseignement universitaire de MOBE (Conception d’applications embarquées) du Master Développement Logiciel de l'Université Toulouse III - Paul Sabatier.\n\nAuteurs:\nANDRE Nicolas \nDELCOURT Kévin\nFRANZESE Alessandra\nRODRIGUEZ Nils\n\n(Superviseur)\nDA COSTA Georges\nLIEVRE Mathieu\n\nMusiques:\nConnum - https://freesound.org/s/12693/\nSergeyIonov - https://freesound.org/s/467373/\nrazrox - https://freesound.org/s/197179/\nJoao_Janz - https://freesound.org/s/482653/\nVilkas_Sound - https://freesound.org/s/460475/\nold_waveplay - https://freesound.org/s/399934/"
         android:textAlignment="gravity"
         android:textColor="#333"
         android:textSize="14sp"

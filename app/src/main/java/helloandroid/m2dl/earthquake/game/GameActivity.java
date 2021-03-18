@@ -11,6 +11,7 @@ import java.util.List;
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.bonus.BonusSpawn;
 import helloandroid.m2dl.earthquake.game.bullet_time.BulletTime;
+import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 import helloandroid.m2dl.earthquake.game.onTouch.OnTouchListener;
 import helloandroid.m2dl.earthquake.game.enemy.EnemySpawn;
 import helloandroid.m2dl.earthquake.game.background.Background;
@@ -43,8 +44,7 @@ public class GameActivity extends MobeGameActivity {
     @Override
     protected int[] getUsedSoundIds() {
         return new int[]{
-                R.raw.rip_droit_auteur,
-                R.raw.boom,
+                R.raw.die,
                 R.raw.coin
         };
     }
@@ -61,6 +61,7 @@ public class GameActivity extends MobeGameActivity {
         List<AutoHandler> autoHandlers = new ArrayList<>();
 
         GameState.resetGameState(() -> {
+            stopService(SoundStore.getBackgroundGameSoundIntent());
             startActivity(new Intent(GameActivity.this, GameOver.class));
             for(AutoHandler autoHandler : autoHandlers) {
                 autoHandler.removeCallback();
@@ -100,6 +101,7 @@ public class GameActivity extends MobeGameActivity {
                 background,
                 player
         );
+        startService(SoundStore.getBackgroundGameSoundIntent());
         GameEngine.start();
     }
 

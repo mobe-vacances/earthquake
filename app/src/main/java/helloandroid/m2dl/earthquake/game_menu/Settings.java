@@ -3,17 +3,13 @@ package helloandroid.m2dl.earthquake.game_menu;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 
 import helloandroid.m2dl.earthquake.R;
-import helloandroid.m2dl.earthquake.game.bonus.Bonus;
-import helloandroid.m2dl.earthquake.game.enemy.Enemy;
 import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
-import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 
 public class Settings extends AppCompatActivity {
@@ -29,6 +25,7 @@ public class Settings extends AppCompatActivity {
 
 
     public void backMenu(View view) {
+        SoundStore.playClickMediaPlayer();
         finish();
     }
 
@@ -62,9 +59,9 @@ public class Settings extends AppCompatActivity {
         setMusiqueIconVisibiity();
 
         if(!SoundStore.isMute()){
-            startService(SoundStore.getMainMenuBackgroundSoundIntent());
+            startService(SoundStore.getBackgroundMenuSoundIntent());
         }else{
-            stopService(SoundStore.getMainMenuBackgroundSoundIntent());
+            stopService(SoundStore.getBackgroundMenuSoundIntent());
         }
     }
 

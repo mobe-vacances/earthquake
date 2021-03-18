@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Earthquake">
         <activity android:name=".game_menu.Settings"></activity>
-        <service android:enabled="true" android:name=".game_menu.BackgroundSoundService" />
+        <service android:enabled="true" android:name=".game_menu.BackgroundSoundService.BackgroundMenuSoundService" />
+        <service android:enabled="true" android:name=".game_menu.BackgroundSoundService.BackgroundGameSoundService" />
         <activity android:name=".game_menu.Rules"></activity>
         <activity android:name=".game_menu.Credit" />
         <activity

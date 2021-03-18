@@ -69,7 +69,7 @@ public class GameOver extends AppCompatActivity {
         showScore();
         showScoresTable();
 
-        SoundStore.playGameOverSoundMediaPlayer();
+        startService(SoundStore.getBackgroundMenuSoundIntent());
     }
 
     private int getHighestScore() {
@@ -98,7 +98,6 @@ public class GameOver extends AppCompatActivity {
     }
 
     public void back(View view){
-        SoundStore.stopGameOverSoundMediaPlayer();
         SoundStore.playClickMediaPlayer();
         finish();
     }

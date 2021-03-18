@@ -44,7 +44,6 @@ public class GameEngine {
 
     public static void start() {
         running = true;
-        SoundStore.playSound(R.raw.rip_droit_auteur,100);
         SoundStore.startAllPaused();
     }
 

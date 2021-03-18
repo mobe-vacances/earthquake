@@ -10,7 +10,8 @@ import java.util.Map;
 import java.util.Set;
 
 import helloandroid.m2dl.earthquake.R;
-import helloandroid.m2dl.earthquake.game_menu.BackgroundSoundService;
+import helloandroid.m2dl.earthquake.game_menu.BackgroundSoundService.BackgroundGameSoundService;
+import helloandroid.m2dl.earthquake.game_menu.BackgroundSoundService.BackgroundMenuSoundService;
 
 public class SoundStore {
 
@@ -21,14 +22,24 @@ public class SoundStore {
     private static boolean mute = false;
 
 
-    private static Intent mainMenuBackgroundSoundIntent;
+    private static Intent backgroundMenuSoundIntent;
 
-    public static void createMainMenuBackgroundSoundIntent(Context context){
-        mainMenuBackgroundSoundIntent = new Intent(context, BackgroundSoundService.class);
+    public static void createBackgroundMenuSoundIntent(Context context){
+        backgroundMenuSoundIntent = new Intent(context, BackgroundMenuSoundService.class);
     }
 
-    public static Intent getMainMenuBackgroundSoundIntent() {
-        return mainMenuBackgroundSoundIntent;
+    public static Intent getBackgroundMenuSoundIntent() {
+        return backgroundMenuSoundIntent;
+    }
+
+    private static Intent backgroundGameSoundIntent;
+
+    public static void createBackgroundGameSoundIntent(Context context){
+        backgroundGameSoundIntent = new Intent(context, BackgroundGameSoundService.class);
+    }
+
+    public static Intent getBackgroundGameSoundIntent() {
+        return backgroundGameSoundIntent;
     }
 
     private static MediaPlayer click ;
@@ -52,24 +63,6 @@ public class SoundStore {
     public static void playStartSoundMediaPlayer(){
         if(!mute) {
             startSound.start();
-        }
-    }
-
-    private static MediaPlayer gameOverSound ;
-
-    public static void createGameOverSoundMediaPlayer(Context context){
-        gameOverSound = MediaPlayer.create(context, R.raw.libre_de_droit);
-    }
-
-    public static void playGameOverSoundMediaPlayer(){
-        if(!mute) {
-            gameOverSound.start();
-        }
-    }
-
-    public static void stopGameOverSoundMediaPlayer(){
-        if(!mute) {
-            gameOverSound.stop();
         }
     }
 
