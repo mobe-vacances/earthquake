@@ -28,7 +28,7 @@ import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.scores.Score;
 
 import static java.lang.Math.min;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 
 public class GameOverActivity extends AppCompatActivity {
 

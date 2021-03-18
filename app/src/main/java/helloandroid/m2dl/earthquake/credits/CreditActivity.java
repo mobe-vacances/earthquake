@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import helloandroid.m2dl.earthquake.R;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 
 public class CreditActivity extends AppCompatActivity {
 

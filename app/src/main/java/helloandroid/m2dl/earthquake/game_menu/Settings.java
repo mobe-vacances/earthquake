@@ -11,7 +11,7 @@ import android.view.View;
 import helloandroid.m2dl.earthquake.R;
 import helloandroid.m2dl.earthquake.game.bonus.Bonus;
 import helloandroid.m2dl.earthquake.game.enemy.Enemy;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;

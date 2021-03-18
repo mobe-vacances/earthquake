@@ -21,7 +21,7 @@ import helloandroid.m2dl.earthquake.credits.CreditActivity;
 import helloandroid.m2dl.earthquake.game.GameActivity;
 import helloandroid.m2dl.earthquake.game.bonus.Bonus;
 import helloandroid.m2dl.earthquake.game.enemy.Enemy;
-import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
+import helloandroid.m2dl.earthquake.game.mobengine.resource_stores.SoundStore;
 import helloandroid.m2dl.earthquake.game.GameConstants;
 import helloandroid.m2dl.earthquake.game.database.FirebaseInstallationService;
 import helloandroid.m2dl.earthquake.game.database.HighscoreHandler;
@@ -34,6 +34,8 @@ import helloandroid.m2dl.earthquake.game.mobengine.utils.VibratorService;
 import helloandroid.m2dl.earthquake.game.player.Player;
 import helloandroid.m2dl.earthquake.game.state.GameState;
 import helloandroid.m2dl.earthquake.game_menu.BackgroundSoundService;
+import helloandroid.m2dl.earthquake.game_menu.Settings;
+import helloandroid.m2dl.earthquake.game_menu.UsernameChangedListener;
 import helloandroid.m2dl.earthquake.rules.RulesActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -78,25 +80,25 @@ public class MainMenuActivity extends AppCompatActivity {
 
         SoundStore.playStartSoundMediaPlayer();
 
-        startActivity(new Intent(MainMenu.this, GameActivity.class));
+        startActivity(new Intent(MainMenuActivity.this, GameActivity.class));
         VibratorService.heavyClick();
     }
 
     public void launchCredit(View view) {
         SoundStore.playClickMediaPlayer();
-        startActivity(new Intent(MainMenu.this, CreditActivity.class));
+        startActivity(new Intent(MainMenuActivity.this, CreditActivity.class));
     }
 
     public void launchRules(View view) {
         SoundStore.playClickMediaPlayer();
-        startActivity(new Intent(MainMenu.this, RulesActivity.class));
+        startActivity(new Intent(MainMenuActivity.this, RulesActivity.class));
     }
 
 
 
     public void launchSettings(View view) {
         SoundStore.playClickMediaPlayer();
-        startActivity(new Intent(MainMenu.this, Settings.class));
+        startActivity(new Intent(MainMenuActivity.this, Settings.class));
     }
 
     private void initSettings(){
