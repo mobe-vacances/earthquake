@@ -33,8 +33,7 @@ public class WorldScoresHandler {
                         scores.add(postSnapshot.getValue(Score.class));
                     } catch (Exception ignored) {}
                 }
-                scores.sort((s1, s2) -> s1.getValue() - s2.getValue());
-                System.out.println(scores.get(0).getValue());
+                scores.sort((s1, s2) -> s2.getValue() - s1.getValue());
             }
 
             @Override
