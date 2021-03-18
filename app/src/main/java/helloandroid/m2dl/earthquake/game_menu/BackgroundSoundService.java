@@ -7,12 +7,11 @@ import android.media.MediaPlayer;
 import android.os.IBinder;
 
 import helloandroid.m2dl.earthquake.R;
+import helloandroid.m2dl.earthquake.game.mobengine.statics.SoundStore;
 
 public class BackgroundSoundService extends Service {
     private static final String TAG = null;
     MediaPlayer player;
-
-
 
     public IBinder onBind(Intent arg0) {
 
@@ -28,7 +27,9 @@ public class BackgroundSoundService extends Service {
 
     @SuppressLint("WrongConstant")
     public int onStartCommand(Intent intent, int flags, int startId) {
-        player.start();
+        if(!SoundStore.isMute()){
+            player.start();
+        }
         return 1;
     }
 

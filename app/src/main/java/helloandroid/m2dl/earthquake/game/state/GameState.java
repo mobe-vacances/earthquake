@@ -11,6 +11,8 @@ public class GameState {
 
     private static int level = 1;
 
+    private static boolean animationsActive = true;
+
     private static Rect gameRect = new Rect(
             0,
             GameConstants.HEADER_HEIGHT,
@@ -44,8 +46,9 @@ public class GameState {
         return gameRect;
     }
 
-    public static void resetGameState(Runnable gameOverRunnable) {
+    public static void resetGameState(Runnable gameOverRunnable, boolean animationsActive) {
         GameState.gameOverRunnable = gameOverRunnable;
+        GameState.animationsActive = animationsActive;
         score = 0;
         level = 1;
         gameRect = new Rect(
@@ -54,5 +57,13 @@ public class GameState {
             DisplayScale.getRect().right,
             DisplayScale.getRect().bottom
         );
+    }
+
+    public static boolean getAnimationsActive() {
+        return animationsActive;
+    }
+
+    public static void setAnimationsActive(boolean animationsActive) {
+        GameState.animationsActive = animationsActive;
     }
 }
