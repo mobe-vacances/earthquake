@@ -11,7 +11,7 @@ Android 11, SDK niveau 30
 DELCOURT Kévin (le futur doctorant)\
 FRANZESE Alessandra  (la scrum master IHM)\
 ANDRE Nicolas (the best)\
-RODRIGUEZ Nils (lui là)\
+RODRIGUEZ Nils (lui là)
 
 
 ## Fonctionalités
