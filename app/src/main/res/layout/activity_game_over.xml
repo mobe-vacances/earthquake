@@ -8,115 +8,6 @@
     tools:context=".game_menu.GameOver">
 
 
-    <LinearLayout
-        android:id="@+id/scoresLayout"
-        android:layout_width="340dp"
-        android:layout_height="171dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/restartButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rankingTitle">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/scoreConstraint"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/score_line1"
-                android:layout_width="wrap_content"
-                android:layout_height="79dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/image1"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/player" />
-
-                <TextView
-                    android:id="@+id/score1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="none"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:id="@+id/name1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="none"
-                    android:textColor="@color/black" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/score_line2"
-                android:layout_width="wrap_content"
-                android:layout_height="79dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/score_line1">
-
-                <ImageView
-                    android:id="@+id/image2"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/player" />
-
-                <TextView
-                    android:id="@+id/score2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <TextView
-                    android:id="@+id/name2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/score_line3"
-                android:layout_width="wrap_content"
-                android:layout_height="79dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/score_line2">
-
-                <ImageView
-                    android:id="@+id/image3"
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:srcCompat="@drawable/player" />
-
-                <TextView
-                    android:id="@+id/score3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/name3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
-
     <TextView
         android:id="@+id/congratulations"
         android:layout_width="280dp"
@@ -137,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:gravity="center"
-        android:text="Votre score : "
+        android:text="Score : "
         android:textColor="#333"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -176,14 +67,28 @@
         android:id="@+id/restartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
         android:onClick="back"
         android:text="MENU"
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.499"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ListView
+        android:id="@+id/scores"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/restartButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.808" />
+        app:layout_constraintTop_toBottomOf="@+id/rankingTitle">
+
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
