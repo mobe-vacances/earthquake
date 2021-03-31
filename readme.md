@@ -3,6 +3,8 @@
 Ce jeu a été réalisé dans le cadre de l'UE **MOBE** du **Master 2 Développement Logiciel** de l'**Université Paul Sabatier**. 
 L'objectif était de proposer et implémenter en équipe un jeu basé sur du code réalisé en séance.
 
+Télécharger l'apk : https://drive.google.com/file/d/1Hp-LAJirPTdAkRMxo0Hm7Ofg8KJBxnBM/view?usp=sharing
+
 ## Configuration minimale recommandée
 
 Le jeu a été testé sur une tablette _Samsung Galaxy Tab A_ tournant sous Android 11.
